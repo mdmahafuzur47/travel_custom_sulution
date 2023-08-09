@@ -1,21 +1,48 @@
 /* eslint-disable no-unreachable */
 import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import ComplexTable from "./ComplexTable";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Entry = () => {
   const [dataList, setDataList] = useState([]);
+  const [passportCopy, setpasportCopy] = useState(null);
+  const [visacopy, setvisaCopy] = useState(null);
 
-    const deleteList = (id)=>{
-        const temp = dataList.filter((e)=>{
-              return e.id !== id
-        })
-        setDataList(temp)
-    }
+  const deleteList = (id) => {
+    const temp = dataList.filter((e) => {
+      return e.id !== id;
+    });
+    setDataList(temp);
+  };
 
-// from data submit 
+  // from data submit
   const onsubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      let formData = new FormData();
+      formData.append("imgpasport", passportCopy);
+      formData.append("imgvisa", visacopy);
+      let response = await  toast.promise(axios.post('/temp/guestlist/photoupload',formData,{
+        headers:{
+          name:e.target.name.value,
+          passport:e.target.passport.value
+        }
+      }),
+      {
+        pending:"Photo Uploading wait ...",
+        success:"added to list",
+        error:"ops something is wrong !"
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.log("🚀 ~ file: Entry.jsx:32 ~ onsubmit ~ error:", error);
+      
+    }
+return
     const data = {
       guestName: e.target.name.value || null,
       passportNumber: e.target.passport.value || null,
@@ -23,7 +50,7 @@ const Entry = () => {
       hotelName: e.target.hotelName.value || null,
       passportPhoto: e.target.passportPhoto.value || null,
       visaPhoto: e.target.visaPhoto.value || null,
-      id:uuidv4()
+      id: uuidv4(),
     };
 
     setDataList((old) => [...old, data]);
@@ -31,7 +58,7 @@ const Entry = () => {
   };
   return (
     <div className="relative mb-5 w-full">
-      <div className="mx-auto mt-3 w-full max-w-[1200px] overflow-hidden rounded-md bg-brand-100/5 shadow-lg backdrop-blur-md">
+      <div className="max-w-[1200px] mx-auto mt-3 w-full overflow-hidden rounded-md bg-brand-100/5 shadow-lg backdrop-blur-md">
         <div className="relative w-full bg-brand-400 p-2"></div>
         {/* titel  */}
         <div className="flex justify-between border-b-2 p-2">
@@ -106,6 +133,11 @@ const Entry = () => {
                   type="file"
                   required
                   name="passportPhoto"
+                  // passport copy dataset in state
+                  onChange={(e) => {
+                    setpasportCopy(e.target.files[0]);
+                  }}
+                  accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
               </div>
@@ -120,6 +152,10 @@ const Entry = () => {
                 <input
                   type="file"
                   name="visaPhoto"
+                  onChange={(e) => {
+                    setvisaCopy(e.target.files[0]);
+                  }}
+                  accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
               </div>
@@ -164,7 +200,7 @@ const Entry = () => {
                   return prop.row.original.passportPhoto ? (
                     <button
                       title="delete"
-                      className="rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      className="border-[1px] rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
@@ -172,7 +208,7 @@ const Entry = () => {
                   ) : (
                     <button
                       title="delete"
-                      className="rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      className="border-[1px] rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}
@@ -187,7 +223,7 @@ const Entry = () => {
                   return prop.row.original.visaPhoto ? (
                     <button
                       title="delete"
-                      className="rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      className="border-[1px] rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
@@ -195,7 +231,7 @@ const Entry = () => {
                   ) : (
                     <button
                       title="delete"
-                      className="rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      className="border-[1px] rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}
@@ -210,8 +246,10 @@ const Entry = () => {
                   return (
                     <button
                       title="delete"
-                      onClick={()=>{deleteList(prop.row.original.id)}}
-                      className="rounded-full border-[1px] border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
+                      onClick={() => {
+                        deleteList(prop.row.original.id);
+                      }}
+                      className="border-[1px] rounded-full border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
                     >
                       {" "}
                       <MaterialSymbolsDeleteOutline />{" "}

@@ -1,14 +1,20 @@
 const multer = require("multer");
 const path = require("path");
 const destination = path.join(__dirname,'../upload/temp');
-// import { v4 as uuidv4 } from 'uuid';
+const  uuidv4 = require('uuid').v4;
 
 const storageEngine = multer.diskStorage({
     destination: destination,
     filename: (req, file, cb) => {
-      console.log("🚀 ~ file: PhotoUploader.js:9 ~ req: header", req.headers)
+      let filename;
+      const {name,passport} = req.headers;
+      if(name && passport){
+        filename = `${file.fieldname}-${name}-${passport}${(file.mimetype === 'application/pdf')?".pdf":".jpeg"}`
+      }else{
+        filename =  `${uuidv4()}${(file.mimetype === 'application/pdf')?".pdf":".jpeg"}`
+      }
       
-      cb(null, `${Date.now()}--${file.originalname}`);
+      cb(null, `${filename}`);
     },
   });
 
@@ -24,7 +30,7 @@ const storageEngine = multer.diskStorage({
     if (mimeType && extName) {
       return cb(null, true);
     } else {
-      cb("Error: You can Only Upload Images or Pdf!!");
+      cb( new Error("Error: You can Only Upload Images or Pdf!!"));
     }
   };
 
@@ -33,7 +39,6 @@ const storageEngine = multer.diskStorage({
     // limit file to 5 mb 
     limits: { fileSize: 10000000 * 5 },
     fileFilter: (req, file, cb) => {
-      console.log("🚀 ~ file: PhotoUploader.js:36 ~ req:", req.body)
       checkFileType(file, cb);
     },
   });
