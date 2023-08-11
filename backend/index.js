@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var cookieParser = require('cookie-parser');
 // import main  router
 const MainRouter = require("./routers/router");
 var bodyParser = require("body-parser");
@@ -8,7 +9,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-
+app.use(cookieParser());
+// main middelware 
 app.use("/", MainRouter);
 
 // app.get('*', (req, res) => {
@@ -18,7 +20,7 @@ app.use("/", MainRouter);
 // if not in production use the port 5000
 
 app.use((err,req,res,next) => {
-    // console.log(err)
+    console.log(err)
     // handel erroe heare
     if(res.headersSent){
         next('some thing wrong')
@@ -27,7 +29,11 @@ app.use((err,req,res,next) => {
         if(err.message){
             if(err.instanceof === "multer"){
                 return res.status(406).send(err.message);
-            }else{
+            }
+            else if(err.instanceof === "unauthorised login"){
+                return res.status(401).send(err.message);
+            }
+            else{
 
                 return res.status(500).send(err.message);
             }

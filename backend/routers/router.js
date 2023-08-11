@@ -2,10 +2,12 @@ const express = require('express');
 const MainRouter = express.Router();
 // route 
 const TempRouter = require('./temp');
+const AuthRoute = require('./auth');
 
-MainRouter.get('/',(req,res)=>{
-    res.send("new")
-})
+
+
+
+MainRouter.use('/api/auth',AuthRoute);
 
 MainRouter.use('/temp',TempRouter);
 

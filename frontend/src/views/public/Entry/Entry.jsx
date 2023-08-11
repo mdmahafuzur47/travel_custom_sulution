@@ -45,7 +45,6 @@ const Entry = () => {
               return  <p className="text-sm">{data.response?.data}</p>;
             }
             return <h1> Something is wrong!</h1>
-            
           }
         }
       });
