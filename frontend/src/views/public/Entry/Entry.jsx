@@ -9,6 +9,8 @@ const Entry = () => {
   const [dataList, setDataList] = useState([]);
   const [passportCopy, setpasportCopy] = useState(null);
   const [visacopy, setvisaCopy] = useState(null);
+  const [load, setload] = useState(false);
+  
 
   const deleteList = (id) => {
     const temp = dataList.filter((e) => {
@@ -20,7 +22,10 @@ const Entry = () => {
   // from data submit
   const onsubmit = async (e) => {
     e.preventDefault();
-
+    if(load){
+      return toast.warn('wait for pending job !');
+    }
+    setload(true)
     try {
       let formData = new FormData();
       formData.append("imgpasport", passportCopy);
@@ -34,27 +39,39 @@ const Entry = () => {
       {
         pending:"Photo Uploading wait ...",
         success:"added to list",
-        error:"ops something is wrong !"
+        error:{
+          render({data}){
+            if(data.response?.status === 406){
+              return  <p className="text-sm">{data.response?.data}</p>;
+            }
+            return <h1> Something is wrong!</h1>
+            
+          }
+        }
       });
+      // console.log(response.data);
 
-      console.log(response.data);
+
+      const data = {
+        guestName: e.target.name.value || null,
+        passportNumber: e.target.passport.value || null,
+        travelDate: e.target.travelDate.value || null,
+        hotelName: e.target.hotelName.value || null,
+        passportPhoto: response.data.passpor.name || null,
+        visaPhoto:  response.data.visa.name || null,
+        id: uuidv4(),
+      };
+      
+      setDataList((old) => [...old, data]);
+      e.target.querySelector("#reset").click();
+      setload(false)
+
     } catch (error) {
-      console.log("🚀 ~ file: Entry.jsx:32 ~ onsubmit ~ error:", error);
+      console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
+      setload(false)
       
     }
-return
-    const data = {
-      guestName: e.target.name.value || null,
-      passportNumber: e.target.passport.value || null,
-      travelDate: e.target.travelDate.value || null,
-      hotelName: e.target.hotelName.value || null,
-      passportPhoto: e.target.passportPhoto.value || null,
-      visaPhoto: e.target.visaPhoto.value || null,
-      id: uuidv4(),
-    };
 
-    setDataList((old) => [...old, data]);
-    e.target.querySelector("#reset").click();
   };
   return (
     <div className="relative mb-5 w-full">
@@ -199,16 +216,16 @@ return
                 Cell: (prop) => {
                   return prop.row.original.passportPhoto ? (
                     <button
-                      title="delete"
-                      className="border-[1px] rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      title="visa copy available"
+                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
                     </button>
                   ) : (
                     <button
-                      title="delete"
-                      className="border-[1px] rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      title="visa copy not available"
+                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}
@@ -222,16 +239,16 @@ return
                 Cell: (prop) => {
                   return prop.row.original.visaPhoto ? (
                     <button
-                      title="delete"
-                      className="border-[1px] rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      title="visa copy available"
+                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
                     </button>
                   ) : (
                     <button
-                      title="delete"
-                      className="border-[1px] rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      title="visa copy not available"
+                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}

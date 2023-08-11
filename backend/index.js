@@ -18,21 +18,26 @@ app.use("/", MainRouter);
 // if not in production use the port 5000
 
 app.use((err,req,res,next) => {
-    console.log("🚀 ~ file: index.js:21 ~ app.use ~ err:", err)
+    // console.log(err)
     // handel erroe heare
     if(res.headersSent){
         next('some thing wrong')
     }
     else{
-        if(err.msg){
-            res.status(500).send(err.msg);
+        if(err.message){
+            if(err.instanceof === "multer"){
+                return res.status(406).send(err.message);
+            }else{
+
+                return res.status(500).send(err.message);
+            }
         }else{
             res.status(500).send('error from handler in main index');
         }
     }
 
-    console.log("🚀 ~ file: index.js:21 ~ app.use ~ err:", err)
-	res.send(err)
+    // console.log("🚀 ~ file: index.js:21 ~ app.use ~ err:", err)
+	// res.send(err)
 })
 const PORT = process.env.PORT || 5000;
 console.log("server started on port:", PORT);

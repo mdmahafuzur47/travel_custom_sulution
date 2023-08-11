@@ -30,7 +30,10 @@ const storageEngine = multer.diskStorage({
     if (mimeType && extName) {
       return cb(null, true);
     } else {
-      cb( new Error("Error: You can Only Upload Images or Pdf!!"));
+      cb({
+        message: "You can Only Upload Images jpg,jpeg or Pdf!!",
+        instanceof:"multer"
+      });
     }
   };
 
