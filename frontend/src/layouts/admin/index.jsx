@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 // import Footer from "components/footer/Footer";
 import routes from "routes.js";
+import axios from "axios";
+
+import { useNavigate } from 'react-router-dom';
 
 export default function Admin(props) {
+  
+  const navigate = useNavigate();
+  const [admin,setadmin] = useState(null);
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+
+  React.useEffect(()=>{
+    const getdata = async ()=>{
+          try {
+            const getAdmin = await axios('/api/auth/info')
+             if(!(getAdmin.data)){
+                return navigate("/auth/sign-in");
+             }
+            setadmin(getAdmin.data)
+            
+          } catch (error) {
+            console.log("🚀 ~ file: index.jsx:20 ~ getdata ~ error:", error)
+            navigate("/auth/sign-in");
+            
+          }
+        }
+        getdata();
+  },[])
+
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
@@ -58,7 +83,8 @@ export default function Admin(props) {
 
   document.documentElement.dir = "ltr";
   return (
-    <div className="flex h-full w-full">
+    
+    admin?(<div className="flex h-full w-full">
       <Sidebar open={open} onClose={() => setOpen(false)} />
       {/* Navbar & Main Content */}
       <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
@@ -91,6 +117,6 @@ export default function Admin(props) {
           </div>
         </main>
       </div>
-    </div>
+    </div>):(<h1>loading ...</h1>)
   );
 }

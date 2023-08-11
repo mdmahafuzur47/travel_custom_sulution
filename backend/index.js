@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 var cookieParser = require('cookie-parser');
+const cookie = require("cookie");
 // import main  router
 const MainRouter = require("./routers/router");
 var bodyParser = require("body-parser");
@@ -31,6 +32,14 @@ app.use((err,req,res,next) => {
                 return res.status(406).send(err.message);
             }
             else if(err.instanceof === "unauthorised login"){
+                return res.status(401).send(err.message);
+            }
+            else if(err.instanceof === "not auth"){
+                res.setHeader("Set-Cookie",cookie.serialize("sort",'',{
+                    maxAge:  10,
+                    sameSite: "strict",
+                    path: "/"
+                }));
                 return res.status(401).send(err.message);
             }
             else{
