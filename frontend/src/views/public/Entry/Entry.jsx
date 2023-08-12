@@ -10,7 +10,6 @@ const Entry = () => {
   const [passportCopy, setpasportCopy] = useState(null);
   const [visacopy, setvisaCopy] = useState(null);
   const [load, setload] = useState(false);
-  
 
   const deleteList = (id) => {
     const temp = dataList.filter((e) => {
@@ -22,34 +21,35 @@ const Entry = () => {
   // from data submit
   const onsubmit = async (e) => {
     e.preventDefault();
-    if(load){
-      return toast.warn('wait for pending job !');
+    if (load) {
+      return toast.warn("wait for pending job !");
     }
-    setload(true)
+    setload(true);
     try {
       let formData = new FormData();
       formData.append("imgpasport", passportCopy);
       formData.append("imgvisa", visacopy);
-      let response = await  toast.promise(axios.post('/temp/guestlist/photoupload',formData,{
-        headers:{
-          name:e.target.name.value,
-          passport:e.target.passport.value
+      let response = await toast.promise(
+        axios.post("/temp/guestlist/photoupload", formData, {
+          headers: {
+            name: e.target.name.value,
+            passport: e.target.passport.value,
+          },
+        }),
+        {
+          pending: "Photo Uploading wait ...",
+          success: "added to list",
+          error: {
+            render({ data }) {
+              if (data.response?.status === 406) {
+                return <p className="text-sm">{data.response?.data}</p>;
+              }
+              return <h1> Something is wrong!</h1>;
+            },
+          },
         }
-      }),
-      {
-        pending:"Photo Uploading wait ...",
-        success:"added to list",
-        error:{
-          render({data}){
-            if(data.response?.status === 406){
-              return  <p className="text-sm">{data.response?.data}</p>;
-            }
-            return <h1> Something is wrong!</h1>
-          }
-        }
-      });
+      );
       // console.log(response.data);
-
 
       const data = {
         guestName: e.target.name.value || null,
@@ -57,24 +57,35 @@ const Entry = () => {
         travelDate: e.target.travelDate.value || null,
         hotelName: e.target.hotelName.value || null,
         passportPhoto: response.data.passpor.name || null,
-        visaPhoto:  response.data.visa.name || null,
+        visaPhoto: response.data.visa.name || null,
         id: uuidv4(),
       };
-      
+
       setDataList((old) => [...old, data]);
       e.target.querySelector("#reset").click();
-      setload(false)
-
+      setload(false);
     } catch (error) {
       console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
-      setload(false)
-      
+      setload(false);
     }
-
   };
+
+  // submit all data
+  const submitFullList = async () => {
+    try {
+      const respons = await toast.promise(
+        axios.post("/api/loi/entry", {
+          datas: [...dataList],
+        })
+      );
+    } catch (error) {
+      console.log("🚀 ~ file: Entry.jsx:81 ~ submitFullList ~ error:", error);
+    }
+  };
+
   return (
     <div className="relative mb-5 w-full">
-      <div className="max-w-[1200px] mx-auto mt-3 w-full overflow-hidden rounded-md bg-brand-100/5 shadow-lg backdrop-blur-md">
+      <div className="mx-auto mt-3 w-full max-w-[1200px] overflow-hidden rounded-md bg-brand-100/5 shadow-lg backdrop-blur-md">
         <div className="relative w-full bg-brand-400 p-2"></div>
         {/* titel  */}
         <div className="flex justify-between border-b-2 p-2">
@@ -89,9 +100,9 @@ const Entry = () => {
         {/* form  */}
         <div className="relative p-2">
           <form onSubmit={onsubmit}>
-            <div className="relative mt-5 w-full p-3">
+            <div className="relative mt-5 grid w-full grid-cols-3 gap-3 p-3">
               {/* name start */}
-              <div className="relative w-full">
+              <div className="relative col-span-2 w-full">
                 <label className="pl-px text-brand-900">Guest Name *</label>
                 <input
                   type="text"
@@ -100,6 +111,21 @@ const Entry = () => {
                   placeholder="Type Guest Name Here"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
+              </div>
+              <div className="relative w-full ">
+                <label className="pl-px text-brand-900">Guest Type *</label>
+                <select
+                  name="guesttype"
+                  required
+                  placeholder="Type Guest Name Here"
+                  className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+                >
+                  <option selected disabled value="">
+                    Choose Guest Type
+                  </option>
+                  <option value="singel">Singel</option>
+                  <option value="family">Family</option>
+                </select>
               </div>
             </div>
             <div className="relative grid w-full grid-cols-1 gap-3 px-3 md:grid-cols-3">
@@ -175,6 +201,41 @@ const Entry = () => {
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
               </div>
+               {/* hotel booking docs photo */}
+               <div className="relative w-full">
+                <label className="pl-px text-brand-900">
+                  Hotel bokking copy ( jpg, pdf ) *
+                </label>
+                <input
+                  type="file"
+                  required
+                  name="passportPhoto"
+                  // passport copy dataset in state
+                  onChange={(e) => {
+                    setpasportCopy(e.target.files[0]);
+                  }}
+                  accept="image/jpeg,application/pdf"
+                  className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+                />
+              </div>
+              {/*  Plane ticket photo */}
+              <div className="relative w-full">
+                <label className="pl-px text-brand-900">
+                  Plane ticket copy ( jpg, pdf ){" "}
+                  <span className="text-sm font-extralight italic">
+                    optional
+                  </span>
+                </label>
+                <input
+                  type="file"
+                  name="visaPhoto"
+                  onChange={(e) => {
+                    setvisaCopy(e.target.files[0]);
+                  }}
+                  accept="image/jpeg,application/pdf"
+                  className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+                />
+              </div>
             </div>
             <div className="relative mt-3 flex w-full justify-between p-2 pl-5">
               <button
@@ -216,7 +277,7 @@ const Entry = () => {
                   return prop.row.original.passportPhoto ? (
                     <button
                       title="visa copy available"
-                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
@@ -224,7 +285,7 @@ const Entry = () => {
                   ) : (
                     <button
                       title="visa copy not available"
-                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}
@@ -239,7 +300,7 @@ const Entry = () => {
                   return prop.row.original.visaPhoto ? (
                     <button
                       title="visa copy available"
-                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
+                      className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-xl text-green-600"
                     >
                       {" "}
                       <MaterialSymbolsDone />{" "}
@@ -247,7 +308,7 @@ const Entry = () => {
                   ) : (
                     <button
                       title="visa copy not available"
-                      className="border-[1px] cursor-cell rounded-full border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
+                      className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-xl text-red-600"
                     >
                       {" "}
                       <IcTwotoneClose />{" "}
@@ -265,7 +326,7 @@ const Entry = () => {
                       onClick={() => {
                         deleteList(prop.row.original.id);
                       }}
-                      className="border-[1px] rounded-full border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
+                      className="rounded-full border-[1px] border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
                     >
                       {" "}
                       <MaterialSymbolsDeleteOutline />{" "}
@@ -278,7 +339,10 @@ const Entry = () => {
           />
         </div>
         <div className="relative w-full p-3 pl-5">
-          <button className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200">
+          <button
+            onClick={submitFullList}
+            className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
+          >
             Submit
           </button>
         </div>
