@@ -45,7 +45,11 @@ const LOISchema = new Schema({
     iternary:{
         type:"LONGTEXT",
         req:true,
-    }    
+    },
+    country:{
+        type:"text(255)",
+        req:true,
+    }
 });
 
 const loi_data = new Model(LOISchema,"loi_data")

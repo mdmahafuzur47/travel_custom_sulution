@@ -42,6 +42,9 @@ app.use((err,req,res,next) => {
                 }));
                 return res.status(401).send(err.message);
             }
+            else if(err.instanceof === "loiadd"){
+                return res.status(501).send(err.message);
+            }
             else{
 
                 return res.status(500).send(err.message);

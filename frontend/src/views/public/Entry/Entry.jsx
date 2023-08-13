@@ -112,10 +112,11 @@ const Entry = () => {
         visaPhoto: response.data.visa.name || null,
         hotelbooking: response.data.hotelbooking.name || null,
         ticket: response.data.tiket.name || null,
+        country:country,
         id: uuidv4(),
       };
       setDataList((old) => [...old, data]);
-      // e.target.querySelector("#reset").click();
+      e.target.querySelector("#reset").click();
       setload(false);
     } catch (error) {
       console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
@@ -125,15 +126,39 @@ const Entry = () => {
 
   // submit all data
   const submitFullList = async () => {
+    if(load){
+      return toast.warn("wait for pending job!");
+    }
+
+    setload(true);
+
+    if(!fromdata.length){
+      setload(false);
+      return toast.warn('please enter tour iternary');
+    }
+
     try {
       // eslint-disable-next-line no-unused-vars
       const respons = await toast.promise(
         axios.post("/api/loi/entry", {
           datas: [...dataList],
           iternary: JSON.stringify(fromdata),
-        })
+        }),{
+          pending: "wait for submiting",
+          success: "from submited",
+          error: {
+            render({ data }) {
+              if (data.response?.status === 501) {
+                return <p className="text-sm">{data.response?.data}</p>;
+              }
+              return <h1> Something is wrong!</h1>;
+            },
+          },
+        }
       );
+      setload(false)
     } catch (error) {
+      setload(false)
       console.log("🚀 ~ file: Entry.jsx:81 ~ submitFullList ~ error:", error);
     }
   };

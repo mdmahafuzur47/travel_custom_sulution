@@ -9,7 +9,7 @@ const LOIEntry = async (req, res, next) => {
     if(!req.body.datas){
         throw{
             message: "not auth token!",
-            instanceof: "error",
+            instanceof: "loiadd",
         }
     }
 
@@ -34,7 +34,7 @@ const LOIEntry = async (req, res, next) => {
   if (!reqfrom) {
     throw {
       message: "not auth token!",
-      instanceof: "not auth",
+      instanceof: "loiadduth",
     };
   }
 
@@ -69,12 +69,12 @@ const LOIEntry = async (req, res, next) => {
   }).filter(e => e);
 
 
-//   if(err.length){
-//      throw{
-//         message: 'file not exist',
-//         instanceof: "error",    
-//     }
-//   }
+  if(err.length){
+     throw{
+        message: 'file not exist',
+        instanceof: "loiadd",    
+    }
+  }
 
 //   veryfy 
 // TODO: veryfy the data 
@@ -100,14 +100,15 @@ BODY.datas.map((e)=> {
                 pasport_copy:e.passportPhoto,
                 visa_copy:e.visaPhoto,
                 hotel_copy:e.hotelbooking,
+                country:e.country,
                 tiket_copy:e.ticket,
                 iternary:BODY.iternary
             })
             console.log("🚀 ~ file: LOIentry.js:106 ~ saveData ~ resdb:", resdb)
         } catch (err) {
             console.log("🚀 ~ file: LOIentry.js:90 ~ saveData ~ err:", err)
-            
-        }
+            next(err)
+        } 
     }
     saveData(e);
 });
@@ -117,7 +118,7 @@ BODY.datas.map((e)=> {
 
   } catch (error) {
     console.log("🚀 ~ file: LOIentry.js:5 ~ LOIEntry ~ error:", error);
-    // next(error);
+    next(error);
   }
 };
 
