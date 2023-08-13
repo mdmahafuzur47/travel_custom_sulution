@@ -25,7 +25,27 @@ const LOISchema = new Schema({
     price:{
         type:'text(255)',
         req:true
-    }
+    },
+    pasport_copy:{
+        type:"text(255)",
+        req:true,
+    },
+    visa_copy:{
+        type:"text(255)",
+        req:true,
+    },
+    hotel_copy:{
+        type:"text(255)",
+        req:true,
+    },
+    tiket_copy:{
+        type:"text(255)",
+        req:true,
+    },
+    iternary:{
+        type:"LONGTEXT",
+        req:true,
+    }    
 });
 
 const loi_data = new Model(LOISchema,"loi_data")

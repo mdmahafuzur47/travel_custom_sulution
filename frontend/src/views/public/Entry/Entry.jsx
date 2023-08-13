@@ -11,7 +11,7 @@ const Entry = () => {
   const [visacopy, setvisaCopy] = useState(null);
   const [hotelbokking, sethotelbokking] = useState(null);
   const [tiketCopy, settiketCopy] = useState(null);
-  const [type, setType] = useState('');
+  const [type, setType] = useState("");
 
   const [load, setload] = useState(false);
   const [hide, sethide] = useState(false);
@@ -19,22 +19,20 @@ const Entry = () => {
   // utility function
 
   // hidefrom add gust
-  const guestchack = (length,types) => {
- 
-    if (length >= 9 && types === 'family') {
+  const guestchack = (length, types) => {
+    if (length >= 9 && types === "family") {
       sethide(true);
-    }else if(length > 0 && types === 'singel'){
-      sethide(true)
-    }else{
-      sethide(false)
+    } else if (length > 0 && types === "singel") {
+      sethide(true);
+    } else {
+      sethide(false);
     }
   };
 
-  useEffect(()=>{
-    guestchack(dataList.length,type)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[dataList, type])
-  
+  useEffect(() => {
+    guestchack(dataList.length, type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataList, type]);
 
   // delet guest from list
   const deleteList = (id) => {
@@ -42,7 +40,7 @@ const Entry = () => {
       return e.id !== id;
     });
     setDataList(temp);
-    guestchack(type)
+    guestchack(type);
   };
 
   // from data submit
@@ -51,10 +49,10 @@ const Entry = () => {
     if (load) {
       return toast.warn("wait for pending job !");
     }
-    if(!type){
-      return toast.warn('please choose the type',{
-        icon:"⛔"
-      })
+    if (!type) {
+      return toast.warn("please choose the type", {
+        icon: "⛔",
+      });
     }
     setload(true);
     try {
@@ -99,11 +97,9 @@ const Entry = () => {
       setDataList((old) => [...old, data]);
       // e.target.querySelector("#reset").click();
       setload(false);
-
     } catch (error) {
       console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
       setload(false);
-
     }
   };
 
@@ -156,9 +152,9 @@ const Entry = () => {
                   name="guesttype"
                   required
                   onChange={(e) => {
-                    if(e.target.value === 'singel' ){
-                      if(dataList.length > 1){
-                        return toast.warn('you add multipale guest already !')
+                    if (e.target.value === "singel") {
+                      if (dataList.length > 1) {
+                        return toast.warn("you add multipale guest already !");
                       }
                     }
                     setType(e.target.value);
@@ -389,8 +385,15 @@ const Entry = () => {
             tableData={dataList}
           />
         </div>
-        <div className="w-full relative p-3 bg-red-400">
-          
+        <div className="relative w-full p-3 ">
+          <div className="flex w-full justify-center p-3">
+            <h1 className="flex items-center justify-start text-2xl text-brand-800">
+              <span>
+                <MaterialSymbolsAirplaneTicketOutlineRounded />
+              </span>{" "}
+              Tour Iternary Setup
+            </h1>
+          </div>
         </div>
         <div className="relative w-full p-3 pl-5">
           <button
@@ -400,7 +403,6 @@ const Entry = () => {
             Submit
           </button>
         </div>
-        
       </div>
     </div>
   );
@@ -471,6 +473,23 @@ export function IcTwotoneClose(props) {
       <path
         fill="currentColor"
         d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z"
+      ></path>
+    </svg>
+  );
+}
+
+export function MaterialSymbolsAirplaneTicketOutlineRounded(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="m11.8 12.9l-2.4.6l-1.075-.8q-.075-.05-.4-.1l-.125.05q-.225.05-.325.263t.025.412l1.15 2q.1.15.25.213t.325.012l8.525-2.25q.375-.1.563-.463t.087-.737q-.1-.375-.437-.562t-.713-.088l-2.45.65l-3.725-3.5q-.125-.125-.3-.162t-.35.012l-.125.025q-.35.075-.488.4t.038.625l1.95 3.4ZM4 20q-.825 0-1.413-.588T2 18v-3.375q0-.275.175-.475t.45-.25q.6-.2.988-.725T4 12q0-.65-.388-1.175t-.987-.725q-.275-.05-.45-.25T2 9.375V6q0-.825.588-1.413T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.588 1.413T20 20H4Zm0-2h16V6H4v2.55q.925.55 1.463 1.463T6 12q0 1.075-.537 1.988T4 15.45V18Zm8-6Z"
       ></path>
     </svg>
   );
