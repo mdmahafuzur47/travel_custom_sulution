@@ -8,6 +8,12 @@ const response = {
     },
     visa:{
         name:req.files?.imgvisa? req.files?.imgvisa[0]?.filename : null
+    },
+    hotelbooking:{
+        name: req.files?.hotel? req.files?.hotel[0]?.filename : null
+    },
+    tiket:{
+        name: req.files?.ticket? req.files?.ticket[0]?.filename : null
     }
 }
     res.send({

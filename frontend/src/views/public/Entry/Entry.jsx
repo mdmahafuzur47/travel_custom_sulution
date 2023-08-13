@@ -1,5 +1,5 @@
 /* eslint-disable no-unreachable */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ComplexTable from "./ComplexTable";
 import axios from "axios";
@@ -9,13 +9,40 @@ const Entry = () => {
   const [dataList, setDataList] = useState([]);
   const [passportCopy, setpasportCopy] = useState(null);
   const [visacopy, setvisaCopy] = useState(null);
-  const [load, setload] = useState(false);
+  const [hotelbokking, sethotelbokking] = useState(null);
+  const [tiketCopy, settiketCopy] = useState(null);
+  const [type, setType] = useState('');
 
+  const [load, setload] = useState(false);
+  const [hide, sethide] = useState(false);
+
+  // utility function
+
+  // hidefrom add gust
+  const guestchack = (length,types) => {
+ 
+    if (length >= 9 && types === 'family') {
+      sethide(true);
+    }else if(length > 0 && types === 'singel'){
+      sethide(true)
+    }else{
+      sethide(false)
+    }
+  };
+
+  useEffect(()=>{
+    guestchack(dataList.length,type)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[dataList, type])
+  
+
+  // delet guest from list
   const deleteList = (id) => {
     const temp = dataList.filter((e) => {
       return e.id !== id;
     });
     setDataList(temp);
+    guestchack(type)
   };
 
   // from data submit
@@ -24,11 +51,18 @@ const Entry = () => {
     if (load) {
       return toast.warn("wait for pending job !");
     }
+    if(!type){
+      return toast.warn('please choose the type',{
+        icon:"⛔"
+      })
+    }
     setload(true);
     try {
       let formData = new FormData();
       formData.append("imgpasport", passportCopy);
       formData.append("imgvisa", visacopy);
+      formData.append("hotel", hotelbokking);
+      formData.append("ticket", tiketCopy);
       let response = await toast.promise(
         axios.post("/temp/guestlist/photoupload", formData, {
           headers: {
@@ -58,21 +92,25 @@ const Entry = () => {
         hotelName: e.target.hotelName.value || null,
         passportPhoto: response.data.passpor.name || null,
         visaPhoto: response.data.visa.name || null,
+        hotelbooking: response.data.hotelbooking.name || null,
+        ticket: response.data.tiket.name || null,
         id: uuidv4(),
       };
-
       setDataList((old) => [...old, data]);
-      e.target.querySelector("#reset").click();
+      // e.target.querySelector("#reset").click();
       setload(false);
+
     } catch (error) {
       console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
       setload(false);
+
     }
   };
 
   // submit all data
   const submitFullList = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const respons = await toast.promise(
         axios.post("/api/loi/entry", {
           datas: [...dataList],
@@ -117,6 +155,15 @@ const Entry = () => {
                 <select
                   name="guesttype"
                   required
+                  onChange={(e) => {
+                    if(e.target.value === 'singel' ){
+                      if(dataList.length > 1){
+                        return toast.warn('you add multipale guest already !')
+                      }
+                    }
+                    setType(e.target.value);
+                  }}
+                  value={type}
                   placeholder="Type Guest Name Here"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 >
@@ -201,8 +248,8 @@ const Entry = () => {
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
               </div>
-               {/* hotel booking docs photo */}
-               <div className="relative w-full">
+              {/* hotel booking docs photo */}
+              <div className="relative w-full">
                 <label className="pl-px text-brand-900">
                   Hotel bokking copy ( jpg, pdf ) *
                 </label>
@@ -212,7 +259,7 @@ const Entry = () => {
                   name="passportPhoto"
                   // passport copy dataset in state
                   onChange={(e) => {
-                    setpasportCopy(e.target.files[0]);
+                    sethotelbokking(e.target.files[0]);
                   }}
                   accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
@@ -230,24 +277,28 @@ const Entry = () => {
                   type="file"
                   name="visaPhoto"
                   onChange={(e) => {
-                    setvisaCopy(e.target.files[0]);
+                    settiketCopy(e.target.files[0]);
                   }}
                   accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
               </div>
             </div>
-            <div className="relative mt-3 flex w-full justify-between p-2 pl-5">
-              <button
-                type="submit"
-                className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
-              >
-                Add New Guest
-              </button>
-              <button id="reset" type="reset">
-                reset
-              </button>
-            </div>
+            {!hide ? (
+              <div className="relative mt-3 flex w-full justify-between p-2 pl-5">
+                <button
+                  type="submit"
+                  className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
+                >
+                  Add New Guest
+                </button>
+                <button id="reset" type="reset">
+                  reset
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </form>
         </div>
         {/* table */}
@@ -338,6 +389,9 @@ const Entry = () => {
             tableData={dataList}
           />
         </div>
+        <div className="w-full relative p-3 bg-red-400">
+          
+        </div>
         <div className="relative w-full p-3 pl-5">
           <button
             onClick={submitFullList}
@@ -346,6 +400,7 @@ const Entry = () => {
             Submit
           </button>
         </div>
+        
       </div>
     </div>
   );
