@@ -13,10 +13,33 @@ const Entry = () => {
   const [tiketCopy, settiketCopy] = useState(null);
   const [type, setType] = useState("");
 
+  const [country, setCountry] = useState("Singapor");
+
+
   const [load, setload] = useState(false);
   const [hide, sethide] = useState(false);
 
+  
+  // handleFromData itenery from
+  const [fromdata, setFromdata] = useState([]);
+  const handleFromData = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const date = form.date.value;
+    const from = form.from.value;
+    const to = form.to.value;
+    const data = { id: uuidv4(),date, from, to };
+    setFromdata((old) => {
+      return [...old, data];
+    });
+  };
   // utility function
+  //itenery  handleDeleteToFrom 
+  const handleDeleteToFrom = (id) => {
+    const remain = fromdata.filter(data => data.id != id);
+    setFromdata(remain)
+  }
+  
 
   // hidefrom add gust
   const guestchack = (length, types) => {
@@ -81,7 +104,7 @@ const Entry = () => {
           },
         }
       );
-      // console.log(response.data);
+      // console.log(fromdata);
 
       const data = {
         guestName: e.target.name.value || null,
@@ -110,6 +133,7 @@ const Entry = () => {
       const respons = await toast.promise(
         axios.post("/api/loi/entry", {
           datas: [...dataList],
+          iternary: JSON.stringify(fromdata)
         })
       );
     } catch (error) {
@@ -123,12 +147,30 @@ const Entry = () => {
         <div className="relative w-full bg-brand-400 p-2"></div>
         {/* titel  */}
         <div className="flex justify-between border-b-2 p-2">
-          <h1 className="flex items-center justify-start text-2xl">
+          <div className="flex items-center justify-start text-2xl">
             <span className="pr-2 text-3xl">
               <MaterialSymbolsAddNotesOutline />
             </span>{" "}
             Entry LOI Request{" "}
-          </h1>
+            <div className="ml-5 text-[16px]">
+              <select
+                name="countryName"
+                required
+                onChange={(e) => {
+                  setCountry(e.target.value);
+                }}
+                value={country}
+                placeholder="Type Country Name Here"
+                className=" rounded-sm border-2 border-brand-100 p-2 outline-none"
+              >
+                <option selected disabled value="">
+                  Choose Your Country
+                </option>
+                <option value="Singapor">Singapor</option>
+                <option value="Vietnem">Vietnem</option>
+              </select>
+            </div>
+          </div>
           <span>Remaining Balence: $2000</span>
         </div>
         {/* form  */}
@@ -231,7 +273,7 @@ const Entry = () => {
                 <label className="pl-px text-brand-900">
                   Visa Photo ( jpg, pdf ){" "}
                   <span className="text-sm font-extralight italic">
-                    optional
+                    {country === "Vietnem" ? "*" : "Optional"}
                   </span>
                 </label>
                 <input
@@ -240,6 +282,7 @@ const Entry = () => {
                   onChange={(e) => {
                     setvisaCopy(e.target.files[0]);
                   }}
+                  required={country === "Vietnem"}
                   accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
@@ -247,11 +290,15 @@ const Entry = () => {
               {/* hotel booking docs photo */}
               <div className="relative w-full">
                 <label className="pl-px text-brand-900">
-                  Hotel bokking copy ( jpg, pdf ) *
+                  Hotel bokking copy ( jpg, pdf ){" "}
+                  <span className="text-sm font-extralight italic">
+                    {country === "Vietnem" ? "*" : "Optional"}
+                  </span>
                 </label>
+
                 <input
                   type="file"
-                  required
+                  required={country === "Vietnem"}
                   name="passportPhoto"
                   // passport copy dataset in state
                   onChange={(e) => {
@@ -266,12 +313,13 @@ const Entry = () => {
                 <label className="pl-px text-brand-900">
                   Plane ticket copy ( jpg, pdf ){" "}
                   <span className="text-sm font-extralight italic">
-                    optional
+                    {country === "Vietnem" ? "*" : "Optional"}
                   </span>
                 </label>
                 <input
                   type="file"
                   name="visaPhoto"
+                  required={country === "Vietnem"}
                   onChange={(e) => {
                     settiketCopy(e.target.files[0]);
                   }}
@@ -385,7 +433,9 @@ const Entry = () => {
             tableData={dataList}
           />
         </div>
-        <div className="relative w-full p-3 ">
+
+        <div className="relative w-full p-3">
+          <div className="relative w-full p-3 ">
           <div className="flex w-full justify-center p-3">
             <h1 className="flex items-center justify-start text-2xl text-brand-800">
               <span>
@@ -395,6 +445,80 @@ const Entry = () => {
             </h1>
           </div>
         </div>
+          <form onSubmit={handleFromData} className="flex gap-5">
+            <div className="relative col-span-2 w-full">
+              <label className="pl-px text-brand-900">Date *</label>
+              <input
+                type="date"
+                name="date"
+                required
+                placeholder="Type Date Here"
+                className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+              />
+            </div>
+            <div className="relative col-span-2 w-full">
+              <label className="pl-px text-brand-900">From *</label>
+              <input
+                type="text"
+                name="from"
+                required
+                placeholder="Type From Here"
+                className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+              />
+            </div>
+            <div className="relative col-span-2 w-full">
+              <label className="pl-px text-brand-900">To *</label>
+              <input
+                type="text"
+                name="to"
+                required
+                placeholder="Type to Here"
+                className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
+              />
+            </div>
+            <button className="mt-5 rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200">
+              Add
+            </button>
+          </form>
+          <div className="my-5">
+            <ComplexTable
+              columnsData={[
+                {
+                  Header: "Date",
+                  accessor: "date",
+                },
+                {
+                  Header: "From",
+                  accessor: "from",
+                },
+                {
+                  Header: "to",
+                  accessor: "to",
+                },
+                {
+                  Header: "Action",
+                  accessor: "action",
+                  Cell: (prop) => {
+                    return (
+                      <button
+                        title="delete"
+                        // onClick={() => {
+                        //   deleteList(prop.row.original.id);
+                        // }}
+                        onClick={() => handleDeleteToFrom(prop.row.original.id)}
+                        className="rounded-full border-[1px] border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
+                      >
+                        {" "}
+                        <MaterialSymbolsDeleteOutline />{" "}
+                      </button>
+                    );
+                  },
+                },
+              ]}
+              tableData={fromdata}
+            />
+
+        
         <div className="relative w-full p-3 pl-5">
           <button
             onClick={submitFullList}
