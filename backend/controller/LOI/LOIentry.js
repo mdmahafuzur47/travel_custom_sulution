@@ -74,8 +74,49 @@ const LOIEntry = async (req, res, next) => {
  
 
 
+const BODY = req.body;
+
+BODY.forEach(e => {
+    
+});
+const resdb = await LOI.Add({
+    guest_name:req.body?.datas?.guestName,
+    pasport_number:req.body?.datas.passportNumber,
+    travel_date:req.body?.datas.travelDate,
+    hotel_name:req.body?.datas.hotelName,
+    reference
+})
 
 
+
+
+//     reference:{
+//         type:'text(255)',
+//         req:true
+//     },
+//     price:{
+//         type:'text(255)',
+//         req:true
+//     },
+//     pasport_copy:{
+//         type:"text(255)",
+//         req:true,
+//     },
+//     visa_copy:{
+//         type:"text(255)",
+//         req:true,
+//     },
+//     hotel_copy:{
+//         type:"text(255)",
+//         req:true,
+//     },
+//     tiket_copy:{
+//         type:"text(255)",
+//         req:true,
+//     },
+//     iternary:{
+//         type:"LONGTEXT",
+//         req:true,
 
   res.send("ok");
 
