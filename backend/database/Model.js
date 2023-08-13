@@ -147,7 +147,7 @@ class Model {
 
       let sql = `INSERT INTO ${this.name} (id, 
                 ${keys.join(",")},
-                createdAt, updateAt) VALUES (NULL, "${valus.join('","')}",
+                createdAt, updateAt) VALUES (NULL, ${"'"}${valus.join("','")}${"'"},
                  current_timestamp(), current_timestamp());`;
       //  console.log(sql);
       const [res] = await DB.execute(sql);

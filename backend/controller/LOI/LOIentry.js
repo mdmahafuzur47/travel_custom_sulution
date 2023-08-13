@@ -1,6 +1,7 @@
 const path = require("path"); 
 const fs = require('fs');
 const LOI = require("../../model/LOI");
+const uuid4 = require("uuid").v4;
 
 
 const LOIEntry = async (req, res, next) => {
@@ -41,7 +42,7 @@ const LOIEntry = async (req, res, next) => {
     // chack agent balence
   }
 
-  const fileList = req.body?.datas?.map((e)=>{
+  const fileList = req.body.datas.map((e)=>{
     return [
         e.passportPhoto,
         e.visaPhoto,
@@ -66,8 +67,14 @@ const LOIEntry = async (req, res, next) => {
         }
     }
   }).filter(e => e);
- 
-  console.log(req.body);
+
+
+//   if(err.length){
+//      throw{
+//         message: 'file not exist',
+//         instanceof: "error",    
+//     }
+//   }
 
 //   veryfy 
 // TODO: veryfy the data 
@@ -75,48 +82,36 @@ const LOIEntry = async (req, res, next) => {
 
 
 const BODY = req.body;
+const refarense = uuid4();
+console.log("datas",BODY.datas);
+console.log("iten",BODY.iternary);
 
-BODY.forEach(e => {
-    
+BODY.datas.map((e)=> {
+    console.log(e);
+    let saveData = async (e)=>{
+        try {
+            const resdb = await LOI.Add({
+                guest_name:e.guestName,
+                pasport_number:e.passportNumber,
+                travel_date:e.travelDate,
+                hotel_name:e.hotelName,
+                reference:refarense,
+                price:(reqfrom.type === "Admin")?"admin":null,
+                pasport_copy:e.passportPhoto,
+                visa_copy:e.visaPhoto,
+                hotel_copy:e.hotelbooking,
+                tiket_copy:e.ticket,
+                iternary:BODY.iternary
+            })
+            console.log("🚀 ~ file: LOIentry.js:106 ~ saveData ~ resdb:", resdb)
+        } catch (err) {
+            console.log("🚀 ~ file: LOIentry.js:90 ~ saveData ~ err:", err)
+            
+        }
+    }
+    saveData(e);
 });
-const resdb = await LOI.Add({
-    guest_name:req.body?.datas?.guestName,
-    pasport_number:req.body?.datas.passportNumber,
-    travel_date:req.body?.datas.travelDate,
-    hotel_name:req.body?.datas.hotelName,
-    reference
-})
 
-
-
-
-//     reference:{
-//         type:'text(255)',
-//         req:true
-//     },
-//     price:{
-//         type:'text(255)',
-//         req:true
-//     },
-//     pasport_copy:{
-//         type:"text(255)",
-//         req:true,
-//     },
-//     visa_copy:{
-//         type:"text(255)",
-//         req:true,
-//     },
-//     hotel_copy:{
-//         type:"text(255)",
-//         req:true,
-//     },
-//     tiket_copy:{
-//         type:"text(255)",
-//         req:true,
-//     },
-//     iternary:{
-//         type:"LONGTEXT",
-//         req:true,
 
   res.send("ok");
 

@@ -15,11 +15,9 @@ const Entry = () => {
 
   const [country, setCountry] = useState("Singapor");
 
-
   const [load, setload] = useState(false);
   const [hide, sethide] = useState(false);
 
-  
   // handleFromData itenery from
   const [fromdata, setFromdata] = useState([]);
   const handleFromData = (e) => {
@@ -28,18 +26,17 @@ const Entry = () => {
     const date = form.date.value;
     const from = form.from.value;
     const to = form.to.value;
-    const data = { id: uuidv4(),date, from, to };
+    const data = { id: uuidv4(), date, from, to };
     setFromdata((old) => {
       return [...old, data];
     });
   };
   // utility function
-  //itenery  handleDeleteToFrom 
+  //itenery  handleDeleteToFrom
   const handleDeleteToFrom = (id) => {
-    const remain = fromdata.filter(data => data.id != id);
-    setFromdata(remain)
-  }
-  
+    const remain = fromdata.filter((data) => data.id !== id);
+    setFromdata(remain);
+  };
 
   // hidefrom add gust
   const guestchack = (length, types) => {
@@ -133,7 +130,7 @@ const Entry = () => {
       const respons = await toast.promise(
         axios.post("/api/loi/entry", {
           datas: [...dataList],
-          iternary: JSON.stringify(fromdata)
+          iternary: JSON.stringify(fromdata),
         })
       );
     } catch (error) {
@@ -436,15 +433,15 @@ const Entry = () => {
 
         <div className="relative w-full p-3">
           <div className="relative w-full p-3 ">
-          <div className="flex w-full justify-center p-3">
-            <h1 className="flex items-center justify-start text-2xl text-brand-800">
-              <span>
-                <MaterialSymbolsAirplaneTicketOutlineRounded />
-              </span>{" "}
-              Tour Iternary Setup
-            </h1>
+            <div className="flex w-full justify-center p-3">
+              <h1 className="flex items-center justify-start text-2xl text-brand-800">
+                <span>
+                  <MaterialSymbolsAirplaneTicketOutlineRounded />
+                </span>{" "}
+                Tour Iternary Setup
+              </h1>
+            </div>
           </div>
-        </div>
           <form onSubmit={handleFromData} className="flex gap-5">
             <div className="relative col-span-2 w-full">
               <label className="pl-px text-brand-900">Date *</label>
@@ -526,6 +523,9 @@ const Entry = () => {
           >
             Submit
           </button>
+        </div>
+   
+        </div>
         </div>
       </div>
     </div>
