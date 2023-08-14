@@ -86,8 +86,8 @@ const refarense = uuid4();
 console.log("datas",BODY.datas);
 console.log("iten",BODY.iternary);
 
-BODY.datas.map((e)=> {
-    console.log(e);
+const errindb = BODY.datas.map((e)=> {
+   
     let saveData = async (e)=>{
         try {
             const resdb = await LOI.Add({
@@ -102,9 +102,15 @@ BODY.datas.map((e)=> {
                 hotel_copy:e.hotelbooking,
                 country:e.country,
                 tiket_copy:e.ticket,
-                iternary:BODY.iternary
+                iternary:BODY.iternary,
+                status:"pending"
             })
-            console.log("🚀 ~ file: LOIentry.js:106 ~ saveData ~ resdb:", resdb)
+            if(resdb.err){
+                throw {
+                    message: resdb.err.sqlMessage,
+                    instanceof: "loiadd",
+                }
+            }
         } catch (err) {
             console.log("🚀 ~ file: LOIentry.js:90 ~ saveData ~ err:", err)
             next(err)

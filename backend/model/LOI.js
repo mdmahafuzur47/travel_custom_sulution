@@ -49,6 +49,10 @@ const LOISchema = new Schema({
     country:{
         type:"text(255)",
         req:true,
+    },
+    status:{
+        type:"text(255)",
+        req:false,
     }
 });
 

@@ -6,7 +6,7 @@ import { IoMdHome } from "react-icons/io";
 import { IoDocuments } from "react-icons/io5";
 import { MdBarChart, MdDashboard } from "react-icons/md";
 import { Button, ButtonGroup } from "@chakra-ui/react";
-
+import { Link } from "react-router-dom";
 import { columnsDataCheck, columnsDataComplex } from "./variables/columnsData";
 
 import Widget from "components/widget/Widget";
@@ -55,7 +55,7 @@ const Dashboard = () => {
         />
       </div>
       <div className="w-full p-5">
-        <a href="/entry" target="_blank" leftIcon={<MaterialSymbolsAddNotesOutline/>} className="bg-white/10 dark:text-brand-100 hover:scale-105 p-3 rounded-lg shadow-xl text-xl border-2 text-brand-600 border-brand-900/30 dark:border-brand-200 font-bold">Add New Entry</a>
+        <Link to="/entry" className="bg-white/10 dark:text-brand-100 hover:scale-105 p-3 rounded-lg  inline-block shadow-xl text-xl border-2 text-brand-600 border-brand-900/30 dark:border-brand-200 font-bold"><span className="flex"><MaterialSymbolsAddNotesOutline/>Add New Entry</span></Link>
       </div>
 
       {/* Charts */}
