@@ -15,7 +15,7 @@ const approved = async (req,res,next)=>{
         const AllGuest = resdb.filter((e)=> e.reference === Guest.reference);
         var hostname = req.headers.host;
         var proto = req.protocol;
-        AllGuest.forEach((element) => {
+        let data = await AllGuest.forEach((element) => {
             
             const url = `${proto}://${hostname}/pdfgen/${element.id}`
 
@@ -24,15 +24,23 @@ const approved = async (req,res,next)=>{
                   name.then(e=>{
                     console.log(e)
                     const updaet = LOI.RayQuery(`UPDATE loi_data SET status = 'approved' WHERE loi_data.id = ${element.id};`)
-
-                    // send mail 
-                  }).catch(e=>console.log(e))
+                    updaet.then(e=>{
+                       // send mail 
+                    }).catch(e=>{
+                        return e
+                    })
+                   
+                  }).catch(e=> e)
                 //   console.log("🚀 ~ file: Approve.js:24 ~ AllGuest.forEach ~ name:", name)
             // update 
 
             // mail 
         });
-res.send('ok')
+        console.log(data);
+
+        // TODO: make promice 
+        
+// res.send('ok')
         
     } catch (error) {
         console.log("🚀 ~ file: Approve.js:30 ~ approved ~ error:", error)
