@@ -6,6 +6,7 @@ import { FiSettings } from "react-icons/fi";
 import { AiOutlineShop } from "react-icons/ai";
 import { TiLightbulb } from "react-icons/ti";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 function CardMenu(props) {
   const { transparent,data,prop } = props;
@@ -27,13 +28,19 @@ function CardMenu(props) {
       confirmButtonColor: '#422AFB',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, Approved It!'
-    }).then((result) => {
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Approved!',
-          '',
-          'success'
-        )
+        try {
+          const res= await axios.post('/api/loi/approved', {id: prop?.id })
+          console.log(res);
+        } catch (err) {
+          console.log(err.message);
+        }
+        // Swal.fire(
+        //   'Approved!',
+        //   '',
+        //   'success'
+        // )
       }
     })
   }
