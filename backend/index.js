@@ -2,11 +2,21 @@ const express = require("express");
 const app = express();
 var cookieParser = require('cookie-parser');
 const cookie = require("cookie");
+const path = require('path')
 // import main  router
 const MainRouter = require("./routers/router");
 var bodyParser = require("body-parser");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+// setup ejs 
+
+app.set('view engine', 'ejs');
+app.set('views',"./views");
+
+// set public 
+app.use(express.static(path.join(__dirname, 'public')));
 
 // parse application/json
 app.use(bodyParser.json());

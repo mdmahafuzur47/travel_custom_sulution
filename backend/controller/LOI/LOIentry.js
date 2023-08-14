@@ -103,7 +103,11 @@ const errindb = BODY.datas.map((e)=> {
                 country:e.country,
                 tiket_copy:e.ticket,
                 iternary:BODY.iternary,
-                status:"pending"
+                status:"pending",
+                agent:JSON.stringify({
+                  type:'admin',
+                  username:reqfrom.data.username
+                })
             })
             if(resdb.err){
                 throw {

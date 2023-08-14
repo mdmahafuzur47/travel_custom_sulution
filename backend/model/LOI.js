@@ -52,7 +52,11 @@ const LOISchema = new Schema({
     },
     status:{
         type:"text(255)",
-        req:false,
+        req:true,
+    },
+    agent:{
+        type:"text(255)",
+        req:true
     }
 });
 

@@ -177,6 +177,47 @@ class Model {
       return error;
     }
   }
+
+  async getById(id){
+    // const cash = {
+    //   id: null,
+    //   res: null,
+    // }
+
+    // if(
+    //   cash.id === id
+    // ){
+    //   return res.send(cash.res);
+    // }
+    try {
+      // chack if the table is exist or not 
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          const resmy = await this.mygrate();
+          resolve();
+        });
+      }
+
+      const DB = await DataBase();
+      let sql = `SELECT * FROM ${this.name} WHERE ${this.name}.id = ${id}`;
+      return DB.execute(sql);
+    } catch (error) {
+      console.log(`error to get all in [${this.name}] =>`, error);
+      return error;
+    }
+  }
+  // raw sql input 
+  async RayQuery(sql){
+    try {
+      const DB = await DataBase();
+      return DB.execute(sql);
+    } catch (error) {
+     console.log("🚀 ~ file: Model.js:214 ~ Model ~ RayQuery ~ error:", error)
+     
+      return error;
+    }
+  }
+
 }
 
 module.exports = Model;

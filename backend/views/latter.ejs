@@ -1,0 +1,135 @@
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+      .main-container {
+        padding: 5px 50px;
+        margin: 50px auto;
+        font-size: 14px;
+      }
+      h4 {
+        font-weight: 300;
+        text-align: justify;
+      }
+      .head-one-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+      }
+      .down-border {
+        border-bottom: 2px solid black;
+        display: inline-block;
+    min-width: 200px;
+        padding: 0 5px;
+    text-align: center;
+      }
+      .underline{
+        text-decoration: underline;
+      }
+      .up-border {
+        border-top: 2px solid black;
+      }
+      .individual-container{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        column-gap: 50px;
+        row-gap: 30px;
+      }
+    </style>
+  </head>
+  <body style="font-family: sans-serif;">
+    <div class="main-container">
+      <div class="head-one-container">
+        <h4>Controller of Immigration<br />Singapore</h4>
+        <h4>Date: <span class="down-border"> 07 AUG 2023 </span></h4>
+      </div>
+
+      <h4 style="margin-bottom: 30px;">Dear Sir</h4>
+
+      <h4 style="text-align: center; margin-bottom: 30px;">
+        LETTER OF INTRODUCTION FOR VISA APPLICATION
+      </h4>
+
+      <h4 style="margin-bottom: 30px;">
+        The applicant for the visa,<span class="down-border">
+          <%= name %> </span
+        >(name of applicant) of<span class="down-border"> BANGLADESH </span
+        >(country/place), holder of passport/travel document no.<span
+          class="down-border"
+          > <%= passport %> </span
+        >is coming to Singapore from
+        <span class="down-border"> BANGLADESH </span>(country/place of
+        embarkation) for the purpose of
+        <span class="down-border"> HOLIDAY </span>(e.g., holiday, transit,
+        business, meeting, exhibition, visiting friends & relatives, employment,
+        education; for others, please specify). The applicant is my<span
+          class="down-border"
+        >
+          CLIENT </span
+        >(e.g., father, mother, brother, sister, son, daughter, spouse, business
+        partner; for others, please specify).
+      </h4>
+
+      <h4 style="margin: 30px 0;">
+        Yours faithfully
+      </h4>
+
+      <h4 class="underline" style="margin-bottom: 30px;font-weight: bolder;">Only for application where Local Contact is an individual:</h4>
+
+      <div class="individual-container">
+        <h4 class="up-border">Signature of Local Contact</h4>
+        <h4 class="up-border">NRIC (Pink / Blue) No</h4>
+        <h4 class="up-border">Name of Local Contact</h4>
+        <h4 class="up-border">Contact Number</h4>
+        <h4 class="up-border">Address of Local Contact</h4>
+        <h4 class="up-border">Email Address</h4>
+      </div>
+
+      <h4 class="underline" style="margin: 30px 0;font-weight: bolder;">Only for application where Local Contact is a company:</h4>
+
+      <div class="individual-container">
+        <div>
+            <div style="display: flex; justify-content: center; margin: 3px;">
+                <img style="width: 100px;" src="../signature.jpeg" alt="signature">
+            </div>
+            <h4 class="up-border">Signature of person acting on behalf of the company/firm</h4>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <div style="display: flex; align-items: center; gap: 20px; margin: 10px; position: relative;">
+                <p style="align-self: flex-end; font-weight: 900; position: relative; z-index: 1;">201727755Z</p>
+            <img style="width: 100px; right: 60px; bottom: 2px; position: absolute; z-index: 0;" src="../logo.jpeg" alt="img">
+            </div>
+            <h4 class="up-border">Signature of person acting on behalf of the company/firm</h4>
+        </div>
+        <div>
+            <p>SHAIKH MD SHAH JALAL, S7567880J, Director</p>
+            <h4 class="up-border">Name, NRIC No. and Designation/Capacity</h4>
+        </div>
+        <div>
+            <p>+65 98570429</p>
+            <h4 class="up-border">Contact Number</h4>
+        </div>
+        <div>
+            <p>92B sSyed Alwi Road ( level 3 )Singapore 207668</p>
+            <h4 class="up-border">Company Name and Address</h4>
+        </div>
+        <div>
+            <p>sgflyasia@gmail.com</p>
+            <h4 class="up-border">Email Address</h4>
+        </div>
+      </div>
+      <div style="margin-top: 70px; font-size: 18px; font-weight: 600;">
+        <p>V39A</p>
+      </div>
+    </div>
+  </body>
+</html>
