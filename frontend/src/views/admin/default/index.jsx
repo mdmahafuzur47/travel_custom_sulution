@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import MiniCalendar from "components/calendar/MiniCalendar";
 import WeeklyRevenue from "views/admin/default/components/WeeklyRevenue";
 import TotalSpent from "views/admin/default/components/TotalSpent";
@@ -16,6 +17,7 @@ import DailyTraffic from "views/admin/default/components/DailyTraffic";
 import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
+import REqu from "components/LOIreqTable/REqu";
 
 const Dashboard = () => {
   return (
@@ -56,6 +58,11 @@ const Dashboard = () => {
       </div>
       <div className="w-full p-5">
         <Link to="/entry" className="bg-white/10 dark:text-brand-100 hover:scale-105 p-3 rounded-lg  inline-block shadow-xl text-xl border-2 text-brand-600 border-brand-900/30 dark:border-brand-200 font-bold"><span className="flex"><MaterialSymbolsAddNotesOutline/>Add New Entry</span></Link>
+      </div>
+
+      {/* new request table  */}
+      <div className="w-full relative p-3">
+          <REqu/>
       </div>
 
       {/* Charts */}
