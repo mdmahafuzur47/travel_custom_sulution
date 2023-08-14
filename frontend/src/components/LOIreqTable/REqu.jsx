@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Table from '../../views/public/Entry/ComplexTable';
 import Actionbtn from './Actionbtn';
+import axios from 'axios';
 const REqu = () => {
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get('url');
+        console.log(res);
+        setDatas(res.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+    getData();
+    }, [])
   return (
     <div className='w-full relative'>
         <div className='py-2'>
