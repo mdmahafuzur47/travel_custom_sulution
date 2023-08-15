@@ -2,19 +2,38 @@ import React, { useEffect, useState } from "react";
 import Table from "../../views/public/Entry/ComplexTable";
 import Actionbtn from "./Actionbtn";
 import axios from "axios";
-const REqu = () => {
+import { data } from "autoprefixer";
+const REqu = ({selectedOption,search}) => {
+
   const [datas, setDatas] = useState([]);
+  const [show, setShow] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
         const res = await axios.get("/api/loi/getall");
         setDatas(res.data);
+        setShow(res.data);
       } catch (err) {
         console.log(err.message);
       }
     };
     getData();
   }, []);
+  useEffect(() => {
+    if (!selectedOption) {
+      return setShow(datas)
+    }
+    const filter = datas.filter(data => data.status === selectedOption);
+    setShow(filter);
+  }, [selectedOption])
+  
+  useEffect(() => {
+    if (!search) {
+      return setShow(datas)
+    }
+    const filter = datas.filter(data => data.pasport_number.indexOf(search) !== -1);
+    setShow(filter);
+  },[search])
 
   return (
     <div className="relative w-full">
@@ -152,6 +171,11 @@ const REqu = () => {
               // TODO: Add Agent in Database
             },
             {
+              Header: "Status",
+              accessor: "status",
+
+            },
+            {
               Header: "Action",
               accessor: "action",
               Cell: (prop) => {
@@ -173,7 +197,7 @@ const REqu = () => {
               },
             },
           ]}
-          tableData={datas}
+          tableData={show}
         />
       </div>
     </div>

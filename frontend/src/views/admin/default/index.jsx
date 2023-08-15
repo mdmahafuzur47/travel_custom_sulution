@@ -18,8 +18,22 @@ import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
 import REqu from "components/LOIreqTable/REqu";
+import { useState } from "react";
 
 const Dashboard = () => {
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const [input,setInput] = useState('');
+  const [search, setSearch] = useState('');
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSearch = () => {
+    setSearch(input);
+  }
+
   return (
     <div>
       {/* Card widget */}
@@ -56,13 +70,54 @@ const Dashboard = () => {
           subtitle={"$2433"}
         />
       </div>
-      <div className="w-full p-5">
-        <Link to="/entry" className="bg-white/10 dark:text-brand-100 hover:scale-105 p-3 rounded-lg  inline-block shadow-xl text-xl border-2 text-brand-600 border-brand-900/30 dark:border-brand-200 font-bold"><span className="flex"><MaterialSymbolsAddNotesOutline/>Add New Entry</span></Link>
+
+      <div className="flex w-full items-center justify-between p-5">
+        <Link
+          to="/entry"
+          className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+        >
+          <span className="flex">
+            <MaterialSymbolsAddNotesOutline />
+            Add New Entry
+          </span>
+        </Link>
+        <div className="flex items-center space-x-2">
+          <label htmlFor="status" className="text-gray-600">
+            Select Status:
+          </label>
+          <select
+            id="status"
+            className="rounded-lg border px-4 py-2 focus:border-blue-300 focus:ring focus:ring-blue-300 outline-none"
+            value={selectedOption}
+            onChange={handleSelectChange}
+          >
+            <option  value="">Select an Status</option>
+            <option value="approved">Approved</option>
+            <option value="pending">Pending</option>
+            <option value="cencle">Cencle</option>
+          </select>
+        </div>
+        <div className="flex items-center space-x-2">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="rounded-lg border px-8 py-2 outline-none focus:border-blue-300 focus:ring focus:ring-blue-300"
+              onChange={(e)=>setInput(e.target.value)}
+            />
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+              <HeroiconsSolidSearch className="h-5 w-5 text-gray-400" />
+            </div>
+          </div>
+          <button onClick={handleSearch} className="rounded-lg bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600">
+            Search
+          </button>
+        </div>
       </div>
 
       {/* new request table  */}
-      <div className="w-full relative p-3">
-          <REqu/>
+      <div className="relative w-full p-3">
+        <REqu selectedOption={selectedOption} search={search} />
       </div>
 
       {/* Charts */}
@@ -112,10 +167,38 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-
-
 export function MaterialSymbolsAddNotesOutline(props) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v6.7q-.475-.225-.975-.388T19 11.075V5H5v14h6.05q.075.55.238 1.05t.387.95H5Zm0-3v1V5v6.075V11v7Zm2-1h4.075q.075-.525.238-1.025t.362-.975H7v2Zm0-4h6.1q.8-.75 1.788-1.25T17 11.075V11H7v2Zm0-4h10V7H7v2Zm11 14q-2.075 0-3.538-1.463T13 18q0-2.075 1.463-3.538T18 13q2.075 0 3.538 1.463T23 18q0 2.075-1.463 3.538T18 23Zm-.5-2h1v-2.5H21v-1h-2.5V15h-1v2.5H15v1h2.5V21Z"></path></svg>
-  )
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h14q.825 0 1.413.588T21 5v6.7q-.475-.225-.975-.388T19 11.075V5H5v14h6.05q.075.55.238 1.05t.387.95H5Zm0-3v1V5v6.075V11v7Zm2-1h4.075q.075-.525.238-1.025t.362-.975H7v2Zm0-4h6.1q.8-.75 1.788-1.25T17 11.075V11H7v2Zm0-4h10V7H7v2Zm11 14q-2.075 0-3.538-1.463T13 18q0-2.075 1.463-3.538T18 13q2.075 0 3.538 1.463T23 18q0 2.075-1.463 3.538T18 23Zm-.5-2h1v-2.5H21v-1h-2.5V15h-1v2.5H15v1h2.5V21Z"
+      ></path>
+    </svg>
+  );
+}
+
+export function HeroiconsSolidSearch(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 20 20"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M8 4a4 4 0 1 0 0 8a4 4 0 0 0 0-8ZM2 8a6 6 0 1 1 10.89 3.476l4.817 4.817a1 1 0 0 1-1.414 1.414l-4.816-4.816A6 6 0 0 1 2 8Z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
 }
