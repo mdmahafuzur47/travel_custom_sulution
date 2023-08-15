@@ -6,6 +6,7 @@ import AuthLayout from "layouts/auth";
 import Entry from "views/public/Entry/Entry";
 import Agent from "layouts/agent/Agent";
 import AgentEntry from "views/agent/agentEntry/AgentEntry";
+import AgentLogin from "views/agent/agentLogin/AgentLogin";
 const App = () => {
   return (
     <Routes>
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="entry/*" element={<Entry />} />
       <Route path="agentEntry/*" element={<AgentEntry />} />
       <Route path="/agent" element={<Agent />} />
+      <Route path="/agentLogin" element={<AgentLogin />} />
       <Route path="/" element={<Navigate to="/admin" replace />} />
     </Routes>
   );
