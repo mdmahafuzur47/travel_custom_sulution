@@ -33,10 +33,6 @@ const AgentEntry = () => {
                 <select
                   name="countryName"
                   required
-                  //   onChange={(e) => {
-                  //     setCountry(e.target.value);
-                  //   }}
-                  //   value={country}
                   placeholder="Type Country Name Here"
                   className=" rounded-sm border-2 border-brand-100 p-2 outline-none"
                 >
@@ -70,17 +66,6 @@ const AgentEntry = () => {
                   <select
                     name="guesttype"
                     required
-                    // onChange={(e) => {
-                    //   if (e.target.value === "singel") {
-                    //     if (dataList.length > 1) {
-                    //       return toast.warn(
-                    //         "you add multipale guest already !"
-                    //       );
-                    //     }
-                    //   }
-                    //   setType(e.target.value);
-                    // }}
-                    // value={type}
                     placeholder="Type Guest Name Here"
                     className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                   >
@@ -139,29 +124,17 @@ const AgentEntry = () => {
                     type="file"
                     required
                     name="passportPhoto"
-                    // passport copy dataset in state
-                    // onChange={(e) => {
-                    //   setpasportCopy(e.target.files[0]);
-                    // }}
                     accept="image/jpeg,application/pdf"
                     className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                   />
                 </div>
-                {/* visa photo */}
                 <div className="relative w-full">
                   <label className="pl-px text-brand-900">
                     Visa Photo ( jpg, pdf ){" "}
-                    {/* <span className="text-sm font-extralight italic">
-                      {country === "Vietnem" ? "*" : "Optional"}
-                    </span> */}
                   </label>
                   <input
                     type="file"
                     name="visaPhoto"
-                    // onChange={(e) => {
-                    //   setvisaCopy(e.target.files[0]);
-                    // }}
-                    // required={country === "Vietnem"}
                     accept="image/jpeg,application/pdf"
                     className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                   />
@@ -171,18 +144,12 @@ const AgentEntry = () => {
                   <label className="pl-px text-brand-900">
                     Hotel bokking copy ( jpg, pdf ){" "}
                     <span className="text-sm font-extralight italic">
-                      {/* {country === "Vietnem" ? "*" : "Optional"} */}
                     </span>
                   </label>
 
                   <input
                     type="file"
-                    // required={country === "Vietnem"}
                     name="passportPhoto"
-                    // passport copy dataset in state
-                    // onChange={(e) => {
-                    //   sethotelbokking(e.target.files[0]);
-                    // }}
                     accept="image/jpeg,application/pdf"
                     className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                   />
@@ -191,17 +158,10 @@ const AgentEntry = () => {
                 <div className="relative w-full">
                   <label className="pl-px text-brand-900">
                     Plane ticket copy ( jpg, pdf ){" "}
-                    {/* <span className="text-sm font-extralight italic">
-                      {country === "Vietnem" ? "*" : "Optional"}
-                    </span> */}
                   </label>
                   <input
                     type="file"
                     name="visaPhoto"
-                    // required={country === "Vietnem"}
-                    // onChange={(e) => {
-                    //   settiketCopy(e.target.files[0]);
-                    // }}
                     accept="image/jpeg,application/pdf"
                     className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                   />
