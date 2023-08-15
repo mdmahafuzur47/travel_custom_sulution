@@ -13,7 +13,8 @@ package-lock.json
 
 # production
 /build
-
+/upload
+/pdf
 # misc
 .DS_Store
 .env.local

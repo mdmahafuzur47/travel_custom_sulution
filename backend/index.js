@@ -24,11 +24,13 @@ app.use(cookieParser());
 // main middelware 
 app.use("/", MainRouter);
 
-// app.get('*', (req, res) => {
-// res.sendFile(path.resolve(__dirname,'frontEnd', 'dist', 'index.html'));
-// });
+
 
 // if not in production use the port 5000
+
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname,'./public', 'index.html'));
+    });
 
 app.use((err,req,res,next) => {
     console.log(err)

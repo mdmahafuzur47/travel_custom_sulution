@@ -14,40 +14,47 @@
     <title></title>
   </head>
   <style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .table-container{
-        font-family: "Roboto", sans-serif;
-        width: 1024px;
-        margin: auto;
+    .table-container {
+      font-family: "Roboto", sans-serif;
+     width: 100%;
+     padding: 0 20px;
+      margin: auto;
     }
-    tr:nth-child(even) {background-color: #f2f2f2a8;}
-    .logo-img{
-        margin: 40px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 35px;
+    tr:nth-child(even) {
+      background-color: #f2f2f2a8;
     }
-    table{
-        width: 100%;
-        border-collapse: collapse;
+    .logo-img {
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 35px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
     th,
     td {
       border: 1px solid black;
-      padding: 10px 25px;
+      padding: 5px 15px;
       text-align: center;
     }
     th {
-      font-size: 30px;
+      font-size: 17px;
+    }
+    td{
+      font-size: 14px;
     }
     .heading {
       text-align: center;
       text-decoration: underline;
+      font-weight: 700;
     }
     .name-container {
       text-decoration: underline;
@@ -64,21 +71,15 @@
   </style>
   <body>
     <div class="table-container">
-            <img class="logo-img" src="./img.png" alt="logo">
+      <img class="logo-img" src="../img.png" alt="logo" />
 
-      <h1 class="heading">TOUR ITERNARY</h1>
+      <h1 style="font-weight: 700" class="heading">TOUR ITERNARY</h1>
 
       <div class="name-container">
-        <h1>MD MERAZUL ISLAM,</h1>
-        <h1>MOST SHAMIMA AKTER,</h1>
-        <h1>MD MERAZUL ISLAM,</h1>
-        <h1>MOST SHAMIMA AKTER,</h1>
-        <h1>MD MERAZUL ISLAM,</h1>
-        <h1>MOST SHAMIMA AKTER,</h1>
-        <h1>MD MERAZUL ISLAM,</h1>
-        <h1>MOST SHAMIMA AKTER,</h1>
-        <h1>MD MERAZUL ISLAM,</h1>
-        <h1>MOST SHAMIMA AKTER</h1>
+        <% allData.forEach((e)=>{ %>
+        <h1><%= e.guest_name %>,</h1>
+
+        <% }) %>
       </div>
 
       <table>
@@ -87,40 +88,15 @@
           <th>From</th>
           <th>To</th>
         </tr>
-        <tr>
-          <td style="font-weight: 400; font-size: 20px">25-Aug-23</td>
-          <td style="font-weight: 400; font-size: 20px">Airport</td>
-          <td style="font-weight: 400; font-size: 20px">V Hotel Lavander</td>
-        </tr>
-        <tr>
-          <td style="font-weight: 400; font-size: 20px">26-Aug-23</td>
-          <td style="font-weight: 400; font-size: 20px">
-            9am Hotel to City Tour
-          </td>
-          <td style="font-weight: 400; font-size: 20px">
-            7pm Universal To Hotel
-          </td>
-        </tr>
-        <tr>
-          <td style="font-weight: 400; font-size: 20px">27-Aug-23</td>
-          <td style="font-weight: 400; font-size: 20px">9am Hotel to Market</td>
-          <td style="font-weight: 400; font-size: 20px">2pm Market To Hotel</td>
-        </tr>
-        <tr>
-          <td style="font-weight: 400; font-size: 20px">28-Aug-23</td>
 
-          <td style="font-weight: 400; font-size: 20px">
-            9am Hotel to Merrina
-          </td>
-          <td style="font-weight: 400; font-size: 20px">
-            9pm Merrina To Hotel
-          </td>
-        </tr>
+        <% JSON.parse(allData[0].iternary).forEach((e)=>{ %>
         <tr>
-          <td style="font-weight: 400; font-size: 20px">29-Aug-23</td>
-          <td style="font-weight: 400; font-size: 20px">Hotel</td>
-          <td style="font-weight: 400; font-size: 20px">Airport</td>
+          <td><%= e.date %></td>
+          <td><%= e.from %></td>
+          <td><%= e.to %></td>
         </tr>
+
+        <% }) %>
       </table>
     </div>
   </body>

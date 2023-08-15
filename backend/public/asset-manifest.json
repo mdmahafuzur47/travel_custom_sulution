@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.816982d6.css",
+    "main.js": "/static/js/main.40eae08b.js",
+    "static/media/auth.png": "/static/media/auth.c4538f190991c6762cd3.png",
+    "static/media/NftBanner1.png": "/static/media/NftBanner1.87062366f75bedd52bd2.png",
+    "static/media/banner.png": "/static/media/banner.ef572d78f29b0fee0a09.png",
+    "static/media/Nft2.png": "/static/media/Nft2.7897c45d2601ee3adfb5.png",
+    "static/media/avatar11.png": "/static/media/avatar11.1060b63041fdffa5f8ef.png",
+    "static/media/avatar2.png": "/static/media/avatar2.5692c39db4f8c0ea999e.png",
+    "static/media/avatar3.png": "/static/media/avatar3.9f646ac5920fa40adf00.png",
+    "static/media/avatar1.png": "/static/media/avatar1.eeef2af6dfcd3ff23cb8.png",
+    "static/media/Nft4.png": "/static/media/Nft4.5fc37877b25c9fb9a52d.png",
+    "static/media/Nft3.png": "/static/media/Nft3.3b3e6a4b3ada7618de6c.png",
+    "static/media/Nft6.png": "/static/media/Nft6.9ff5403226e81a6fd390.png",
+    "static/media/Nft1.png": "/static/media/Nft1.0fea34cca5aed6cad72b.png",
+    "static/media/avatar4.png": "/static/media/avatar4.54d5c1de851c273b2cd9.png",
+    "static/media/Nft5.png": "/static/media/Nft5.62dbaf7dd91b4180035c.png",
+    "static/media/image1.png": "/static/media/image1.5d02805328278985e71f.png",
+    "static/media/image3.png": "/static/media/image3.847e2837e715cbf5e4cc.png",
+    "static/media/image2.png": "/static/media/image2.556e407e0cd69698d537.png",
+    "index.html": "/index.html",
+    "static/media/checked.svg": "/static/media/checked.6cb596af2bbf729dfac3.svg",
+    "main.816982d6.css.map": "/static/css/main.816982d6.css.map",
+    "main.40eae08b.js.map": "/static/js/main.40eae08b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.816982d6.css",
+    "static/js/main.40eae08b.js"
+  ]
+}
