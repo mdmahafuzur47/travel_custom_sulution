@@ -202,7 +202,7 @@ const Entry = () => {
                   Choose Your Country
                 </option>
                 <option value="Singapor">Singapor</option>
-                <option value="Vietnem">Vietnem</option>
+                <option disabled value="Vietnem">Vietnem</option>
               </select>
             </div>
           </div>
@@ -308,7 +308,7 @@ const Entry = () => {
                 <label className="pl-px text-brand-900">
                   Visa Photo ( jpg, pdf ){" "}
                   <span className="text-sm font-extralight italic">
-                    {country === "Vietnem" ? "*" : "Optional"}
+                    {country === "Vietnem" ? "*" : "*"}
                   </span>
                 </label>
                 <input
@@ -317,7 +317,7 @@ const Entry = () => {
                   onChange={(e) => {
                     setvisaCopy(e.target.files[0]);
                   }}
-                  required={country === "Vietnem"}
+                  required
                   accept="image/jpeg,application/pdf"
                   className="w-full rounded-sm border-2 border-brand-100 p-2 outline-none"
                 />
@@ -327,13 +327,13 @@ const Entry = () => {
                 <label className="pl-px text-brand-900">
                   Hotel bokking copy ( jpg, pdf ){" "}
                   <span className="text-sm font-extralight italic">
-                    {country === "Vietnem" ? "*" : "Optional"}
+                    {country === "Vietnem" ? "*" : "*"}
                   </span>
                 </label>
 
                 <input
                   type="file"
-                  required={country === "Vietnem"}
+                  required
                   name="passportPhoto"
                   // passport copy dataset in state
                   onChange={(e) => {
@@ -348,13 +348,13 @@ const Entry = () => {
                 <label className="pl-px text-brand-900">
                   Plane ticket copy ( jpg, pdf ){" "}
                   <span className="text-sm font-extralight italic">
-                    {country === "Vietnem" ? "*" : "Optional"}
+                    {country === "Vietnem" ? "*" : "*"}
                   </span>
                 </label>
                 <input
                   type="file"
                   name="visaPhoto"
-                  required={country === "Vietnem"}
+                  required
                   onChange={(e) => {
                     settiketCopy(e.target.files[0]);
                   }}

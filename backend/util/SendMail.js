@@ -17,7 +17,7 @@ const SendMail = async (email,bcc,Subject,text = '',html='',attachments=[]) => {
   try {
 
     const info = await transporter.sendMail({
-      from: '"Fred Foo 👻" <foo@example.com>', // sender address
+      from: '"Astha Trip" <visa@asthatrip.com>', // sender address
       to: [...email], // list of receivers
       bcc: [...bcc], // list of receivers
       subject: Subject, // Subject line
@@ -28,10 +28,13 @@ const SendMail = async (email,bcc,Subject,text = '',html='',attachments=[]) => {
       ],
     });
     console.log("Message sent: %s", info.messageId);
-    return info.messageId
+    return {
+      send: info.messageId
+    }
   } catch (error) {
     console.log("🚀 ~ file: SendMail.js:32 ~ SendMail ~ error:", error);
     return {
+      send:false,
       err:error,
       message:error.message
     }

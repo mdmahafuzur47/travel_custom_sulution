@@ -3,29 +3,43 @@ import Table from "../../views/public/Entry/ComplexTable";
 import Actionbtn from "./Actionbtn";
 import axios from "axios";
 import { data } from "autoprefixer";
-const REqu = ({selectedOption,search}) => {
+const REqu = ({selectedOption,search,relaod}) => {
 
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState([]);
+  const [reloads,setreload] = relaod;
+
   useEffect(() => {
     const getData = async () => {
       try {
         const res = await axios.get("/api/loi/getall");
         setDatas(res.data);
-        setShow(res.data);
       } catch (err) {
         console.log(err.message);
       }
     };
     getData();
   }, []);
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get("/api/loi/getall");
+        setDatas(res.data);
+      } catch (err) {
+        console.log(err.message);
+      }
+    };
+    getData();
+  }, [reloads]);
+
   useEffect(() => {
     if (!selectedOption) {
       return setShow(datas)
     }
     const filter = datas.filter(data => data.status === selectedOption);
     setShow(filter);
-  }, [selectedOption])
+  }, [selectedOption,datas])
   
   useEffect(() => {
     if (!search) {
@@ -33,7 +47,7 @@ const REqu = ({selectedOption,search}) => {
     }
     const filter = datas.filter(data => data.pasport_number.indexOf(search) !== -1);
     setShow(filter);
-  },[search])
+  },[search,datas])
 
   return (
     <div className="relative w-full">
@@ -181,7 +195,7 @@ const REqu = ({selectedOption,search}) => {
               Cell: (prop) => {
                 return (
                   <div className="relative">
-                    <Actionbtn data={datas} prop={prop.row.original} />
+                    <Actionbtn data={datas} setreload={setreload} prop={prop.row.original} />
                   </div>
                   // <button
                   //   title="delete"

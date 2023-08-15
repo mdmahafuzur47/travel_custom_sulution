@@ -22,6 +22,7 @@ import { useState } from "react";
 
 const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState("");
+  const [reload,setReload] = useState(0);
 
   const [input,setInput] = useState('');
   const [search, setSearch] = useState('');
@@ -92,7 +93,7 @@ const Dashboard = () => {
             onChange={handleSelectChange}
           >
             <option  value="">Select an Status</option>
-            <option value="approved">Approved</option>
+            <option selected value="approved">Approved</option>
             <option value="pending">Pending</option>
             <option value="cencle">Cencle</option>
           </select>
@@ -117,7 +118,7 @@ const Dashboard = () => {
 
       {/* new request table  */}
       <div className="relative w-full p-3">
-        <REqu selectedOption={selectedOption} search={search} />
+        <REqu selectedOption={selectedOption} search={search}  relaod={[reload,setReload]}/>
       </div>
 
       {/* Charts */}

@@ -26,6 +26,7 @@
         margin-bottom: 50px;
       }
       .down-border {
+        text-transform: uppercase;
         border-bottom: 2px solid black;
         display: inline-block;
     min-width: 200px;
@@ -50,7 +51,7 @@
     <div class="main-container">
       <div class="head-one-container">
         <h4>Controller of Immigration<br />Singapore</h4>
-        <h4>Date: <span class="down-border"> 07 AUG 2023 </span></h4>
+        <h4>Date: <span class="down-border"> <%= new Date().toLocaleDateString("dd-mm'yyyy") %></span></h4>
       </div>
 
       <h4 style="margin-bottom: 30px;">Dear Sir</h4>

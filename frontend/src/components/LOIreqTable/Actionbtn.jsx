@@ -10,7 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function CardMenu(props) {
-  const { transparent, data, prop } = props;
+  const { transparent, data, prop,setreload } = props;
   const [open, setOpen] = React.useState(false);
 
   // Handle Approved
@@ -42,6 +42,7 @@ function CardMenu(props) {
               success: "Approved Successfully",
             }
           );
+          setreload((old)=>old + 1)
         } catch (err) {
           console.log(err.message);
         }

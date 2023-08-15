@@ -4,6 +4,7 @@ const SendMail = require("../../util/SendMail");
 const path = require("path");
 
 const prosses = async (req, res, element) => {
+  console.log('start');
   var hostname = req.headers.host;
   var proto = req.protocol;
   const url = `${proto}://${hostname}/pdfgen/${element.id}`;
@@ -45,12 +46,11 @@ const prosses = async (req, res, element) => {
         path: path.join(__dirname,'../../upload/loireqfile',e)
       }
     })
-    console.log("🚀 ~ file: Approve.js:48 ~ fileAtachment ~ fileAtachment:", fileAtachment)
-
+    
     const SendMailres = await SendMail(
       ["nahidhasan141400@gmail.com"],
       [ "nahidhasan.opt@gmail.com"],
-      `${element.guest_name}-${element.id}`,
+      `${element.pasport_number}-${element.guest_name}`,
       "loi req",
       "",
       [
@@ -65,12 +65,7 @@ const prosses = async (req, res, element) => {
         },
       ]
     );
-    console.log(
-      "🚀 ~ file: Approve.js:20 ~ prosses ~ SendMailres:",
-      SendMailres.err
-    );
-
-    if(SendMail.err){
+    if(!SendMailres?.send){
       console.log('error nahid');
         throw {
           mesage: SendMail.message,
