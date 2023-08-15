@@ -31,7 +31,10 @@ const SendMail = async (email,bcc,Subject,text = '',html='',attachments=[]) => {
     return info.messageId
   } catch (error) {
     console.log("🚀 ~ file: SendMail.js:32 ~ SendMail ~ error:", error);
-    return error
+    return {
+      err:error,
+      message:error.message
+    }
   }
 };
 

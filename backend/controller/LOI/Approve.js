@@ -25,6 +25,28 @@ const prosses = async (req, res, element) => {
     const updaet = await LOI.RayQuery(
       `UPDATE loi_data SET status = 'approved' WHERE loi_data.id = ${element.id};`
     );
+
+    const filelist = []
+    if(element.pasport_copy && element.pasport_copy !== ""){
+      filelist.push(element.pasport_copy);
+    }
+    if(element.visa_copy && element.visa_copy !== ""){
+      filelist.push(element.visa_copy);
+    }
+    if(element.hotel_copy && element.hotel_copy !== ""){
+      filelist.push(element.hotel_copy);
+    }
+    if(element.tiket_copy && element.tiket_copy !== ""){
+      filelist.push(element.tiket_copy);
+    }
+
+    const fileAtachment = filelist.map((e)=>{
+     return {
+        path: path.join(__dirname,'../../upload/loireqfile',e)
+      }
+    })
+    console.log("🚀 ~ file: Approve.js:48 ~ fileAtachment ~ fileAtachment:", fileAtachment)
+
     const SendMailres = await SendMail(
       ["nahidhasan141400@gmail.com"],
       [ "nahidhasan.opt@gmail.com"],
@@ -32,6 +54,7 @@ const prosses = async (req, res, element) => {
       "loi req",
       "",
       [
+        ...fileAtachment,
         {
           filename: `${element.guest_name}-letter.pdf`,
           path: path.join(__dirname, "../../GenaretePDF/pdf", letter),
@@ -44,12 +67,17 @@ const prosses = async (req, res, element) => {
     );
     console.log(
       "🚀 ~ file: Approve.js:20 ~ prosses ~ SendMailres:",
-      SendMailres
+      SendMailres.err
     );
 
-    if(SendMail.Error){
-        throw SendMail.Error
+    if(SendMail.err){
+      console.log('error nahid');
+        throw {
+          mesage: SendMail.message,
+          instanceof: "loiapprove",
+        }
     }
+
     return false;
   } catch (error) {
     return error;
