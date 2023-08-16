@@ -10,8 +10,8 @@ const GenaretLetter = async (req,res,next)=>{
             passport :serveres[0].pasport_number
         })
     } catch (error) {
-        console.log("🚀 ~ file: genaretLatter.js:5 ~ GenaretLetter ~ error:", error)
-        
+        // console.log("🚀 ~ file: genaretLatter.js:5 ~ GenaretLetter ~ error:", error.m)
+        res.status(404).send("not page")
     }
 }
 

@@ -53,7 +53,7 @@ const prosses = async (req, res, element) => {
       `${element.pasport_number}-${element.guest_name}`,
       "loi req",
       "",
-      [
+      [ 
         ...fileAtachment,
         {
           filename: `${element.guest_name}-letter.pdf`,
