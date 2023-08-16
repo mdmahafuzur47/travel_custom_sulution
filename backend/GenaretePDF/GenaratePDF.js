@@ -5,8 +5,8 @@ const fs = require('fs');
 const Pdf_Gen = async (url, id, name, type) => {
   try {
     const namefile = `${type}-${id}-${name}.pdf`;
-
-    const fileRes = await axios.post('https://urltopdf-9pii.onrender.com/gen',{
+    // https://urltopdf-9pii.onrender.com/gen
+    const fileRes = await axios.post('http://localhost:5002/gen',{
         url:url
     },{
         responseType: 'arraybuffer'

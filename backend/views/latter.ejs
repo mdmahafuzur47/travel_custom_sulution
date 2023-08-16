@@ -47,11 +47,20 @@
       }
     </style>
   </head>
+  <%
+  function formatDate(date) {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based, so add 1
+    const year = date.getFullYear();
+  
+    return `${day}-${month}-${year}`;
+  }
+  %>
   <body style="font-family: sans-serif;">
     <div class="main-container">
       <div class="head-one-container">
         <h4>Controller of Immigration<br />Singapore</h4>
-        <h4>Date: <span class="down-border"> <%= new Date().toLocaleDateString("dd-mm'yyyy") %></span></h4>
+        <h4>Date: <span class="down-border"> <%= formatDate(new Date()) %></span></h4>
       </div>
 
       <h4 style="margin-bottom: 30px;">Dear Sir</h4>
