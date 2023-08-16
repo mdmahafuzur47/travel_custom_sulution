@@ -13,9 +13,13 @@ const AgentLogin = () => {
   console.log(datas);
 
   return (
+    <div className="flex container mx-auto justify-between items-center">
+      <div>
+        <img  className="w-[500px] h-[80vh]" src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp" alt="img" />
+      </div>
     <div className="flex h-screen w-full flex-col items-center justify-center">
-      <img src="" alt="logo-img" />
-      <div className="mt-[10vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
+      <img className="w-[400px] h-[150px]" src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp" alt="logo-img" />
+      <div className="mt-[5vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]">
         <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
           Sign In As Agent
         </h4>
@@ -67,6 +71,10 @@ const AgentLogin = () => {
             Create an account
           </a>
         </div>
+      </div>
+      </div>
+      <div>
+        <img className="w-[500px] h-[80vh]"  src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp" alt="img" />
       </div>
     </div>
   );
