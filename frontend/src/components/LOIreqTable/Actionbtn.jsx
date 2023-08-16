@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dropdown from "components/dropdown";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
@@ -10,9 +10,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 function CardMenu(props) {
-  const { transparent, data, prop,setreload } = props;
+  const { transparent, data, prop, setreload, selectedOption, setShow } = props;
   const [open, setOpen] = React.useState(false);
-
+  const [changeOption, setChangeOption] = useState(selectedOption);
   // Handle Approved
   const handleApproved = () => {
     let family = 1;
@@ -42,7 +42,9 @@ function CardMenu(props) {
               success: "Approved Successfully",
             }
           );
-          setreload((old)=>old + 1)
+          const filter = data.filter((d) => d.status === selectedOption);
+          setShow(filter);
+          setreload((old) => old + 1);
         } catch (err) {
           console.log(err.message);
         }
