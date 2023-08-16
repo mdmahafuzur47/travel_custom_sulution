@@ -13,7 +13,7 @@ test.js
 
 # production
 /build
-/upload
+upload
 /pdf
 # misc
 .DS_Store
