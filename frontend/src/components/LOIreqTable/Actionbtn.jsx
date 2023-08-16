@@ -88,12 +88,7 @@ function CardMenu(props) {
             </svg>
             Approved
           </p>
-          <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
-            <span>
-              <AiOutlineShop />
-            </span>
-            Action
-          </p>
+          
           <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-1 pt-1 text-gray-600 hover:font-medium">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +102,12 @@ function CardMenu(props) {
               />
             </svg>
             Cancel
+          </p>
+          <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium">
+            <span>
+              <AiOutlineShop />
+            </span>
+          Details
           </p>
         </div>
       }
