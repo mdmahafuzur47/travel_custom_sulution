@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Dropdown from "components/dropdown";
-import { AiOutlineUser } from "react-icons/ai";
-import { BsThreeDots } from "react-icons/bs";
-import { FiSettings } from "react-icons/fi";
-import { AiOutlineShop } from "react-icons/ai";
-import { TiLightbulb } from "react-icons/ti";
-import Swal from "sweetalert2";
 import axios from "axios";
+import Dropdown from "components/dropdown";
+import React, { useState } from "react";
+import { AiOutlineShop } from "react-icons/ai";
+import { BsThreeDots } from "react-icons/bs";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 function CardMenu(props) {
   const { transparent, data, prop, setreload, selectedOption, setShow } = props;
   const [open, setOpen] = React.useState(false);
   const [changeOption, setChangeOption] = useState(selectedOption);
-  // Handle Approved
+
   const handleApproved = () => {
     let family = 1;
+
     const filterData = data.filter(
       (data) => data.reference === prop?.reference
     );
@@ -40,6 +38,48 @@ function CardMenu(props) {
               pending: "Please wait",
               error: "Something went wrong",
               success: "Approved Successfully",
+            }
+          );
+          const filter = data.filter((d) => d.status === selectedOption);
+          setShow(filter);
+          setreload((old) => old + 1);
+        } catch (err) {
+          console.log(err.message);
+        }
+      }
+    });
+  };
+
+  const handleCancel = () => {
+    let family = 1;
+
+    const filterData = data.filter(
+      (data) => data.reference === prop?.reference
+    );
+    if (filterData.length > 1) {
+      family = filterData.length;
+    }
+
+    Swal.fire({
+      title: "Are you sure to cancel?",
+      text: `Name: ${prop?.guest_name}, Passport Number: ${
+        prop?.pasport_number
+      }, Family: ${"family"}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#422AFB",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "close",
+      confirmButtonText: "Yes, Cancel It!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const res = await toast.promise(
+            axios.post("/api/loi/cancel", { id: prop?.id }),
+            {
+              pending: "Please wait",
+              error: "Something went wrong",
+              success: "Cancel Successfully",
             }
           );
           const filter = data.filter((d) => d.status === selectedOption);
@@ -88,8 +128,11 @@ function CardMenu(props) {
             </svg>
             Approved
           </p>
-          
-          <p className="hover:text-black mt-2 flex cursor-pointer items-center gap-1 pt-1 text-gray-600 hover:font-medium">
+
+          <p
+            onClick={handleCancel}
+            className="hover:text-black mt-2 flex cursor-pointer items-center gap-1 pt-1 text-gray-600 hover:font-medium"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -107,7 +150,7 @@ function CardMenu(props) {
             <span>
               <AiOutlineShop />
             </span>
-          Details
+            Details
           </p>
         </div>
       }
