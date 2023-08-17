@@ -10,6 +10,7 @@ package-lock.json
 test.js
 # testing
 /coverage
+/__test__
 
 # production
 /build
