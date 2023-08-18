@@ -10,6 +10,7 @@ import AgentLogin from "views/agent/agentLogin/AgentLogin";
 import AgentProfile from "views/agent/agentProfile/AgentProfile";
 import AgentHome from "views/agent/home/AgentHome";
 import Registration from "./views/agent/Rgistration/Registration";
+
 const App = () => {
   return (
     <Routes>
@@ -18,7 +19,7 @@ const App = () => {
       <Route path="entry/*" element={<Entry />} />
       <Route path="agentEntry/*" element={<AgentEntry />} />
       <Route path="/agent" element={<Agent />}>
-        <Route path="/agent" element={<AgentHome />} />
+        <Route index element={<AgentHome />} />
         <Route path="/agent/agentProfile" element={<AgentProfile />} />
       </Route>
       <Route path="/agentLogin" element={<AgentLogin />} />

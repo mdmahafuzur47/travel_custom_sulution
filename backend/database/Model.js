@@ -1,10 +1,9 @@
 const dotenv = require("dotenv");
-
 dotenv.config();
 const DataBase = require("./DBpoll");
 const dbname = process.env.DB_NAME;
 
-// chack if table exist or not
+// check if table exist or not
 const chCash = {
   name: null,
   res: false,
@@ -123,33 +122,6 @@ class Model {
     }
   }
 
-  async update(q = { set: {}, where: {} }) {
-    try {
-      if (!(await chackTable(this.name))) {
-        await new Promise(async (resolve) => {
-          await this.mygrate();
-          resolve();
-        });
-      }
-
-      const where = Object.entries(q.where)
-        .map(([key, value]) => `${key}='${value}'`)
-        .join(" AND ");
-
-      const set = Object.entries(q.set)
-        .map(([key, value]) => `${key}='${value}'`)
-        .join(", ");
-
-      // const DB = await DataBase();
-      const query = `UPDATE ${this.name} SET ${set} WHERE ${where}`;
-      console.log(query);
-      // const sql = await DB.execute(query);
-      // return sql[0];
-    } catch (error) {
-      console.log("🚀 ~ file: Model.js:101 ~ Model ~ update ~ error:", error);
-    }
-  }
-
   // add data
   async Add(data) {
     try {
@@ -234,6 +206,67 @@ class Model {
       );
       return error;
     }
+  }
+
+  async findById(id) {
+    if (!(await chackTable(this.name))) {
+      await new Promise(async (resolve) => {
+        await this.mygrate();
+        resolve();
+      });
+    }
+
+    const db = await DataBase();
+    const res = await db.execute(`SELECT * FROM ${this.name} WHERE id=${id}`);
+
+    return res[0] ?? null;
+  }
+
+  async update(q = { set: {}, where: {} }) {
+    try {
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          await this.mygrate();
+          resolve();
+        });
+      }
+
+      const where = Object.entries(q.where)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(" AND ");
+
+      const set = Object.entries(q.set)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(", ");
+
+      // const DB = await DataBase();
+      const query = `UPDATE ${this.name} SET ${set} WHERE ${where}`;
+      console.log(query);
+      // const sql = await DB.execute(query);
+      // return sql[0];
+    } catch (error) {
+      console.log("🚀 ~ file: Model.js:101 ~ Model ~ update ~ error:", error);
+    }
+  }
+
+  async findByIdAndUpdate(id, querySet = {}) {
+    if (!(await chackTable(this.name))) {
+      await new Promise(async (resolve) => {
+        await this.mygrate();
+        resolve();
+      });
+    }
+
+    const set = Object.entries(querySet)
+      .map(([key, value]) => `${key}='${value}'`)
+      .join(", ");
+
+    const db = await DataBase();
+    const res = await db.execute(
+      `UPDATE ${this.name} SET ${set} WHERE id=${id}`
+    );
+
+    return res;
   }
 
   async getById(id) {
