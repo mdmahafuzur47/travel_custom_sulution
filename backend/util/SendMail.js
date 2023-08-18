@@ -5,17 +5,20 @@ const transporter = nodemailer.createTransport({
   port: process.env.MAIL_PORT,
   secure: true,
   auth: {
-   
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS,
   },
 });
 
-
-
-const SendMail = async (email,bcc,Subject,text = '',html='',attachments=[]) => {
+const SendMail = async (
+  email,
+  bcc = [],
+  Subject,
+  text = "",
+  html = "",
+  attachments = []
+) => {
   try {
-
     const info = await transporter.sendMail({
       from: '"Astha Trip" <visa@asthatrip.com>', // sender address
       to: [...email], // list of receivers
@@ -23,21 +26,19 @@ const SendMail = async (email,bcc,Subject,text = '',html='',attachments=[]) => {
       subject: Subject, // Subject line
       text: text, // plain text body
       html: html, // html body
-      attachments:[
-      ...attachments
-      ],
+      attachments: [...attachments],
     });
     console.log("Message sent: %s", info.messageId);
     return {
-      send: info.messageId
-    }
+      send: info.messageId,
+    };
   } catch (error) {
     console.log("🚀 ~ file: SendMail.js:32 ~ SendMail ~ error:", error);
     return {
-      send:false,
-      err:error,
-      message:error.message
-    }
+      send: false,
+      err: error,
+      message: error.message,
+    };
   }
 };
 
