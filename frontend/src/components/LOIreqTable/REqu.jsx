@@ -3,11 +3,11 @@ import Table from "../../views/public/Entry/ComplexTable";
 import Actionbtn from "./Actionbtn";
 import axios from "axios";
 import { data } from "autoprefixer";
-const REqu = ({selectedOption,search,relaod}) => {
-
+const REqu = ({ selectedOption, search, relaod }) => {
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState([]);
-  const [reloads,setreload] = relaod;
+  const [reloads, setreload] = relaod;
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,19 +35,21 @@ const REqu = ({selectedOption,search,relaod}) => {
 
   useEffect(() => {
     if (!selectedOption) {
-      return setShow(datas)
+      return setShow(datas);
     }
-    const filter = datas.filter(data => data.status === selectedOption);
+    const filter = datas.filter((data) => data.status === selectedOption);
     setShow(filter);
-  }, [selectedOption,datas])
-  
+  }, [selectedOption, datas]);
+
   useEffect(() => {
     if (!search) {
-      return setShow(datas)
+      return setShow(datas);
     }
-    const filter = datas.filter(data => data.pasport_number.indexOf(search) !== -1);
+    const filter = datas.filter(
+      (data) => data.pasport_number.indexOf(search) !== -1
+    );
     setShow(filter);
-  },[search,datas])
+  }, [search, datas]);
 
   return (
     <div className="relative w-full">
@@ -86,10 +88,9 @@ const REqu = ({selectedOption,search,relaod}) => {
               Cell: (prop) => {
                 return (
                   <div>
-                    
                     <div className="flex items-center gap-2">
                       <span>
-                        {prop.row.original?.pasport_copy === ""  ? (
+                        {prop.row.original?.pasport_copy === "" ? (
                           <button
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-red-50 p-1 text-sm  text-red-600"
@@ -100,7 +101,7 @@ const REqu = ({selectedOption,search,relaod}) => {
                         ) : (
                           <button
                             title="visa copy not available"
-                            className="cursor-cell rounded-full border-[1px] border-brand-600/10  p-1 text-sm bg-green-50 text-green-600"
+                            className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-green-50 p-1 text-sm text-green-600"
                           >
                             {" "}
                             <MaterialSymbolsDone />{" "}
@@ -111,7 +112,7 @@ const REqu = ({selectedOption,search,relaod}) => {
                     </div>
                     <div className="flex items-center gap-2">
                       <span>
-                        {prop.row.original?.tiket_copy === ""  ? (
+                        {prop.row.original?.tiket_copy === "" ? (
                           <button
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-red-50 p-1 text-sm  text-red-600"
@@ -122,7 +123,7 @@ const REqu = ({selectedOption,search,relaod}) => {
                         ) : (
                           <button
                             title="visa copy not available"
-                            className="cursor-cell rounded-full border-[1px] border-brand-600/10  p-1 text-sm bg-green-50 text-green-600"
+                            className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-green-50 p-1 text-sm text-green-600"
                           >
                             {" "}
                             <MaterialSymbolsDone />{" "}
@@ -187,7 +188,6 @@ const REqu = ({selectedOption,search,relaod}) => {
             {
               Header: "Status",
               accessor: "status",
-
             },
             {
               Header: "Action",
@@ -195,7 +195,16 @@ const REqu = ({selectedOption,search,relaod}) => {
               Cell: (prop) => {
                 return (
                   <div className="relative">
-                    <Actionbtn setShow={setShow}  selectedOption={selectedOption} data={datas} setDatas={setDatas} setreload={setreload} prop={prop.row.original} />
+
+                    <Actionbtn
+                      setShow={setShow}
+                      selectedOption={selectedOption}
+                      data={datas}
+                      setDatas={setDatas}
+                      setreload={setreload}
+                      prop={prop.row.original}
+                    />
+
                   </div>
                   // <button
                   //   title="delete"
