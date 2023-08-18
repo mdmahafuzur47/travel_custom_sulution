@@ -2,18 +2,19 @@ const Agent = require("../../model/Agent");
 const bcript = require("bcrypt");
 const { v4 } = require("uuid");
 const jwt = require("jsonwebtoken");
+const cookie = require('cookie');
 
 const Login = async (req, res) => {
-  const user = await Agent.findOne({ email: req.body.email });
-
-  if (user.length === 0) {
+  const [user] = await Agent.findOne({ email: req.body.email });
+ 
+  if (!user) {
     return res.status(404).json({
       message: "User not found!",
       code: "not-found",
     });
   }
 
-  if (!bcript.compareSync(req.body.password, user[0].password)) {
+  if (!bcript.compareSync(req.body.password, user.password)) {
     return res.status(403).json({
       message: "User name and password not match!",
       code: "not-match",

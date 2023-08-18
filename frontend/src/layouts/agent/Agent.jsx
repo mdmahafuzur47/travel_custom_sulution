@@ -9,7 +9,7 @@ function Agent() {
   const [Admin, SetAdmin] = useState(false);
   useEffect(() => {
     const getAuth = async () => {
-      const getuser = true;
+      const getuser = false;
       if (getuser) {
         SetAdmin(true);
       } else {

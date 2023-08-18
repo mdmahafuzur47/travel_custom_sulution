@@ -10,7 +10,7 @@ const AgentLogin = () => {
   async function onSubmit(data) {
     try {
       await toast.promise(axios.post("/api/agent/login", data), {
-        pending: "Please with loading...",
+        pending: "Please wait loading...",
         error: {
           render({ data }) {
             if (data.response.data.code === "not-found") {

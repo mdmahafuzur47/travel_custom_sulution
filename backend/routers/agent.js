@@ -7,7 +7,7 @@ const Login = require("../controller/Agent/login");
 const AgentRoute = express.Router();
 const isAdmin = require("../middleware/Auth/isAdmin");
 
-AgentRoute.post("/login");
+
 AgentRoute.get("/info");
 AgentRoute.post(
   "/reg",
