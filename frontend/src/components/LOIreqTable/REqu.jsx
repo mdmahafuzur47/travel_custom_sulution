@@ -195,6 +195,7 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Cell: (prop) => {
                 return (
                   <div className="relative">
+
                     <Actionbtn
                       setShow={setShow}
                       selectedOption={selectedOption}
@@ -203,6 +204,7 @@ const REqu = ({ selectedOption, search, relaod }) => {
                       setreload={setreload}
                       prop={prop.row.original}
                     />
+
                   </div>
                   // <button
                   //   title="delete"
