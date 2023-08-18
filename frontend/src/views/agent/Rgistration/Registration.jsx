@@ -14,7 +14,8 @@ function Registration() {
       toast.success("Login successfully done");
       reset();
     } catch (e) {
-      if (e.code === "email-exist") return toast.error("Email already exist!");
+      console.log(e);
+      if (e.response.data.code === "email-exist") return toast.error("Email already exist!");
       toast.error("Something went wrong!");
     }
   }

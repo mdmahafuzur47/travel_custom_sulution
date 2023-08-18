@@ -1,9 +1,30 @@
+import { useEffect, useState } from "react";
 import Widget from "components/widget/Widget";
 import Table from "./table";
+import axios from "axios";
 
 const Agent = () => {
+  const [agentData,SetAgentData] = useState([]);
+  console.log("🚀 ~ file: index.jsx:8 ~ Agent ~ agentData:", agentData)
+  const [reload,SetReload] = useState(1);
+
+  useEffect(()=>{
+    const getdata = async ()=>{
+     
+      try {
+        const res = await axios.get('/api/admin/get-all-agent');
+        SetAgentData(res.data);
+      
+      } catch (error) {
+        console.log("🚀 ~ file: index.jsx:12 ~ useEffect ~ error:", error)
+      }
+    }
+    getdata()
+  },[reload])
+
   return (
     <div>
+      hello
       <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
         <Widget
           icon={<MaterialSymbolsPersonRaisedHandOutline className="h-7 w-7" />}
@@ -31,7 +52,7 @@ const Agent = () => {
               Cell: (prop) => {
                 return (
                   <div>
-                    <h1>{prop.row.original.name}</h1>
+                    <h1 className="text-xl">{prop.row.original.name}</h1>
                     <p>{prop.row.original.email}</p>
                     <p>{prop.row.original.phone}</p>
                   </div>
@@ -39,17 +60,21 @@ const Agent = () => {
               },
             },
             {
-              Header: "Photo",
-              accessor: "photo",
+              Header: "Nid",
+              accessor: "nid_no",
             },
+            // {
+            //   Header: "Photo",
+            //   accessor: "photo",
+            // },
             {
               Header: "Date",
               accessor: "createdAt",
               Cell:(prop)=>{
                 return(
                   <div>
-                      <p><span>request:</span>{prop.row.original.createdAt}</p>
-                      <p><span>Last Update:</span>{prop.row.original.updateAt}</p>
+                      <p><span>Request: </span>{new Date(prop.row.original.createdAt).toDateString()}</p>
+                      <p><span>Last Update: </span>{new Date(prop.row.original.updateAt).toDateString()}</p>
                   </div>
                 )
               }
@@ -72,7 +97,7 @@ const Agent = () => {
             },
             {
               Header: "Action",
-              accessor: "action",
+              accessor: "email",
               Cell: (prop) => {
                 return (
                   <div className="flex justify-center">
@@ -84,7 +109,7 @@ const Agent = () => {
               },
             }
           ]}
-          datas={[]}
+          datas={agentData}
         />
       </div>
     </div>

@@ -13,7 +13,7 @@ const registration = async (req, res, next) => {
     }
 
     await Agent.Add({
-      name: req.body.username,
+      name: req.body.name,
       email: req.body.email,
       nid_no: req.body.nid_no,
       phone: req.body.phone,
