@@ -4,7 +4,7 @@ const SendMail = require("../../util/SendMail");
 const path = require("path");
 
 const prosses = async (req, res, element) => {
-  console.log('start');
+  console.log("start");
   var hostname = req.headers.host;
   var proto = req.protocol;
   const url = `${proto}://${hostname}/pdfgen/${element.id}`;
@@ -27,33 +27,33 @@ const prosses = async (req, res, element) => {
       `UPDATE loi_data SET status = 'approved' WHERE loi_data.id = ${element.id};`
     );
 
-    const filelist = []
-    if(element.pasport_copy && element.pasport_copy !== ""){
+    const filelist = [];
+    if (element.pasport_copy && element.pasport_copy !== "") {
       filelist.push(element.pasport_copy);
     }
-    if(element.visa_copy && element.visa_copy !== ""){
+    if (element.visa_copy && element.visa_copy !== "") {
       filelist.push(element.visa_copy);
     }
-    if(element.hotel_copy && element.hotel_copy !== ""){
+    if (element.hotel_copy && element.hotel_copy !== "") {
       filelist.push(element.hotel_copy);
     }
-    if(element.tiket_copy && element.tiket_copy !== ""){
+    if (element.tiket_copy && element.tiket_copy !== "") {
       filelist.push(element.tiket_copy);
     }
 
-    const fileAtachment = filelist.map((e)=>{
-     return {
-        path: path.join(__dirname,'../../upload/loireqfile',e)
-      }
-    })
-    
+    const fileAtachment = filelist.map((e) => {
+      return {
+        path: path.join(__dirname, "../../upload/loireqfile", e),
+      };
+    });
+
     const SendMailres = await SendMail(
       ["nahidhasan141400@gmail.com"],
-      [ "nahidhasan.opt@gmail.com"],
+      ["nahidhasan.opt@gmail.com"],
       `${element.pasport_number}-${element.guest_name}`,
       "loi req",
       "",
-      [ 
+      [
         ...fileAtachment,
         {
           filename: `${element.guest_name}-letter.pdf`,
@@ -65,12 +65,12 @@ const prosses = async (req, res, element) => {
         },
       ]
     );
-    if(!SendMailres?.send){
-      console.log('error nahid');
-        throw {
-          mesage: SendMail.message,
-          instanceof: "loiapprove",
-        }
+    if (!SendMailres?.send) {
+      console.log("error nahid");
+      throw {
+        mesage: SendMail.message,
+        instanceof: "loiapprove",
+      };
     }
 
     return false;
@@ -107,7 +107,7 @@ const approved = async (req, res, next) => {
       });
     } else {
       throw {
-        mesage: "some data not approved please chack email",
+        message: "some data not approved please chack email",
         instanceof: "loiapprove",
       };
     }
