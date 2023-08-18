@@ -63,7 +63,7 @@ class Model {
                   .join(",")},
                
                 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-                updateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+                updateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 PRIMARY KEY (id)
                 ${
                   FOReign.length

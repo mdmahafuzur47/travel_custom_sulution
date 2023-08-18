@@ -1,4 +1,4 @@
-import Banner from "./components/Banner";
+import Banner from "../marketplace/components/Banner";
 import NFt2 from "assets/img/nfts/Nft2.png";
 import NFt4 from "assets/img/nfts/Nft4.png";
 import NFt3 from "assets/img/nfts/Nft3.png";
@@ -10,8 +10,8 @@ import avatar3 from "assets/img/avatars/avatar3.png";
 
 import tableDataTopCreators from "views/admin/marketplace/variables/tableDataTopCreators.json";
 import { tableColumnsTopCreators } from "views/admin/marketplace/variables/tableColumnsTopCreators";
-import HistoryCard from "./components/HistoryCard";
-import TopCreatorTable from "./components/TableTopCreators";
+import HistoryCard from "../marketplace/components/HistoryCard";
+import TopCreatorTable from "../marketplace/components/TableTopCreators";
 import NftCard from "components/card/NftCard";
 
 const Marketplace = () => {
