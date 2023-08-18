@@ -9,7 +9,7 @@ import AgentEntry from "views/agent/agentEntry/AgentEntry";
 import AgentLogin from "views/agent/agentLogin/AgentLogin";
 import AgentProfile from "views/agent/agentProfile/AgentProfile";
 import AgentHome from "views/agent/home/AgentHome";
-import Registration from "views/agent/Rgistration/Registration";
+import Registration from "./views/agent/Rgistration/Registration";
 const App = () => {
   return (
     <Routes>
