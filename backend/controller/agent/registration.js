@@ -5,12 +5,11 @@ const registration = async (req, res, next) => {
   try {
     const queryEmail = await Agent.findOne({ email: req.body.email });
 
-    console.log(queryEmail, "findOne query");
-
     if (queryEmail.length > 0) {
-      return res
-        .status(400)
-        .json({ message: "email already exist!", code: "registration" });
+      return res.status(400).json({
+        message: "email already exist!",
+        code: "email-exist",
+      });
     }
 
     await Agent.Add({

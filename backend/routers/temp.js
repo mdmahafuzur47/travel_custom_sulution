@@ -3,7 +3,7 @@ const TempRouter = express.Router();
 const PhotoUploader = require("../controller/Temp/photoupload");
 
 // auth import
-const AdminAuth = require("../middleware/Auth/Admin");
+const AdminAuth = require("../middleware/Auth/isAdmin");
 const AgentAuth = require("../middleware/Auth/Agent");
 const UploadTempPhoto = require("../util/PhotoUploader");
 
