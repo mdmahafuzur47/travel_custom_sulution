@@ -94,6 +94,25 @@ class Model {
     }
   }
 
+  async findOne(key,value){
+    try {
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          const resmy = await this.mygrate();
+          resolve();
+        });
+      }
+
+      const DB = await DataBase();
+      const query = `SELECT * FROM ${this.name} WHERE ${this.name}.${key} = ${value}`
+      const sql = await DB.execute(query);
+      return sql[0];
+    } catch (error) {
+      console.log("🚀 ~ file: Model.js:101 ~ Model ~ findOne ~ error:", error)
+      
+    }
+  }
+
   // add data
   async Add(data) {
     try {
