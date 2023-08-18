@@ -9,7 +9,9 @@ async function CancelController(req, res, next) {
     );
 
     if (dbRes.affectedRows < 1) {
-      throw new Error({ message: "cancel failed", instanceof: "loi-cancel" });
+      return res
+        .status(404)
+        .json({ message: "Data not found", code: "loi-cancel" });
     }
 
     const [agents] = await LOISchema.getById(req.body.id);
