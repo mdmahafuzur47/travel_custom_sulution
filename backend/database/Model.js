@@ -46,12 +46,14 @@ class Model {
     try {
       const DB = await DataBase();
       // let forFOREIGN KEY (userId) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE)
-      let FOReign =[];
+      let FOReign = [];
       const sql = `CREATE TABLE ${dbname}.${this.name} (
                 id INT NOT NULL AUTO_INCREMENT ,
                 ${this.schema
                   .map((e) => {
-                    (e.reference)?FOReign.push({name:e.name,ref:e.reference}):""
+                    e.reference
+                      ? FOReign.push({ name: e.name, ref: e.reference })
+                      : "";
                     return `${e.name} ${e.type} ${
                       e.req ? " NOT NULL" : "NULL"
                     } ${e.defaults ? "DEFAULT '" + e.defaults + "'" : ""} ${
@@ -63,11 +65,15 @@ class Model {
                 createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
                 updateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
                 PRIMARY KEY (id)
-                ${(FOReign.length)?`${FOReign.map((e)=>{
-                  return `,FOREIGN KEY (${e.name}) REFERENCES ${e.ref} ON DELETE CASCADE ON UPDATE CASCADE`
-                }).join(',')}`:''}
+                ${
+                  FOReign.length
+                    ? `${FOReign.map((e) => {
+                        return `,FOREIGN KEY (${e.name}) REFERENCES ${e.ref} ON DELETE CASCADE ON UPDATE CASCADE`;
+                      }).join(",")}`
+                    : ""
+                }
                 ) ENGINE = InnoDB;`;
-                
+
       return DB.execute(sql);
     } catch (error) {
       console.log(`error to mygrate in [${this.name}] =>`, error);
@@ -77,7 +83,7 @@ class Model {
   // find all data
   async findAll() {
     try {
-      // chack if the table is exist or not 
+      // chack if the table is exist or not
       if (!(await chackTable(this.name))) {
         await new Promise(async (resolve) => {
           const resmy = await this.mygrate();
@@ -94,29 +100,60 @@ class Model {
     }
   }
 
-  async findOne(key,value){
+  async findOne(where) {
     try {
       if (!(await chackTable(this.name))) {
         await new Promise(async (resolve) => {
-          const resmy = await this.mygrate();
+          await this.mygrate();
           resolve();
         });
       }
 
+      const q = Object.entries(where)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(" AND ");
+
       const DB = await DataBase();
-      const query = `SELECT * FROM ${this.name} WHERE ${this.name}.${key} = ${value}`
+      const query = `SELECT * FROM ${this.name} WHERE ${q} LIMIT 1`;
+
       const sql = await DB.execute(query);
       return sql[0];
     } catch (error) {
-      console.log("🚀 ~ file: Model.js:101 ~ Model ~ findOne ~ error:", error)
-      
+      console.log("🚀 ~ file: Model.js:101 ~ Model ~ findOne ~ error:", error);
+    }
+  }
+
+  async update(q = { set: {}, where: {} }) {
+    try {
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          await this.mygrate();
+          resolve();
+        });
+      }
+
+      const where = Object.entries(q.where)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(" AND ");
+
+      const set = Object.entries(q.set)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(", ");
+
+      // const DB = await DataBase();
+      const query = `UPDATE ${this.name} SET ${set} WHERE ${where}`;
+      console.log(query);
+      // const sql = await DB.execute(query);
+      // return sql[0];
+    } catch (error) {
+      console.log("🚀 ~ file: Model.js:101 ~ Model ~ update ~ error:", error);
     }
   }
 
   // add data
   async Add(data) {
     try {
-      // chack is table exist if not then add the table 
+      // chack is table exist if not then add the table
       if (!(await chackTable(this.name))) {
         await new Promise(async (resolve) => {
           const resmy = await this.mygrate();
@@ -134,22 +171,22 @@ class Model {
           return e.name;
         })
         .sort();
-      // if cacsh colum esist 
+      // if cacsh colum esist
       if (!ColumCash[schemaCol.join(",")]) {
         let [cacksql] = await DB.execute(`DESC ${this.name};`);
-        // list of colunm that exist on db 
+        // list of colunm that exist on db
         const listOfCol = cacksql
           .map((e) => {
             return e.Field;
           })
           .sort();
-          // filter out new added colunm 
+        // filter out new added colunm
         const notindb = this.schema.filter((e) => {
           return listOfCol.indexOf(e.name) === -1;
         });
-          // chack if no change in schema 
+        // chack if no change in schema
         if (notindb.length > 0) {
-          // add new colunm that add in schema 
+          // add new colunm that add in schema
           let alter = `ALTER TABLE ${this.name} ${notindb
             .map((w) => {
               return `ADD ${w.name} ${w.type} ${w.req ? " NOT NULL" : "NULL"} ${
@@ -160,13 +197,15 @@ class Model {
 
           let resAlter = await DB.execute(alter);
         }
-        // add key on cache 
+        // add key on cache
         ColumCash[schemaCol.join(",")] = true;
       }
 
       let sql = `INSERT INTO ${this.name} (id, 
                 ${keys.join(",")},
-                createdAt, updateAt) VALUES (NULL, ${"'"}${valus.join("','")}${"'"},
+                createdAt, updateAt) VALUES (NULL, ${"'"}${valus.join(
+        "','"
+      )}${"'"},
                  current_timestamp(), current_timestamp());`;
       //  console.log(sql);
       const [res] = await DB.execute(sql);
@@ -197,7 +236,7 @@ class Model {
     }
   }
 
-  async getById(id){
+  async getById(id) {
     // const cash = {
     //   id: null,
     //   res: null,
@@ -209,7 +248,7 @@ class Model {
     //   return res.send(cash.res);
     // }
     try {
-      // chack if the table is exist or not 
+      // chack if the table is exist or not
       if (!(await chackTable(this.name))) {
         await new Promise(async (resolve) => {
           const resmy = await this.mygrate();
@@ -225,18 +264,17 @@ class Model {
       return error;
     }
   }
-  // raw sql input 
-  async RayQuery(sql){
+  // raw sql input
+  async RayQuery(sql) {
     try {
       const DB = await DataBase();
       return DB.execute(sql);
     } catch (error) {
-     console.log("🚀 ~ file: Model.js:214 ~ Model ~ RayQuery ~ error:", error)
-     
+      console.log("🚀 ~ file: Model.js:214 ~ Model ~ RayQuery ~ error:", error);
+
       return error;
     }
   }
-
 }
 
 module.exports = Model;
