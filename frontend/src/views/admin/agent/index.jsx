@@ -2,25 +2,42 @@ import { useEffect, useState } from "react";
 import Widget from "components/widget/Widget";
 import Table from "./table";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Agent = () => {
-  const [agentData,SetAgentData] = useState([]);
-  console.log("🚀 ~ file: index.jsx:8 ~ Agent ~ agentData:", agentData)
-  const [reload,SetReload] = useState(1);
+  const [agentData, SetAgentData] = useState([]);
+  const [reload, SetReload] = useState(1);
 
-  useEffect(()=>{
-    const getdata = async ()=>{
-     
+  const aprove = async (id) => {
+    try {
+      const resdb = await toast.promise(
+        axios.post("/api/agent/approve", {
+          id,
+        }),
+        {
+          pending: "please wait for update ",
+          success: "approved agent",
+          error: "ops Something is Wrong!",
+        },
+        {
+          position: "top-center",
+        }
+      );
+      SetReload((e) => {
+        return e + 1;
+      });
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    const getdata = async () => {
       try {
-        const res = await axios.get('/api/admin/get-all-agent');
+        const res = await axios.get("/api/admin/get-all-agent");
         SetAgentData(res.data);
-      
-      } catch (error) {
-        console.log("🚀 ~ file: index.jsx:12 ~ useEffect ~ error:", error)
-      }
-    }
-    getdata()
-  },[reload])
+      } catch (error) {}
+    };
+    getdata();
+  }, [reload]);
 
   return (
     <div>
@@ -39,7 +56,7 @@ const Agent = () => {
           subtitle={"400"}
         />
       </div>
-      <div className="relative w-full mt-8">
+      <div className="relative mt-8 w-full">
         <Table
           colunm={[
             {
@@ -70,26 +87,38 @@ const Agent = () => {
             {
               Header: "Date",
               accessor: "createdAt",
-              Cell:(prop)=>{
-                return(
+              Cell: (prop) => {
+                return (
                   <div>
-                      <p><span>Request: </span>{new Date(prop.row.original.createdAt).toDateString()}</p>
-                      <p><span>Last Update: </span>{new Date(prop.row.original.updateAt).toDateString()}</p>
+                    <p>
+                      <span>Request: </span>
+                      {new Date(prop.row.original.createdAt).toDateString()}
+                    </p>
+                    <p>
+                      <span>Last Update: </span>
+                      {new Date(prop.row.original.updateAt).toDateString()}
+                    </p>
                   </div>
-                )
-              }
+                );
+              },
             },
             {
-              Header:"Account",
+              Header: "Account",
               accessor: "balance",
-              Cell:(prop)=>{
-                return(
+              Cell: (prop) => {
+                return (
                   <div>
-                      <p><span>balance:</span>{prop.row.original.balance}</p>
-                      <p><span>Rate:</span>{prop.row.original.rate}</p>
+                    <p>
+                      <span>balance:</span>
+                      {prop.row.original.balance}
+                    </p>
+                    <p>
+                      <span>Rate:</span>
+                      {prop.row.original.rate}
+                    </p>
                   </div>
-                )
-              }
+                );
+              },
             },
             {
               Header: "Aprove by",
@@ -101,13 +130,18 @@ const Agent = () => {
               Cell: (prop) => {
                 return (
                   <div className="flex justify-center">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <button
+                      onClick={() => {
+                        aprove(prop.row.original.id);
+                      }}
+                      className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                    >
                       Approve
                     </button>
                   </div>
                 );
               },
-            }
+            },
           ]}
           datas={agentData}
         />
