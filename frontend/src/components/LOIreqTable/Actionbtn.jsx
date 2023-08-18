@@ -11,6 +11,8 @@ function CardMenu(props) {
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
+  console.log(props);
+
   const handleApproved = () => {
     let family = 1;
 
@@ -92,48 +94,69 @@ function CardMenu(props) {
     });
   };
 
-  const detailsPage = () => {
-    let family = 1;
-
-    const filterData = data.filter(
-      (data) => data.reference === prop?.reference
-    );
-    if (filterData.length > 1) {
-      family = filterData.length;
-    }
-
-    Swal.fire({
-      title: "Are you sure to cancel?",
-      text: `Name: ${prop?.guest_name}, Passport Number: ${
-        prop?.pasport_number
-      }, Family: ${"family"}`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#422AFB",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "close",
-      confirmButtonText: "Yes, Cancel It!",
-    });
-  };
+  //   {
+  //     "id": 2,
+  //     "guest_name": "al-imam",
+  //     "pasport_number": "234234",
+  //     "travel_date": "2023-10-13",
+  //     "hotel_name": "valentino",
+  //     "reference": "c6ae0102-daa8-468f-885e-53ec0108afaf",
+  //     "price": "admin",
+  //     "pasport_copy": "imgpasport-al-imam-234234.jpeg",
+  //     "visa_copy": "imgvisa-al-imam-234234.jpeg",
+  //     "hotel_copy": "hotel-al-imam-234234.jpeg",
+  //     "tiket_copy": "ticket-al-imam-234234.jpeg",
+  //     "iternary": "[{\"id\":\"fd3f33db-4490-4ed0-9917-301076affede\",\"date\":\"2023-10-13\",\"from\":\"airport\",\"to\":\"hotel\"}]",
+  //     "country": "Singapor",
+  //     "status": "cancel",
+  //     "agent": "{\"type\":\"admin\",\"username\":\"alimam\"}",
+  //     "createdAt": "2023-08-17T10:00:21.000Z",
+  //     "updateAt": "2023-08-17T10:00:21.000Z"
+  // }
 
   return (
     <>
       {showDetails && (
         <div className="bg-black/10 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-          <div className="w-[720px] space-y-4 rounded-lg bg-white p-8 shadow-md">
+          <div className="relative mx-6 w-[720px] space-y-6 rounded-lg bg-white p-8 shadow-md md:mx-0">
             <h3 className="text-center text-3xl">Details</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2">
+            <div className="text-gray-950 grid grid-cols-1 text-lg sm:grid-cols-2">
               <div>
-                <p className="text-gray-950 text-lg">Name: al-imam</p>
-                <p className="text-gray-950 text-lg">Country: Bangladesh</p>
-                <p className="text-gray-950 text-lg">Pasport no: 4357786345</p>
-                <p className="text-gray-950 text-lg">Hotel name: valentino</p>
-                <p className="text-gray-950 text-lg">Travel date: 2002-12-23</p>
-                <p className="text-gray-950 text-lg">
+                <p>Name: {prop.guest_name}</p>
+                <p>Country: {prop.country}</p>
+                <p>Pasport no: {prop.pasport_number}</p>
+                <p>Hotel name: {prop.hotel_name}</p>
+                <p>Travel date: {prop.travel_date}</p>
+                <p>
                   Status: <span className="text-red-500">cancel</span>
                 </p>
               </div>
-              <div></div>
+              <div className="flex flex-col">
+                {/* TODO: complete url for pasport_copy */}
+                <a
+                  className="text-blue-500 underline"
+                  href={`${prop.pasport_copy}`}
+                >
+                  Pasport_copy
+                </a>
+                <a className="text-blue-500 underline" href={prop.visa_copy}>
+                  Visa_copy
+                </a>
+                <a className="text-blue-500 underline" href={prop.tiket_copy}>
+                  Tiket_copy
+                </a>
+                <a className="text-blue-500 underline" href={prop.hotel_copy}>
+                  Hotel_copy
+                </a>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowDetails(false)}
+                className="rounded px-6 py-1 text-lg ring ring-brandLinear"
+              >
+                close
+              </button>
             </div>
           </div>
         </div>
