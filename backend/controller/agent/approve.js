@@ -30,16 +30,18 @@ function generatePassword(length) {
 async function approve(req, res, next) {
   try {
     const password = generatePassword(6);
-
+   
+    console.log("🚀 ~ file: approve.js:34 ~ approve ~ req.ADMIN:", req.ADMIN)
     await Agent.findByIdAndUpdate(req.body.id, {
       status: 1,
-      admin: req.ADMIN.username,
+      admin: req.ADMIN.user,
       rate: 0,
       balance: 0,
       password: bcrypt.hashSync(password, 10),
     });
 
-    const dbAgent = await Agent.findById(req.body.id);
+    const [dbAgent] = await Agent.findById(req.body.id);
+    console.log("🚀 ~ file: approve.js:43 ~ approve ~ dbAgent:", dbAgent.email)
 
     await SendMail(
       [dbAgent.email],

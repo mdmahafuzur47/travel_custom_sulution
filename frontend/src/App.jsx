@@ -22,9 +22,9 @@ const App = () => {
         <Route index element={<AgentHome />} />
         <Route path="/agent/agentProfile" element={<AgentProfile />} />
       </Route>
-      <Route path="/agentLogin" element={<AgentLogin />} />
+      <Route path="/agent/Login" element={<AgentLogin />} />
       <Route path="/agent/registration" element={<Registration />} />
-      <Route path="/" element={<Navigate to="/admin" replace />} />
+      <Route path="/" element={<Navigate to="/agent" replace />} />
     </Routes>
   );
 };
