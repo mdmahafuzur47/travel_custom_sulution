@@ -88,6 +88,7 @@ const approved = async (req, res, next) => {
         instanceof: "loiapp",
       };
     }
+    
     const [resdb] = await LOI.findAll();
     const [Guest] = resdb.filter((e) => e.id === id);
     const AllGuest = resdb.filter((e) => e.reference === Guest.reference);
