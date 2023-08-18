@@ -20,17 +20,20 @@ const Login = async (req, res) => {
     });
   }
 
-  const tokenInfo = {
-    id: user.id,
-    email: user.email,
-    name: user.name,
-    admin: user.admin,
-    rate: user.rate,
-    status: user.status,
-  };
-
   const session = v4();
-  const token = jwt.sign(tokenInfo, process.env.JWTT);
+
+  const token = jwt.sign(
+    {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      admin: user.admin,
+      rate: user.rate,
+      status: user.status,
+      dict: session,
+    },
+    process.env.JWTT
+  );
 
   await Agent.update({ set: { session }, where: { id: user.id } });
 
@@ -43,7 +46,7 @@ const Login = async (req, res) => {
     })
   );
 
-  res.json({ success: true, token, auth: tokenInfo });
+  res.json({ success: true, token });
 };
 
 module.exports = Login;
