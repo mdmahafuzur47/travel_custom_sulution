@@ -297,6 +297,7 @@ class Model {
       return error;
     }
   }
+
   // raw sql input
   async RayQuery(sql) {
     try {

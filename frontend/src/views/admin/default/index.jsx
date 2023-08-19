@@ -18,14 +18,17 @@ import TaskCard from "views/admin/default/components/TaskCard";
 import tableDataCheck from "./variables/tableDataCheck.json";
 import tableDataComplex from "./variables/tableDataComplex.json";
 import REqu from "components/LOIreqTable/REqu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState("");
-  const [reload,setReload] = useState(0);
+  const [reload, setReload] = useState(0);
 
-  const [input,setInput] = useState('');
-  const [search, setSearch] = useState('');
+  const [input, setInput] = useState("");
+  const [search, setSearch] = useState("");
+
+  const [status, setStatus] = useState({});
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -33,7 +36,18 @@ const Dashboard = () => {
 
   const handleSearch = () => {
     setSearch(input);
-  }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get("/api/admin/get-status");
+        setStatus(data);
+      } catch (e) {
+        console.log("get-status", e);
+      }
+    })();
+  }, []);
 
   return (
     <div>
@@ -42,33 +56,33 @@ const Dashboard = () => {
       <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
-          title={"Submited Today"}
-          subtitle={"400"}
+          title={"Submitted Today"}
+          subtitle={status.submitToday ?? 0}
         />
         <Widget
           icon={<IoDocuments className="h-6 w-6" />}
           title={"Confirm Today"}
-          subtitle={"20"}
+          subtitle={status.confirmToday ?? 0}
         />
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
-          title={"Sales"}
-          subtitle={"$574.34"}
+          title={"Total Pending"}
+          subtitle={status.totalTask ?? 0}
         />
         <Widget
           icon={<MdDashboard className="h-6 w-6" />}
-          title={"Your Balance"}
-          subtitle={"$1,000"}
+          title={"Total Cancel"}
+          subtitle={status.totalCancel ?? 0}
         />
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
-          title={"New Tasks"}
+          title={"extra"}
           subtitle={"145"}
         />
         <Widget
           icon={<IoMdHome className="h-6 w-6" />}
-          title={"Total Projects"}
-          subtitle={"$2433"}
+          title={"Total Approved"}
+          subtitle={status.totalApproved ?? 0}
         />
       </div>
 
@@ -88,12 +102,14 @@ const Dashboard = () => {
           </label>
           <select
             id="status"
-            className="rounded-lg border px-4 py-2 focus:border-blue-300 focus:ring focus:ring-blue-300 outline-none"
+            className="rounded-lg border px-4 py-2 outline-none focus:border-blue-300 focus:ring focus:ring-blue-300"
             value={selectedOption}
             onChange={handleSelectChange}
           >
-            <option  value="">Select an Status</option>
-            <option selected value="approved">Approved</option>
+            <option value="">Select an Status</option>
+            <option selected value="approved">
+              Approved
+            </option>
             <option value="pending">Pending</option>
             <option value="cencle">Cencle</option>
           </select>
@@ -104,13 +120,16 @@ const Dashboard = () => {
               type="text"
               placeholder="Search..."
               className="rounded-lg border px-8 py-2 outline-none focus:border-blue-300 focus:ring focus:ring-blue-300"
-              onChange={(e)=>setInput(e.target.value)}
+              onChange={(e) => setInput(e.target.value)}
             />
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
               <HeroiconsSolidSearch className="h-5 w-5 text-gray-400" />
             </div>
           </div>
-          <button onClick={handleSearch} className="rounded-lg bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600">
+          <button
+            onClick={handleSearch}
+            className="rounded-lg bg-blue-500 px-4 py-2 text-white transition duration-300 hover:bg-blue-600"
+          >
             Search
           </button>
         </div>
@@ -118,7 +137,11 @@ const Dashboard = () => {
 
       {/* new request table  */}
       <div className="relative w-full p-3">
-        <REqu selectedOption={selectedOption} search={search}  relaod={[reload,setReload]}/>
+        <REqu
+          selectedOption={selectedOption}
+          search={search}
+          relaod={[reload, setReload]}
+        />
       </div>
 
       {/* Charts */}
