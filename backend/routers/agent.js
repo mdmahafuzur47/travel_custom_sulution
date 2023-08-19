@@ -6,9 +6,8 @@ const { isString } = require("nested-object-validate");
 const Login = require("../controller/Agent/login");
 const AgentRoute = express.Router();
 const isAdmin = require("../middleware/Auth/isAdmin");
+const getInfo = require("../controller/Agent/info");
 
-
-AgentRoute.get("/info");
 AgentRoute.post(
   "/reg",
   validateBody([
@@ -27,5 +26,6 @@ AgentRoute.post(
 );
 
 AgentRoute.post("/approve", isAdmin, approve);
+AgentRoute.get("/info", getInfo);
 
 module.exports = AgentRoute;

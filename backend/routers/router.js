@@ -10,6 +10,7 @@ const AgentRoute = require("./agent");
 
 const Pdf_Gen = require("../GenaretePDF/GenaratePDF");
 const AdminRouter = require("./admin");
+const Logout = require("../controller/Agent/logout");
 
 MainRouter.use("/pdfgen/:id", pdfgen);
 MainRouter.use("/pdfgenitenary/:id", genitenary);
@@ -21,5 +22,7 @@ MainRouter.use("/api/auth", AuthRoute);
 MainRouter.use("/temp", TempRouter);
 MainRouter.use("/api/loi", LOIRoute);
 MainRouter.use("/api/admin", AdminRouter);
+
+MainRouter.post("api/logout", Logout);
 
 module.exports = MainRouter;

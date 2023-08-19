@@ -2,11 +2,11 @@ const Agent = require("../../model/Agent");
 const bcript = require("bcrypt");
 const { v4 } = require("uuid");
 const jwt = require("jsonwebtoken");
-const cookie = require('cookie');
+const cookie = require("cookie");
 
 const Login = async (req, res) => {
   const [user] = await Agent.findOne({ email: req.body.email });
- 
+
   if (!user) {
     return res.status(404).json({
       message: "User not found!",
@@ -44,6 +44,7 @@ const Login = async (req, res) => {
       maxAge: 1 * 24 * 60 * 60,
       sameSite: "strict",
       path: "/",
+      httpOnly: true,
     })
   );
 
