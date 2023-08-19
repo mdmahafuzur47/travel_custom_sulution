@@ -297,9 +297,17 @@ class Model {
       return error;
     }
   }
+
   // raw sql input
   async RayQuery(sql) {
     try {
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          const resmy = await this.mygrate();
+          resolve();
+        });
+      }
+
       const DB = await DataBase();
       return DB.execute(sql);
     } catch (error) {
