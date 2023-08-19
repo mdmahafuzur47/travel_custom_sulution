@@ -2,10 +2,16 @@ import React from "react";
 import Widget from "components/widget/Widget";
 
 const DetailAgentmodule = ({ data, close, reload }) => {
-  console.log(
-    "🚀 ~ file: Detail.model.jsx:4 ~ DetailAgentmodule ~ data:",
-    data
-  );
+  
+  // const add valence 
+  const AddBal = async ()=>{
+    try {
+      let url = '/api/admin/add-balance';
+    } catch (error) {
+      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error)
+      
+    }
+  }
   return (
     <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md ">
       <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">

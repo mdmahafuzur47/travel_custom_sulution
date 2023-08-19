@@ -4,7 +4,6 @@ const PhotoUploader = require("../controller/Temp/photoupload");
 
 // auth import
 const AdminAuth = require("../middleware/Auth/isAdmin");
-const AgentAuth = require("../middleware/Auth/Agent");
 const UploadTempPhoto = require("../util/PhotoUploader");
 
 TempRouter.post(
