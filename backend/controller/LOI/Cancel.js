@@ -4,24 +4,30 @@ const fs = require("fs");
 
 async function CancelController(req, res, next) {
   try {
-    const dbRes = await LOISchema.RayQuery(
-      `UPDATE loi_data SET status='cancel' WHERE id=${req.body.id}`
-    );
+    const getRes = await LOISchema.find({ reference: req.body.reference });
 
-    if (dbRes.affectedRows < 1) {
-      return res
-        .status(404)
-        .json({ message: "Data not found", code: "loi-cancel" });
+    const upRes = await LOISchema.update({
+      set: { status: "cancel" },
+      where: { reference: req.body.reference },
+    });
+
+    if (upRes.affectedRows < 1) {
+      return res.status(404).json({
+        message: "Data not found",
+        code: "loi-cancel",
+      });
     }
 
-    const [agents] = await LOISchema.getById(req.body.id);
-
-    const paths = [
-      agents[0].hotel_copy,
-      agents[0].pasport_copy,
-      agents[0].visa_copy,
-      agents[0].tiket_copy,
-    ].map((p) => path.join(__dirname, "../../upload/loireqfile", p));
+    const paths = getRes
+      .map((agents) => {
+        return [
+          agents.hotel_copy,
+          agents.pasport_copy,
+          agents.visa_copy,
+          agents.tiket_copy,
+        ].map((p) => path.join(__dirname, "../../upload/loireqfile", p));
+      })
+      .flat();
 
     for (const image of paths) {
       try {

@@ -76,8 +76,8 @@ const Dashboard = () => {
         />
         <Widget
           icon={<MdBarChart className="h-7 w-7" />}
-          title={"extra"}
-          subtitle={"145"}
+          title={"Total Submit"}
+          subtitle={status.totalSubmit ?? 0}
         />
         <Widget
           icon={<IoMdHome className="h-6 w-6" />}

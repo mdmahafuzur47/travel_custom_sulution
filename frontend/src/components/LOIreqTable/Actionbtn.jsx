@@ -76,8 +76,9 @@ function CardMenu(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
+          console.log(prop);
           const res = await toast.promise(
-            axios.post("/api/loi/cancel", { id: prop?.id }),
+            axios.post("/api/loi/cancel", { reference: prop?.reference }),
             {
               pending: "Please wait",
               error: "Something went wrong",
@@ -93,26 +94,6 @@ function CardMenu(props) {
       }
     });
   };
-
-  //   {
-  //     "id": 2,
-  //     "guest_name": "al-imam",
-  //     "pasport_number": "234234",
-  //     "travel_date": "2023-10-13",
-  //     "hotel_name": "valentino",
-  //     "reference": "c6ae0102-daa8-468f-885e-53ec0108afaf",
-  //     "price": "admin",
-  //     "pasport_copy": "imgpasport-al-imam-234234.jpeg",
-  //     "visa_copy": "imgvisa-al-imam-234234.jpeg",
-  //     "hotel_copy": "hotel-al-imam-234234.jpeg",
-  //     "tiket_copy": "ticket-al-imam-234234.jpeg",
-  //     "iternary": "[{\"id\":\"fd3f33db-4490-4ed0-9917-301076affede\",\"date\":\"2023-10-13\",\"from\":\"airport\",\"to\":\"hotel\"}]",
-  //     "country": "Singapor",
-  //     "status": "cancel",
-  //     "agent": "{\"type\":\"admin\",\"username\":\"alimam\"}",
-  //     "createdAt": "2023-08-17T10:00:21.000Z",
-  //     "updateAt": "2023-08-17T10:00:21.000Z"
-  // }
 
   return (
     <>

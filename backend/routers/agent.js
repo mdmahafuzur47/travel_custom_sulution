@@ -7,6 +7,7 @@ const Login = require("../controller/Agent/login");
 const AgentRoute = express.Router();
 const isAdmin = require("../middleware/Auth/isAdmin");
 const getInfo = require("../controller/Agent/info");
+const isAgent = require("../middleware/Auth/isAgent");
 
 AgentRoute.post(
   "/reg",
@@ -25,7 +26,14 @@ AgentRoute.post(
   Login
 );
 
-AgentRoute.post("/approve", isAdmin, approve);
+AgentRoute.post(
+  "/change-password",
+  isAgent,
+  validateBody([isString("password"), isString("current-password")]),
+  Login
+);
+
+AgentRoute.post("/approve", isAdmin, validateBody([isString("id")]), approve);
 AgentRoute.get("/info", getInfo);
 
 module.exports = AgentRoute;
