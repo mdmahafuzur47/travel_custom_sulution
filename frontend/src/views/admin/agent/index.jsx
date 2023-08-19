@@ -3,10 +3,12 @@ import Widget from "components/widget/Widget";
 import Table from "./table";
 import axios from "axios";
 import { toast } from "react-toastify";
+import DetailAgentmodule from "./Detail.model";
 
 const Agent = () => {
   const [agentData, SetAgentData] = useState([]);
   const [reload, SetReload] = useState(1);
+  const [DetailAgent,SetDetailsAgent] = useState(null);
 
   const aprove = async (id) => {
     try {
@@ -41,7 +43,9 @@ const Agent = () => {
 
   return (
     <div>
-      hello
+      {
+        DetailAgent?(<DetailAgentmodule/>):""
+      }
       <div className="mt-3 grid h-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
         <Widget
           icon={<MaterialSymbolsPersonRaisedHandOutline className="h-7 w-7" />}
@@ -129,16 +133,31 @@ const Agent = () => {
               accessor: "email",
               Cell: (prop) => {
                 return (
-                  <div className="flex justify-center">
-                    <button
-                      onClick={() => {
-                        aprove(prop.row.original.id);
-                      }}
-                      className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
-                    >
-                      Approve
-                    </button>
-                  </div>
+                  <>
+                    {+prop.row.original.status ? (
+                      <div className="flex justify-center">
+                      <button
+                        onClick={() => {
+                          SetDetailsAgent(prop.row.original);
+                        }}
+                        className="rounded bg-brand-500 py-2 px-4 flex items-center font-bold text-white hover:bg-blue-700"
+                      >
+                        <span className="text-xl"><PhAddressBookFill/></span> details
+                      </button>
+                    </div>
+                    ) : (
+                      <div className="flex justify-center">
+                        <button
+                          onClick={() => {
+                            aprove(prop.row.original.id);
+                          }}
+                          className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+                        >
+                          Approve
+                        </button>
+                      </div>
+                    )}
+                  </>
                 );
               },
             },
@@ -184,4 +203,12 @@ export function MaterialSymbolsSupervisedUserCircleOutline(props) {
       ></path>
     </svg>
   );
+}
+
+
+
+export function PhAddressBookFill(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" {...props}><path fill="currentColor" d="M160 112a24 24 0 1 1-24-24a24 24 0 0 1 24 24Zm64-72v176a16 16 0 0 1-16 16H64a16 16 0 0 1-16-16v-24H32a8 8 0 0 1 0-16h16v-40H32a8 8 0 0 1 0-16h16V80H32a8 8 0 0 1 0-16h16V40a16 16 0 0 1 16-16h144a16 16 0 0 1 16 16Zm-33.6 123.2a67.88 67.88 0 0 0-27.4-21.69a40 40 0 1 0-53.94 0A67.88 67.88 0 0 0 81.6 163.2a8 8 0 1 0 12.8 9.6a52 52 0 0 1 83.2 0a8 8 0 1 0 12.8-9.6Z"></path></svg>
+  )
 }
