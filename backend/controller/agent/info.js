@@ -6,7 +6,7 @@ async function getInfo(req, res, next) {
     const values = jwt.verify(req.cookies.offer, process.env.JWTT);
     const user = await Agent.findById(values.id);
 
-    console.log({ user });
+    // console.log({ user });
 
     if (user.session !== values.session) {
       return res.status(401).json({
