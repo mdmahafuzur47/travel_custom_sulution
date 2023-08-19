@@ -22,12 +22,17 @@ async function getStatus(req, res, next) {
       `SELECT COUNT(*) AS totalApproved FROM loi_data WHERE status='approved';`
     );
 
+    const [[{ totalSubmit }]] = await LOI.RayQuery(
+      `SELECT COUNT(*) AS totalSubmit FROM loi_data;`
+    );
+
     res.json({
       submitToday,
       confirmToday,
       totalTask,
       totalApproved,
       totalCancel,
+      totalSubmit,
     });
   } catch (e) {
     console.log(e);
