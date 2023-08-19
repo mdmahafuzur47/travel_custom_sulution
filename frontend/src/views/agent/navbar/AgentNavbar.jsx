@@ -28,7 +28,7 @@ function AgentNavbar({ agent }) {
               <div className="text-brand-500">
                 <HeroiconsOutlineCurrencyDollar />
               </div>
-              <p className="text-md font-dm font-medium text-gray-600">
+              <p className="text-md font-dm font-medium text-gray-800">
                 {agent.balance}
               </p>
             </div>
@@ -48,16 +48,10 @@ function AgentNavbar({ agent }) {
                   <div className="flex flex-col justify-start gap-2 py-2">
                     <Link
                       to="/agent/agentProfile"
-                      class="text-sm text-gray-800 dark:text-white hover:dark:text-white"
+                      class="text-sm text-gray-800 hover:text-[#000] dark:text-white hover:dark:text-white"
                     >
                       Profile Settings
                     </Link>
-                    <a
-                      href="#"
-                      class="text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                    >
-                      Profile Settings
-                    </a>
                     <button
                       onClick={logout}
                       className="text-start text-sm text-blue-500 hover:underline"
