@@ -25,17 +25,19 @@ function Registration() {
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" style={{
+      background:"url('/asthait.jpg')"
+    }} >
       <div className="top-0 left-0 mx-auto h-full w-full max-w-[900px]">
         <img src="/longbaner.jpg" className="w-full" alt="" />
       </div>
-      <div className="flex w-full justify-center gap-2">
+      <div className="flex w-full justify-center md:gap-2">
         <div className="hidden w-full flex-1 md:block">
-          <img src="/asthait.jpg" className="w-full" alt="" />
+          {/* <img src="/asthait.jpg" className="w-full" alt="" /> */}
         </div>
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}
-          className="relative w-full flex-[2] py-2"
+          className="relative w-full flex-[2] bg-white/60 backdrop-blur-md py-2"
         >
           <div className="relative w-full rounded-sm bg-brand-100/50 p-3 text-center">
             <h1 className="text-2xl font-bold">Astha trip</h1>
@@ -84,7 +86,7 @@ function Registration() {
           </div>
         </form>
         <div className="relative hidden w-full flex-1 md:block">
-          <img src="/asthait.jpg" className="w-full" alt="" />
+          {/* <img src="/asthait.jpg" className="w-full" alt="" /> */}
         </div>
         <div className=""></div>
       </div>

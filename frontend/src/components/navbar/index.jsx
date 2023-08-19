@@ -11,11 +11,21 @@ import { RiMoonFill, RiSunFill } from "react-icons/ri";
 //   IoMdInformationCircleOutline,
 // } from "react-icons/io";
 import avatar from "assets/img/avatars/avatar4.png";
+import axios from "axios";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-
+  const logout = async()=>{
+    try {
+      await axios.get('/api/logout');
+    document.location.reload()
+    } catch (error) {
+      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error)
+      
+    }
+    
+  }
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -208,12 +218,12 @@ const Navbar = (props) => {
                 >
                   Newsletter Settings
                 </a>
-                <a
-                  href=" "
+                <button 
+                onClick={logout}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
                 >
                   Log Out
-                </a>
+                </button>
               </div>
             </div>
           }
