@@ -11,7 +11,6 @@ function decode(token) {
 
 const AuthAdmin = async (req, res, next) => {
   const admin = decode(req.cookies.sort);
-
   if (admin) {
     const dbAdmin = (await Admin.findOne({ id: admin.id }))[0];
 

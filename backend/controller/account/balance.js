@@ -7,7 +7,7 @@ function getNum(str, fallback = 0) {
 
 async function addBalance(req, res) {
   try {
-    const agent = await Agent.findById(req.body.id);
+    const [agent] = await Agent.findById(req.body.id);
 
     if (!agent) {
       return res.status(404).json({
@@ -22,7 +22,7 @@ async function addBalance(req, res) {
       balance,
     });
 
-    console.log(dbRes);
+
 
     res.json({ success: true });
   } catch (e) {

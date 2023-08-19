@@ -137,7 +137,7 @@ const Table = ({ datas, colunm, nav = true }) => {
       </div>):""
       }
       
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-auto">
         <table {...getTableProps()}>
           <thead>
             {
