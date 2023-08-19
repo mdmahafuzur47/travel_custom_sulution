@@ -47,7 +47,7 @@ const Dashboard = () => {
         console.log("get-status", e);
       }
     })();
-  }, []);
+  }, [reload]);
 
   return (
     <div>
@@ -61,7 +61,7 @@ const Dashboard = () => {
         />
         <Widget
           icon={<IoDocuments className="h-6 w-6" />}
-          title={"Confirm Today"}
+          title={"Approved Today"}
           subtitle={status.confirmToday ?? 0}
         />
         <Widget
