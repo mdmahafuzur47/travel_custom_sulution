@@ -181,9 +181,11 @@ const REqu = ({ selectedOption, search, relaod }) => {
               },
             },
             {
-              Header: "Agent Date",
+              Header: "Agent email",
               accessor: "AgentDate",
-              // TODO: Add Agent in Database
+              Cell: (prop) => {
+                return <p>{prop.row.original?.agent?JSON.parse(prop.row.original?.agent)?.username:""}</p>;
+              },
             },
             {
               Header: "Status",

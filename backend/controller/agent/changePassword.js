@@ -1,6 +1,6 @@
 const Agent = require("../../model/Agent");
 const bcrypt = require("bcrypt");
-
+//TODO: change password notify for 3 month
 async function changePassword(req, res, next) {
   try {
     if (!bcrypt.compareSync(req.body["current-password"], req.AGENT.password)) {

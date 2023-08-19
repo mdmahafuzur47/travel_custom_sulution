@@ -9,9 +9,9 @@ function mail(pass) {
       <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Astha trip</a>
     </div>
     <p style="font-size:1.1em">Hi,</p>
-    <p>Youre now approved agent of astha trip, login your loi dashboard with thi passwod.</p>
+    <p>You are now approved agent of astha trip, login your loi dashboard with this password.</p>
     <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">${pass}</h2>
-    <p>Chnage your password after login</p>
+    <p>Change your password after login</p>
     <p style="font-size:0.9em;">Regards,<br />Astha trip</p>
   </div>
 </div>`;

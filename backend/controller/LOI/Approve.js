@@ -47,12 +47,23 @@ const prosses = async (req, res, element) => {
       };
     });
 
+    const agentmail = [];
+    if(element.agent){
+        agentmail.push(JSON.parse(element.agent).username);
+    }
+
     const SendMailres = await SendMail(
       ["nahidhasan141400@gmail.com"],
-      ["nahidhasan.opt@gmail.com"],
+      ["nahidhasan.opt@gmail.com",...agentmail],
       `${element.pasport_number}-${element.guest_name}`,
-      "loi req",
       "",
+      `
+        <p styel="font-size:20px">Dear Sir,</p></br>
+        <p>Greetings from Astha trip.</p></br>
+        <p>Please Find The Attached File.
+        If you have any query please do not hesitate to contact with me</p></br>
+
+      `,
       [
         ...fileAtachment,
         {
