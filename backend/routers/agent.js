@@ -33,7 +33,7 @@ AgentRoute.post(
   Login
 );
 
-AgentRoute.post("/approve", isAdmin, validateBody([isString("id")]), approve);
+AgentRoute.post("/approve", isAdmin, validateBody(["id"]), approve);
 AgentRoute.get("/info", getInfo);
 
 module.exports = AgentRoute;

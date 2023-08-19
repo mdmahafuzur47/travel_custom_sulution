@@ -3,7 +3,7 @@ const Admin = require("../../model/Admin");
 
 function decode(token) {
   try {
-    return jwt.decode(token,process.env.JWTT);
+    return jwt.decode(token, process.env.JWTT);
   } catch {
     return null;
   }
