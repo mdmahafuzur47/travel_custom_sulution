@@ -3,7 +3,7 @@ const Admin = require("../../model/Admin");
 
 function decode(token) {
   try {
-    return jwt.decode(token.process.env.JWTT);
+    return jwt.decode(token,process.env.JWTT);
   } catch {
     return null;
   }
@@ -11,7 +11,6 @@ function decode(token) {
 
 const AuthAdmin = async (req, res, next) => {
   const admin = decode(req.cookies.sort);
-
   if (admin) {
     const dbAdmin = (await Admin.findOne({ id: admin.id }))[0];
 

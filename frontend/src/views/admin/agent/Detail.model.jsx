@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Widget from "components/widget/Widget";
+import { toast } from "react-toastify";
+import axios from "axios";
 
-const DetailAgentmodule = ({ data, close, reload }) => {
-  
+const DetailAgentmodule = ({ dataraw, close, reload }) => {
+
+
+  const [data,setData] = useState(null);
+useEffect(()=>{
+  setData(dataraw);
+},[dataraw])
+
+
+
+  const [inpbal,setInpbal] = useState(0);
   // const add valence 
   const AddBal = async ()=>{
     try {
       let url = '/api/admin/add-balance';
+      const res =await toast.promise(axios.post(url,{
+        id:`${data.id}`,
+        balance:inpbal
+      }),{
+        pending:"Wait please !",
+        success:"Balance added successfully",
+        error:"Something went wrong"
+      })
+      reload((old)=>old + 1)
+      close(false)
     } catch (error) {
       console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error)
       
@@ -14,7 +35,9 @@ const DetailAgentmodule = ({ data, close, reload }) => {
   }
   return (
     <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md ">
-      <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">
+      {
+        data?(
+          <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">
         <div className="relative flex w-full items-center border-b-2 border-brand-600 p-3 text-xl font-bold text-white justify-between">
           <div className="flex items-center">
             <span className="pr-2 text-2xl text-brand-700">
@@ -78,12 +101,19 @@ const DetailAgentmodule = ({ data, close, reload }) => {
               <div className="relative w-full">
                 <h1>Add Balance to Agent Account</h1>
                 <input
+                onChange={(e)=>{
+                  setInpbal(e.target.value)
+                }}
+                value={inpbal}
                   type="number"
                   placeholder="Enter The Ammount"
                   className="rounded-md p-2 shadow-sm"
                 />
                 <br />
-                <button className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
+                <button 
+                onClick={()=>{
+                  AddBal()
+                }} className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
                   Add
                 </button>
               </div>
@@ -103,6 +133,8 @@ const DetailAgentmodule = ({ data, close, reload }) => {
           </div>
         </div>
       </div>
+        ):"loading"
+      }
     </div>
   );
 };
