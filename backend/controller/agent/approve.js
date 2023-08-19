@@ -35,7 +35,7 @@ async function approve(req, res, next) {
     await Agent.findByIdAndUpdate(req.body.id, {
       status: 1,
       admin: req.ADMIN.user,
-      rate: 0,
+      rate: 100,
       balance: 0,
       password: bcrypt.hashSync(password, 10),
     });

@@ -33,6 +33,27 @@ useEffect(()=>{
       
     }
   }
+
+  const [inpRate,setInprate] = useState(0);
+  // const add rate 
+  const setRate = async ()=>{
+    try {
+      let url = '/api/admin/setrate';
+      const res =await toast.promise(axios.post(url,{
+        id:`${data.id}`,
+        rate:inpRate
+      }),{
+        pending:"Wait please !",
+        success:"Balance added successfully",
+        error:"Something went wrong"
+      })
+      reload((old)=>old + 1)
+      close(false)
+    } catch (error) {
+      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error)
+      
+    }
+  }
   return (
     <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md ">
       {
@@ -121,11 +142,17 @@ useEffect(()=>{
                 <h1>Set Agent rate</h1>
                 <input
                   type="number"
+                  onChange={(e)=>{
+                    setInprate(e.target.value)
+                  }}
+                  value={inpRate}
                   placeholder="Enter The Ammount"
                   className="rounded-md p-2 shadow-sm"
                 />
                 <br />
-                <button className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
+                <button 
+                onClick={ setRate }
+                className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
                   Update
                 </button>
               </div>
