@@ -20,8 +20,8 @@ function AgentNavbar({ agent }) {
       <nav className=" p-4 shadow-md">
         <div className="container mx-auto flex items-center justify-between">
           <Link to={"/agent"} className="flex items-center">
-            <img src={""} alt="Logo" className="mr-2 h-8 w-8" />
-            <span className="text-lg font-semibold ">Logo</span>
+            <img src={"/logoastha.png"} alt="Logo" className="mr-2 h-8 w-8" />
+            <span className="text-lg font-semibold ">Astha Trip</span>
           </Link>
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-1 ">

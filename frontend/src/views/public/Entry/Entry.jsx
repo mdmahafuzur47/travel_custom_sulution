@@ -20,6 +20,36 @@ const Entry = () => {
   const [load, setload] = useState(false);
   const [hide, sethide] = useState(false);
 
+  // chack auth
+  const [Admin, setAdmin] = useState({});
+  const [Agent, SetAgent] = useState({});
+
+  useEffect(() => {
+    const getData = async () => {
+      const ad = false;
+      try {
+        try {
+          const resAdmin = await axios("/api/auth/info");
+          setAdmin(resAdmin.data);
+          ad = true;
+        } catch (error) {
+          setAdmin(false);
+        }
+        const resAgent = await axios("/api/agent/info");
+
+        if (!ad && !resAgent.data) {
+          return Navigate("/agent/login");
+        }
+        SetAgent(resAgent.data);
+      } catch (error) {
+        console.log("🚀 ~ file: Entry.jsx:46 ~ getData ~ error:", error);
+
+        Navigate("/agent/login");
+      }
+    };
+    getData();
+  }, []);
+
   // handleFromData itenery from
   const [fromdata, setFromdata] = useState([]);
   const handleFromData = (e) => {
@@ -114,29 +144,28 @@ const Entry = () => {
         visaPhoto: response.data.visa.name || null,
         hotelbooking: response.data.hotelbooking.name || null,
         ticket: response.data.tiket.name || null,
-        country:country,
+        country: country,
         id: uuidv4(),
       };
       setDataList((old) => [...old, data]);
       e.target.querySelector("#reset").click();
       setload(false);
     } catch (error) {
-      console.log("🚀 ~ file: Entry.jsx:49 ~ onsubmit ~ error:", error);
       setload(false);
     }
   };
 
   // submit all data
   const submitFullList = async () => {
-    if(load){
+    if (load) {
       return toast.warn("wait for pending job!");
     }
 
     setload(true);
 
-    if(!fromdata.length){
+    if (!fromdata.length) {
       setload(false);
-      return toast.warn('please enter tour iternary');
+      return toast.warn("please enter tour iternary");
     }
 
     try {
@@ -145,7 +174,8 @@ const Entry = () => {
         axios.post("/api/loi/entry", {
           datas: [...dataList],
           iternary: JSON.stringify(fromdata),
-        }),{
+        }),
+        {
           pending: "wait for submiting",
           success: "from submited",
           error: {
@@ -158,25 +188,32 @@ const Entry = () => {
           },
         }
       );
-      
-      Navigate('/admin/default');
+
+      Navigate("/admin/default");
     } catch (error) {
-      setload(false)
-      console.log("🚀 ~ file: Entry.jsx:81 ~ submitFullList ~ error:", error);
+      setload(false);
     }
   };
 
-  const backtoboard = ()=>{
-    if(dataList.length){
-      return toast.warn("You have to complite submition of guest data")
+  const backtoboard = () => {
+    if (dataList.length) {
+      return toast.warn("You have to complite submition of guest data");
     }
-    Navigate('/admin/default');
-  }
+    Navigate(-1);
+  };
 
   return (
     <div className="relative mb-5 w-full">
-      <div className="w-full relative p-3">
-        <button onClick={backtoboard} className="py-2 px-3 text-white bg-brand-500 rounded-md flex items-center"><span className="text-2xl pr-2"><MaterialSymbolsArrowLeftAltRounded/></span> Back to dashboard</button>
+      <div className="relative w-full p-3">
+        <button
+          onClick={backtoboard}
+          className="flex items-center rounded-md bg-brand-500 py-2 px-3 text-white"
+        >
+          <span className="pr-2 text-2xl">
+            <MaterialSymbolsArrowLeftAltRounded />
+          </span>{" "}
+          Back to dashboard
+        </button>
       </div>
       <div className="mx-auto mt-3 w-full max-w-[1200px] overflow-hidden rounded-md bg-brand-100/5 shadow-lg backdrop-blur-md">
         <div className="relative w-full bg-brand-400 p-2"></div>
@@ -202,7 +239,9 @@ const Entry = () => {
                   Choose Your Country
                 </option>
                 <option value="Singapor">Singapor</option>
-                <option disabled value="Vietnem">Vietnem</option>
+                <option disabled value="Vietnem">
+                  Vietnem
+                </option>
               </select>
             </div>
           </div>
@@ -553,17 +592,15 @@ const Entry = () => {
               tableData={fromdata}
             />
 
-        
-        <div className="relative w-full p-3 pl-5">
-          <button
-            onClick={submitFullList}
-            className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
-          >
-            Submit
-          </button>
-        </div>
-   
-        </div>
+            <div className="relative w-full p-3 pl-5">
+              <button
+                onClick={submitFullList}
+                className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -659,6 +696,17 @@ export function MaterialSymbolsAirplaneTicketOutlineRounded(props) {
 
 export function MaterialSymbolsArrowLeftAltRounded(props) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13H7.85Z"></path></svg>
-  )
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13H7.85Z"
+      ></path>
+    </svg>
+  );
 }

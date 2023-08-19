@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Table  from "../../public/Entry/ComplexTable";
 import React from "react";
 
@@ -61,9 +62,9 @@ function TotalInfo() {
         </div>
       </div>
       <div className="mt-4">
-        <a
+        <Link
           class="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
-          href="/agentEntry"
+          to="/entry"
         >
           <span class="flex">
             <svg
@@ -79,7 +80,7 @@ function TotalInfo() {
             </svg>
             Add New Entry
           </span>
-        </a>
+        </Link>
       </div>
 
       <div className="mt-5">
