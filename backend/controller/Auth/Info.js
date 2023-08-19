@@ -5,7 +5,7 @@ const Info = async (req, res, next) => {
   let AdminDecode = null;
   try {
     const { sort } = req.cookies;
-    return next()
+    
     if (!sort) {
       throw {
         message: "not auth!",
