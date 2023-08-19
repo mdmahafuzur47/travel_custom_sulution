@@ -127,7 +127,7 @@ const AgentProfile = () => {
             setIsPassOpen(true);
             setIsOpen(false);
           }}
-          class="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+          class="ml-4 inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
         >
           Change Password
         </button>
