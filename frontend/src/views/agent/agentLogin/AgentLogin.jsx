@@ -2,6 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AgentLogin = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -36,24 +37,24 @@ const AgentLogin = () => {
 
   return (
     <div className="container mx-auto flex items-center justify-between">
-      <div>
+      <div className="md:block hidden">
         <img
-          className="h-[80vh] w-[500px]"
-          src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
+          className="h-[80vh] object-contain w-[500px]"
+          src="/asthait.jpg"
           alt="img"
         />
       </div>
       <div className="flex h-screen w-full flex-col items-center justify-center">
         <img
-          className="h-[150px] w-[400px]"
-          src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
+          className="h-[150px] object-contain w-[400px]"
+          src="/longbaner.jpg"
           alt="logo-img"
         />
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}
-          className="mt-[5vh] w-full max-w-full flex-col items-center md:pl-4 lg:pl-0 xl:max-w-[420px]"
+          className="mt-[5vh] w-full max-w-full flex-col py-2 items-center md:pl-4 lg:pl-0 xl:max-w-[420px]"
         >
-          <h4 className="mb-2.5 text-4xl font-bold text-navy-700 dark:text-white">
+          <h4 className="mb-2.5 md:text-4xl text-2xl font-bold text-navy-700 dark:text-white">
             Sign In As Agent
           </h4>
           <p className="mb-9 ml-1 text-base text-gray-600">
@@ -76,7 +77,7 @@ const AgentLogin = () => {
             </label>
             <input
               type="password"
-              placeholder="Min. 8 characters"
+              placeholder="type password"
               className="mt-2 flex h-12 w-full items-center justify-center rounded-xl border border-gray-200 bg-white/0 p-3 text-sm outline-none dark:!border-white/10 dark:text-white"
               {...register("password", { required: true })}
             />
@@ -91,19 +92,19 @@ const AgentLogin = () => {
             <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
               Not registered yet?
             </span>
-            <a
-              href=" "
+            <Link
+              to="/agent/registration"
               className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
             >
               Create an account
-            </a>
+            </Link>
           </div>
         </form>
       </div>
-      <div>
+      <div className="md:block hidden">
         <img
-          className="h-[80vh] w-[500px]"
-          src="https://platinumlist.net/guide/wp-content/uploads/2023/03/IMG-worlds-of-adventure.webp"
+          className="h-[80vh] object-contain w-[500px]"
+          src="/asthait.jpg"
           alt="img"
         />
       </div>

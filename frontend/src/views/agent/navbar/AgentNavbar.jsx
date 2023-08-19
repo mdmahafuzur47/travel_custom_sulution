@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import axios from "axios";
 
 function AgentNavbar() {
   const [open, setOpen] = useState(false);
+  const logout = async()=>{
+    try {
+      await axios.get('/api/logout');
+    document.location.reload()
+    } catch (error) {
+      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error)
+      
+    }
+    
+  }
   return (
     <>
       <nav className=" p-4 shadow-md">
@@ -46,7 +57,7 @@ function AgentNavbar() {
                     >
                       Profile Settings
                     </a>
-                    <button className="text-start text-sm text-blue-500 hover:underline">
+                    <button onClick={logout} className="text-start text-sm text-blue-500 hover:underline">
                       Logout
                     </button>
                   </div>
