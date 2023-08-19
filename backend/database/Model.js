@@ -122,6 +122,29 @@ class Model {
     }
   }
 
+  async find(where) {
+    try {
+      if (!(await chackTable(this.name))) {
+        await new Promise(async (resolve) => {
+          await this.mygrate();
+          resolve();
+        });
+      }
+
+      const q = Object.entries(where)
+        .map(([key, value]) => `${key}='${value}'`)
+        .join(" AND ");
+
+      const DB = await DataBase();
+      const query = `SELECT * FROM ${this.name} WHERE ${q}`;
+
+      const sql = await DB.execute(query);
+      return sql[0];
+    } catch (error) {
+      console.log("🚀 ~ file: Model.js:101 ~ Model ~ find ~ error:", error);
+    }
+  }
+
   // add data
   async Add(data) {
     try {
@@ -239,11 +262,11 @@ class Model {
         .map(([key, value]) => `${key}='${value}'`)
         .join(", ");
 
-      // const DB = await DataBase();
-      const query = `UPDATE ${this.name} SET ${set} WHERE ${where}`;
-      console.log(query);
-      // const sql = await DB.execute(query);
-      // return sql[0];
+      const DB = await DataBase();
+      const sql = await DB.execute(
+        `UPDATE ${this.name} SET ${set} WHERE ${where}`
+      );
+      return sql;
     } catch (error) {
       console.log("🚀 ~ file: Model.js:101 ~ Model ~ update ~ error:", error);
     }
