@@ -11,12 +11,11 @@ async function changePassword(req, res, next) {
     }
 
     await Agent.findByIdAndUpdate(req.AGENT.id, {
-      password: bcrypt.hashSync(req.body.password),
+      password: bcrypt.hashSync(req.body.password, 10),
     });
 
     res.json({ success: true });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 }
