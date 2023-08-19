@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Agent() {
+  const [agent, setAgent] = useState({});
   const navigate = useNavigate();
-  const [agent, setAgent] = useState(false);
+
   useEffect(() => {
     const getAuth = async () => {
       try {
@@ -24,7 +25,7 @@ function Agent() {
 
   return agent ? (
     <div className="bg-[#F5F8FE] p-5 md:p-1">
-      <AgentNavbar />
+      <AgentNavbar agent={agent} />
       <div className="container mx-auto my-5">
         <Outlet />
       </div>

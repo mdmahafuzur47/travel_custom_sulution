@@ -2,23 +2,24 @@ import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import axios from "axios";
 
-function AgentNavbar() {
+function AgentNavbar({ agent }) {
   const [open, setOpen] = useState(false);
-  const logout = async()=>{
+  const logout = async () => {
     try {
-      await axios.get('/api/logout');
-    document.location.reload()
+      await axios.get("/api/logout");
+      document.location.reload();
     } catch (error) {
-      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error)
-      
+      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error);
     }
-    
-  }
+  };
+
+  console.log(agent);
+
   return (
     <>
       <nav className=" p-4 shadow-md">
         <div className="container mx-auto flex items-center justify-between">
-          <Link to={'/agent'} className="flex items-center">
+          <Link to={"/agent"} className="flex items-center">
             <img src={""} alt="Logo" className="mr-2 h-8 w-8" />
             <span className="text-lg font-semibold ">Logo</span>
           </Link>
@@ -28,12 +29,12 @@ function AgentNavbar() {
                 <HeroiconsOutlineCurrencyDollar />
               </div>
               <p className="text-md font-dm font-medium text-gray-600">
-                Balance
+                {agent.balance}
               </p>
             </div>
             <div onClick={() => setOpen(!open)} className="relative">
               <img
-                src={""}
+                src={agent.photo}
                 alt="User Profile"
                 className="h-8 w-8 cursor-pointer rounded-full"
               />
@@ -41,7 +42,7 @@ function AgentNavbar() {
                 <div className="absolute right-0 z-10 mt-2 w-[140px] rounded bg-white py-2 px-4 text-gray-800 shadow-lg">
                   <div className="border-b py-3">
                     <p class="text-sm font-bold text-navy-700 dark:text-white">
-                      👋 Hey, Adela
+                      👋 Hey, {agent.name}
                     </p>
                   </div>
                   <div className="flex flex-col justify-start gap-2 py-2">
@@ -57,7 +58,10 @@ function AgentNavbar() {
                     >
                       Profile Settings
                     </a>
-                    <button onClick={logout} className="text-start text-sm text-blue-500 hover:underline">
+                    <button
+                      onClick={logout}
+                      className="text-start text-sm text-blue-500 hover:underline"
+                    >
                       Logout
                     </button>
                   </div>
@@ -67,8 +71,7 @@ function AgentNavbar() {
           </div>
         </div>
       </nav>
-      <div>
-      </div>
+      <div></div>
     </>
   );
 }
