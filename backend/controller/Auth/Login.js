@@ -1,6 +1,6 @@
 const Admin = require("../../model/Admin");
 const bcript = require("bcrypt");
-var jwt = require('jsonwebtoken');
+var jwt = require("jsonwebtoken");
 const cookie = require("cookie");
 
 const Login = async (req, res, next) => {
@@ -33,20 +33,28 @@ const Login = async (req, res, next) => {
       };
     }
 
-    const token =await jwt.sign({
-        user:REQ_Admin.username,
-        email:REQ_Admin.email,
-        phone:REQ_Admin.photo,
-        id:REQ_Admin.id,
-    },process.env.JWTT,{
-        expiresIn:"1d"
-    });
-    
-    res.setHeader("Set-Cookie",cookie.serialize("sort",token,{
-        maxAge:  1 * 24 * 60 * 60,
+    const token = await jwt.sign(
+      {
+        user: REQ_Admin.username,
+        email: REQ_Admin.email,
+        phone: REQ_Admin.photo,
+        id: REQ_Admin.id,
+      },
+      process.env.JWTT,
+      {
+        expiresIn: "1d",
+      }
+    );
+
+    res.setHeader(
+      "Set-Cookie",
+      cookie.serialize("sort", token, {
+        maxAge: 1 * 24 * 60 * 60,
         sameSite: "strict",
-        path: "/"
-    }))
+        path: "/",
+        httpOnly: true,
+      })
+    );
 
     res.send("you are good to go");
   } catch (error) {
