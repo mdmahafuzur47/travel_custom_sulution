@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 function verify(token) {
   try {
-    return jwt.verify(token.process.env.JWTT);
+    return jwt.verify(token, process.env.JWTT);
   } catch {
     return null;
   }
@@ -20,7 +20,7 @@ async function isAgent(req, res, next) {
       });
     }
 
-    const dbAgtRes = await Agent.findById(agt.id);
+    const [dbAgtRes] = await Agent.findById(agt.id);
 
     if (!dbAgtRes) {
       return res.status(401).json({
@@ -35,8 +35,6 @@ async function isAgent(req, res, next) {
     console.log(error);
     next(error);
   }
-
-  next();
 }
 
 module.exports = isAgent;
