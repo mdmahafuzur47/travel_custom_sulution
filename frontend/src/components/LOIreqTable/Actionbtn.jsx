@@ -76,7 +76,6 @@ function CardMenu(props) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          console.log(prop);
           const res = await toast.promise(
             axios.post("/api/loi/cancel", { reference: prop?.reference }),
             {
