@@ -6,6 +6,7 @@ const setrate = require("../controller/account/setrate");
 const getStatus = require("../controller/account/status");
 const isAdmin = require("../middleware/Auth/isAdmin");
 const validateBody = require("../middleware/validator/validateBody");
+const getBalanceRequests = require("../controller/account/getBalanceRequests");
 
 AdminRouter.get("/get-all-agent", isAdmin, getAllAgent);
 AdminRouter.get("/get-status", isAdmin, getStatus);
@@ -21,5 +22,7 @@ AdminRouter.post(
   validateBody([isString("id"), isString("rate")]),
   setrate
 );
+
+AdminRouter.get("/get-balance-requests", isAdmin, getBalanceRequests);
 
 module.exports = AdminRouter;
