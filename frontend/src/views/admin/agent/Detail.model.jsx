@@ -4,164 +4,171 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 const DetailAgentmodule = ({ dataraw, close, reload }) => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    setData(dataraw);
+  }, [dataraw]);
 
-
-  const [data,setData] = useState(null);
-useEffect(()=>{
-  setData(dataraw);
-},[dataraw])
-
-
-
-  const [inpbal,setInpbal] = useState(0);
-  // const add valence 
-  const AddBal = async ()=>{
+  const [inpbal, setInpbal] = useState(0);
+  // const add valence
+  const AddBal = async () => {
     try {
-      let url = '/api/admin/add-balance';
-      const res =await toast.promise(axios.post(url,{
-        id:`${data.id}`,
-        balance:inpbal
-      }),{
-        pending:"Wait please !",
-        success:"Balance added successfully",
-        error:"Something went wrong"
-      })
-      reload((old)=>old + 1)
-      close(false)
+      let url = "/api/admin/add-balance";
+      const res = await toast.promise(
+        axios.post(url, {
+          id: `${data.id}`,
+          balance: inpbal,
+        }),
+        {
+          pending: "Wait please !",
+          success: "Balance added successfully",
+          error: "Something went wrong",
+        }
+      );
+      reload((old) => old + 1);
+      close(false);
     } catch (error) {
-      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error)
-      
+      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error);
     }
-  }
+  };
 
-  const [inpRate,setInprate] = useState(0);
-  // const add rate 
-  const setRate = async ()=>{
+  const [inpRate, setInprate] = useState(0);
+  // const add rate
+  const setRate = async () => {
     try {
-      let url = '/api/admin/setrate';
-      const res =await toast.promise(axios.post(url,{
-        id:`${data.id}`,
-        rate:inpRate
-      }),{
-        pending:"Wait please !",
-        success:"Balance added successfully",
-        error:"Something went wrong"
-      })
-      reload((old)=>old + 1)
-      close(false)
+      let url = "/api/admin/setrate";
+      const res = await toast.promise(
+        axios.post(url, {
+          id: `${data.id}`,
+          rate: inpRate,
+        }),
+        {
+          pending: "Wait please !",
+          success: "Balance added successfully",
+          error: "Something went wrong",
+        }
+      );
+      reload((old) => old + 1);
+      close(false);
     } catch (error) {
-      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error)
-      
+      console.log("🚀 ~ file: Detail.model.jsx:11 ~ AddBal ~ error:", error);
     }
-  }
+  };
   return (
     <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md ">
-      {
-        data?(
-          <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">
-        <div className="relative flex w-full items-center border-b-2 border-brand-600 p-3 text-xl font-bold text-white justify-between">
-          <div className="flex items-center">
-            <span className="pr-2 text-2xl text-brand-700">
-              <PhUserBold />
-            </span>{" "}
-            Agent Details
-          </div>
-          <div >
-          <button
-          onClick={()=>{
-            close(false)
-          }} className="text-red-500 border-red-500 px-4 py-2 border-2 rounded-md hover:text-white hover:bg-red-500 transition-all duration-500">close</button>
-          </div>
-        </div>
-        <div className="grid w-full grid-cols-2">
-          {/* side a  */}
-          <div className="relative col-span-2 w-full md:col-span-1">
-            <div className="px-2 pt-2 text-xl font-bold">
-              <span>Name</span>: <span>{data.name}</span>
-            </div>
-            <div className="px-2 text-lg font-light">
-              <span>Email</span>: <span>{data.email}</span>
-            </div>
-            <div className="px-2 text-lg font-light">
-              <span>phone</span>: <span>{data.phone}</span>
-            </div>
-            <div className="px-2 text-lg font-light">
-              <span>NID</span>: <span>{data.nid_no}</span>
-            </div>
-          </div>
-          {/* side b  */}
-          <div className="relative col-span-2 w-full md:col-span-1">
-            <div className="flex items-center px-2 pt-2 text-xl font-bold">
-              <span>Aprove By </span>:{" "}
-              <span className="flex items-center">
-                <span className="px-2">
-                  <PhThumbsUp />
-                </span>{" "}
-                {data.admin}
-              </span>
-            </div>
-            <div className="px-2 text-lg font-light ">
-              <Widget
-                icon={<PhMoneyBold className="h-7 w-7" />}
-                title={`Rate:${data.rate}`}
-                subtitle={`balance: ${data.balance}`}
-              />
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="relative w-full">
-            <div className="relative flex w-full items-center border-b-2 border-brand-600 p-3 text-xl font-bold text-white">
+      {data ? (
+        <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">
+          <div className="relative flex w-full items-center justify-between border-b-2 border-brand-600 p-3 text-xl font-bold text-white">
+            <div className="flex items-center">
               <span className="pr-2 text-2xl text-brand-700">
-                <BytesizeSettings />
+                <PhUserBold />
               </span>{" "}
-              Agent setting
+              Agent Details
             </div>
-
-            <div className=" p-2">
-              <div className="relative w-full">
-                <h1>Add Balance to Agent Account</h1>
-                <input
-                onChange={(e)=>{
-                  setInpbal(e.target.value)
+            <div>
+              <button
+                onClick={() => {
+                  close(false);
                 }}
-                value={inpbal}
-                  type="number"
-                  placeholder="Enter The Ammount"
-                  className="rounded-md p-2 shadow-sm"
-                />
-                <br />
-                <button 
-                onClick={()=>{
-                  AddBal()
-                }} className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
-                  Add
-                </button>
+                className="rounded-md border-2 border-red-500 px-4 py-2 text-red-500 transition-all duration-500 hover:bg-red-500 hover:text-white"
+              >
+                close
+              </button>
+            </div>
+          </div>
+          <div className="grid w-full grid-cols-2">
+            {/* side a  */}
+            <div className="relative col-span-2 w-full md:col-span-1">
+              <div className="px-2 pt-2 text-xl font-bold">
+                <span>Name</span>: <span>{data.name}</span>
               </div>
-              <div className="relative mt-8 w-full">
-                <h1>Set Agent rate</h1>
-                <input
-                  type="number"
-                  onChange={(e)=>{
-                    setInprate(e.target.value)
-                  }}
-                  value={inpRate}
-                  placeholder="Enter The Ammount"
-                  className="rounded-md p-2 shadow-sm"
+              <div className="px-2 text-lg font-light">
+                <span>Email</span>: <span>{data.email}</span>
+              </div>
+              <div className="px-2 text-lg font-light">
+                <span>phone</span>: <span>{data.phone}</span>
+              </div>
+              <div className="px-2 text-lg font-light">
+                <span>NID</span>: <span>{data.nid_no}</span>
+              </div>
+            </div>
+            {/* side b  */}
+            <div className="relative col-span-2 w-full md:col-span-1">
+              <div className="flex items-center px-2 pt-2 text-xl font-bold">
+                <span>Aprove By </span>:{" "}
+                <span className="flex items-center">
+                  <span className="px-2">
+                    <PhThumbsUp />
+                  </span>{" "}
+                  {data.admin}
+                </span>
+              </div>
+              <div className="px-2 text-lg font-light ">
+                <Widget
+                  icon={<PhMoneyBold className="h-7 w-7" />}
+                  title={`Rate:${data.rate}`}
+                  subtitle={`balance: ${data.balance}`}
                 />
-                <br />
-                <button 
-                onClick={ setRate }
-                className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2">
-                  Update
-                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="relative w-full">
+              <div className="relative flex w-full items-center border-b-2 border-brand-600 p-3 text-xl font-bold text-white">
+                <span className="pr-2 text-2xl text-brand-700">
+                  <BytesizeSettings />
+                </span>{" "}
+                Agent setting
+              </div>
+
+              <div className=" p-2">
+                <div className="relative w-full">
+                  <h1>Add Balance to Agent Account</h1>
+                  <input
+                    onChange={(e) => {
+                      setInpbal(e.target.value);
+                    }}
+                    value={inpbal}
+                    type="number"
+                    placeholder="Enter The Ammount"
+                    className="rounded-md p-2 shadow-sm"
+                  />
+                  <br />
+                  <button
+                    onClick={() => {
+                      AddBal();
+                    }}
+                    className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2"
+                  >
+                    Add
+                  </button>
+                </div>
+                <div className="relative mt-8 w-full">
+                  <h1>Set Agent rate</h1>
+                  <input
+                    type="number"
+                    onChange={(e) => {
+                      setInprate(e.target.value);
+                    }}
+                    value={inpRate}
+                    placeholder="Enter The Ammount"
+                    className="rounded-md p-2 shadow-sm"
+                  />
+                  <br />
+                  <button
+                    onClick={setRate}
+                    className="mt-2 rounded-md  border-2 border-brand-500 px-4 py-2"
+                  >
+                    Update
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-        ):"loading"
-      }
+      ) : (
+        "loading"
+      )}
     </div>
   );
 };
