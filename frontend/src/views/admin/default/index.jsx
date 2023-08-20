@@ -86,7 +86,7 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="flex w-full items-center justify-between p-5">
+      <div className="w-full items-center justify-start gap-3 grid grid-cols-1 md:grid-cols-3 p-5">
         <Link
           to="/entry"
           className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"

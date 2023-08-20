@@ -184,7 +184,7 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Header: "Agent email",
               accessor: "AgentDate",
               Cell: (prop) => {
-                return <p>{prop.row.original?.agent?JSON.parse(prop.row.original?.agent)?.username:""}</p>;
+                return <p>{prop.row.original?.agent?(JSON.parse(prop.row.original?.agent)?.type === 'admin')? <p className="text-green-500">{JSON.parse(prop.row.original?.agent)?.username}</p>: <p className="text-red-500">{JSON.parse(prop.row.original?.agent)?.username}</p>:""}</p>;
               },
             },
             {
