@@ -25,8 +25,8 @@ function AgentNavbar({ agent }) {
           </Link>
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-1 ">
-              <div className="text-brand-500">
-                <HeroiconsOutlineCurrencyDollar />
+              <div className="text-brand-500 bg-brand-50 p-2 text-xl rounded-full">
+                <Fa6SolidBangladeshiTakaSign />
               </div>
               <p className="text-md font-dm font-medium text-gray-800">
                 {agent.balance}
@@ -34,12 +34,12 @@ function AgentNavbar({ agent }) {
             </div>
             <div onClick={() => setOpen(!open)} className="relative">
               <img
-                src={agent.photo}
+                src={'/logoastha.png'}
                 alt="User Profile"
-                className="h-8 w-8 cursor-pointer rounded-full"
+                className="h-12 w-12 ring-2 ring-offset-brand-800 cursor-pointer rounded-full"
               />
               {open && (
-                <div className="absolute right-0 z-10 mt-2 w-[140px] rounded bg-white py-2 px-4 text-gray-800 shadow-lg">
+                <div className="absolute right-0 z-10 mt-2 w-[300px] rounded bg-white py-2 px-4 text-gray-800 shadow-lg">
                   <div className="border-b py-3">
                     <p className="text-sm font-bold text-navy-700 dark:text-white">
                       👋 Hey, {agent.name}
@@ -72,23 +72,9 @@ function AgentNavbar({ agent }) {
 
 export default AgentNavbar;
 
-export function HeroiconsOutlineCurrencyDollar(props) {
+
+export function Fa6SolidBangladeshiTakaSign(props) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.4em"
-      height="1.4em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2s3 .895 3 2s-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0Z"
-      ></path>
-    </svg>
-  );
+    <svg xmlns="http://www.w3.org/2000/svg" width="0.75em" height="1em" viewBox="0 0 384 512" {...props}><path fill="currentColor" d="M36 32.2C18.4 30.1 2.4 42.5.2 60S10.5 93.6 28 95.8l7.9 1c16 2 28 15.6 28 31.8V160H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v160c0 53 43 96 96 96h32c106 0 192-86 192-192v-32c0-53-43-96-96-96h-16c-17.7 0-32 14.3-32 32s14.3 32 32 32h16c17.7 0 32 14.3 32 32v32c0 70.7-57.3 128-128 128h-32c-17.7 0-32-14.3-32-32V224h32c17.7 0 32-14.3 32-32s-14.3-32-32-32h-32v-31.5c0-48.4-36.1-89.3-84.1-95.3l-7.9-1z"></path></svg>
+  )
 }

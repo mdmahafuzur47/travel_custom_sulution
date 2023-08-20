@@ -43,13 +43,13 @@ const routes = [
     path: "balancerequest",
     component: <BalanceReq />,
   },
-  // {
-  //   name: "Profile",
-  //   layout: "/admin",
-  //   path: "profile",
-  //   icon: <MdPerson className="h-6 w-6" />,
-  //   component: <Profile />,
-  // },
+  {
+    name: "Admin",
+    layout: "/admin",
+    path: "profile",
+    icon: <MdPerson className="h-6 w-6" />,
+    component: <Profile />,
+  },
   // {
   //   name: "Sign In",
   //   layout: "/auth",

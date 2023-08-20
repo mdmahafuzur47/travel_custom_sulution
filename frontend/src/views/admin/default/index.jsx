@@ -109,7 +109,7 @@ const Dashboard = () => {
             value={selectedOption}
             onChange={handleSelectChange}
           >
-            <option value="">Select an Status</option>
+            <option value="">All Data</option>
             <option selected value="approved">
               Approved
             </option>
