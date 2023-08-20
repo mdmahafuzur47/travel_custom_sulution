@@ -3,7 +3,20 @@ const Agent = require("../../model/Agent");
 
 async function getInfo(req, res, next) {
   try {
-    const values = jwt.verify(req.cookies.offer, process.env.JWTT);
+    let values = false;
+
+    try {
+      values = jwt.verify(req.cookies.offer, process.env.JWTT);
+    } catch (error) {
+      // console.log('not auth agent');
+      values = false;
+    }
+    if (!values) {
+      return res.status(401).json({
+        message: "Permission denied!",
+        code: "verify-failed 1",
+      });
+    }
     const [user] = await Agent.findById(values.id);
 
     if (user.session !== values.dict) {

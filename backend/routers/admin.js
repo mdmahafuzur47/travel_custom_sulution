@@ -1,6 +1,6 @@
 const AdminRouter = require("express").Router();
 const { isString } = require("nested-object-validate");
-const getAllAgent = require("../controller/Agent/getAllAgent");
+const getAllAgent = require("../controller/agent/getAllAgent");
 const addBalance = require("../controller/account/balance");
 const setrate = require("../controller/account/setrate");
 const getStatus = require("../controller/account/status");
