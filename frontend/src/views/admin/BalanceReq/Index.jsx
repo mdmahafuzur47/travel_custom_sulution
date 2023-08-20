@@ -14,7 +14,7 @@ const Index = () => {
         console.log(error);
       }
     })();
-  });
+  },[]);
 
   return (
     <div className="relative w-full pt-5">
@@ -26,7 +26,17 @@ const Index = () => {
           },
           {
             Header: "Agent",
-            accessor: "agent.name",
+            accessor: "agent",
+            Cell: (props) => {
+                // console.log(props);
+                return(
+                   <div>
+                     <p className="text-brand-900 font-bold" ><span>Name: </span>{props.row.original.agent.name}</p>
+                     <p><span>Email: </span>{props.row.original.agent.email}</p>
+                     <p><span>Phone: </span>{props.row.original.agent.phone}</p>
+                   </div>
+                )
+            }
           },
           {
             Header: "Amount",
@@ -38,11 +48,19 @@ const Index = () => {
           },
           {
             Header: "Note",
-            accessor: "note",
+            accessor: "message",
           },
           {
             Header: "Action",
             accessor: "action",
+            Cell: (props) => {
+                return (
+                    <div>
+                        <button className="bg-brand-900 hover:bg-brand-800 text-white font-bold py-2 px-4 border border-transparent rounded">Approve</button>
+                        <button className="bg-red-900 hover:bg-red-800 text-white font-bold py-2 px-4 border border-transparent rounded">Reject</button>
+                    </div>
+                )
+            }
           },
         ]}
         datas={reqList}
