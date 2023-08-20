@@ -36,25 +36,39 @@ const AgentLogin = () => {
   }
 
   return (
-    <div className="container mx-auto flex items-center justify-between">
-      <div className="md:block hidden">
-        <img
-          className="h-[80vh] object-contain w-[500px]"
-          src="/asthait.jpg"
-          alt="img"
-        />
-      </div>
-      <div className="flex h-screen w-full flex-col items-center justify-center">
-        <img
-          className="h-[150px] object-contain w-[400px]"
-          src="/longbaner.jpg"
-          alt="logo-img"
-        />
+    <div className="container mx-auto flex flex-col items-center justify-between">
+      <nav className="mt-2 flex w-full  justify-center px-4 backdrop-blur-md ">
+        <ul className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
+          <li className="mr-auto flex items-center gap-4 md:mr-0">
+            <img
+              className="h-24 rounded-full md:h-32"
+              src="/logoastha.png"
+              alt="img"
+            />
+            <div>
+              <p className="text-2xl font-bold uppercase text-navy-700 dark:text-white sm:text-3xl md:text-5xl">
+                Astha Trip
+              </p>
+              <p className="font-bold uppercase ">join the privileged world</p>
+            </div>
+          </li>
+          <li className="w-full md:w-auto">
+            <Link
+              to="/agent/registration"
+              className="ml-auto rounded bg-brand-500 py-4 px-6 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200 md:ml-0"
+            >
+              Create account
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="my-16  flex w-full flex-col items-center justify-center">
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}
-          className="mt-[5vh] w-full max-w-full flex-col py-2 items-center md:pl-4 lg:pl-0 xl:max-w-[420px]"
+          className="mt-[5vh] w-full max-w-full flex-col items-center py-2 md:pl-4 lg:pl-0 xl:max-w-[420px]"
         >
-          <h4 className="mb-2.5 md:text-4xl text-2xl font-bold text-navy-700 dark:text-white">
+          <h4 className="mb-2.5 text-2xl font-bold text-navy-700 dark:text-white md:text-4xl">
             Sign In As Agent
           </h4>
           <p className="mb-9 ml-1 text-base text-gray-600">
@@ -100,13 +114,6 @@ const AgentLogin = () => {
             </Link>
           </div>
         </form>
-      </div>
-      <div className="md:block hidden">
-        <img
-          className="h-[80vh] object-contain w-[500px]"
-          src="/asthait.jpg"
-          alt="img"
-        />
       </div>
     </div>
   );
