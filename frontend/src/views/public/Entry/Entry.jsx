@@ -26,8 +26,11 @@ const Entry = () => {
 
   useEffect(() => {
     const getData = async () => {
+      console.log('helo');
       let ad = false;
       try {
+
+        //get admin data
         try {
           const resAdmin = await axios("/api/auth/info");
           setAdmin(resAdmin.data);
@@ -35,11 +38,18 @@ const Entry = () => {
         } catch (error) {
           setAdmin(false);
         }
-        const resAgent = await axios("/api/agent/info");
+        let resAgent;
+        try {
+           resAgent = await axios("/api/agent/info");
+        } catch (error) {
+          console.log("🚀 ~ file: Entry.jsx:44 ~ getData ~ error:", error)
+          resAgent = false;
+        }
 
-        if (!ad && !resAgent.data) {
+        if (!ad && !resAgent?.data) {
           return Navigate("/agent/login");
         }
+
         SetAgent(resAgent.data);
       } catch (error) {
         

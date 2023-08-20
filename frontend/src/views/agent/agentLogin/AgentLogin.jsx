@@ -36,7 +36,10 @@ const AgentLogin = () => {
   }
 
   return (
-    <div className="container mx-auto flex flex-col items-center justify-between">
+    <div className=" w-full min-h-screen cbg mx-auto flex flex-col md:px-52 px-5 items-center justify-between">
+      <div>
+        <img src="/particalbg.png" alt=""  className="fixed z-0 left-0 b bottom-0 h-full"/>
+      </div>
       <nav className="mt-2 flex w-full  justify-center px-4 backdrop-blur-md ">
         <ul className="flex w-full flex-col items-center justify-between gap-4 md:flex-row">
           <li className="mr-auto flex items-center gap-4 md:mr-0">
@@ -63,10 +66,10 @@ const AgentLogin = () => {
         </ul>
       </nav>
 
-      <div className="my-16  flex w-full flex-col items-center justify-center">
+      <div className="my-16  flex w-full flex-col  items-center justify-center">
         <form
           onSubmit={handleSubmit(onSubmit, onInvalid)}
-          className="mt-[5vh] w-full max-w-full flex-col items-center py-2 md:pl-4 lg:pl-0 xl:max-w-[420px]"
+          className="mt-[5vh] w-full max-w-full flex-col bg-white/50 backdrop-blur-md items-center xl:max-w-[420px] p-10 rounded-md shadow-md"
         >
           <h4 className="mb-2.5 text-2xl font-bold text-navy-700 dark:text-white md:text-4xl">
             Sign In As Agent
