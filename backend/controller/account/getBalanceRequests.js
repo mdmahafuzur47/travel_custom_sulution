@@ -8,7 +8,7 @@ async function getBalanceRequests(req, res, next) {
 
     const requests = balRes.map((bal) => ({
       ...bal,
-      agent: agtRes.find((agt) => agt.id === bal.id),
+      agent: agtRes.find((agt) => agt.id === bal.agent_id),
     }));
 
     res.json(requests);

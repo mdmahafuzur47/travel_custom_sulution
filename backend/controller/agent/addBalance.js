@@ -7,6 +7,7 @@ async function addBalance(req, res, next) {
       transition_id: req.body.transition_id,
       amount: req.body.amount,
       message: req.body.message,
+      status:"pending"
     });
 
     res.json({ success: true });
