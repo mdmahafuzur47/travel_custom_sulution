@@ -40,7 +40,7 @@ const routes = [
     name: "Balance request", 
     layout: "/admin",
     icon: <TablerMoneybag className="h-6 w-6" />,
-    path: "data-tables",
+    path: "balancerequest",
     component: <BalanceReq />,
   },
   // {

@@ -11,7 +11,7 @@ const Banner = () => {
         className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover"
         style={{ backgroundImage: `url(${banner})` }}
       >
-        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
+        <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700"> 
           <img className="h-full w-full rounded-full" src={avatar} alt="" />
         </div>
       </div>
