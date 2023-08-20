@@ -10,6 +10,7 @@ const getInfo = require("../controller/Agent/info");
 const isAgent = require("../middleware/Auth/isAgent");
 const addBalance = require("../controller/Agent/addBalance");
 const changePassword = require("../controller/Agent/changePassword");
+const getLOIById = require("../controller/Agent/getLOIById");
 
 AgentRoute.post(
   "/reg",
@@ -46,6 +47,9 @@ AgentRoute.post(
 );
 
 AgentRoute.post("/approve", isAdmin, validateBody(["id"]), approve);
+
 AgentRoute.get("/info", getInfo);
+
+AgentRoute.get("/agent-loi-by-id", isAgent, getLOIById);
 
 module.exports = AgentRoute;

@@ -22,15 +22,15 @@ async function isAgent(req, res, next) {
 
     const [dbAgtRes] = await Agent.findById(agt.id);
 
-    if (!dbAgtRes) {
-      return res.status(401).json({
-        message: "token is not valid",
-        code: "unauthorize",
-      });
+    if (dbAgtRes && dbAgtRes.status === 1) {
+      req.AGENT = dbAgtRes;
+      return next();
     }
 
-    req.AGENT = dbAgtRes;
-    next();
+    res.status(401).json({
+      message: "permission denied",
+      code: "unauthorize",
+    });
   } catch (error) {
     console.log(error);
     next(error);

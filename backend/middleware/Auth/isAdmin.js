@@ -12,9 +12,9 @@ function decode(token) {
 const AuthAdmin = async (req, res, next) => {
   const admin = decode(req.cookies.sort);
   if (admin) {
-    const dbAdmin = (await Admin.findOne({ id: admin.id }))[0];
+    const [dbAdmin] = await Admin.findOne({ id: admin.id });
 
-    if (dbAdmin && dbAdmin.status !== 0) {
+    if (dbAdmin && dbAdmin.status === 1) {
       req.ADMIN = admin;
       return next();
     }

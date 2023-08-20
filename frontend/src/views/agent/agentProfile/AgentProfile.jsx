@@ -118,7 +118,7 @@ const AgentProfile = () => {
             setIsOpen(true);
             setIsPassOpen(false);
           }}
-          class="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+          className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
         >
           Add Balance
         </button>
@@ -127,7 +127,7 @@ const AgentProfile = () => {
             setIsPassOpen(true);
             setIsOpen(false);
           }}
-          class="ml-4 inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+          className="ml-4 inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
         >
           Change Password
         </button>
@@ -140,7 +140,7 @@ const AgentProfile = () => {
             <div className="relative">
               <h2 className="mb-4 text-lg font-semibold">Add Amount</h2>
               <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     Amount*
                   </label>
@@ -151,7 +151,7 @@ const AgentProfile = () => {
                     {...register("amount", { required: true })}
                   />
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     Transition ID*
                   </label>
@@ -162,7 +162,7 @@ const AgentProfile = () => {
                     {...register("transition_id", { required: true })}
                   />
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     Message
                   </label>
@@ -175,7 +175,7 @@ const AgentProfile = () => {
                 </div>
                 <button
                   type="submit"
-                  class="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+                  className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
                 >
                   Submit
                 </button>
@@ -198,7 +198,7 @@ const AgentProfile = () => {
             <div className="relative">
               <h2 className="mb-4 text-lg font-semibold">Change Password</h2>
               <form onSubmit={passHS(onPassSubmit, onPassInvalid)} noValidate>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     Current Password*
                   </label>
@@ -209,7 +209,7 @@ const AgentProfile = () => {
                     {...passReg("current-password", { required: true })}
                   />
                 </div>
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     New Password*
                   </label>
@@ -221,7 +221,7 @@ const AgentProfile = () => {
                   />
                 </div>
 
-                <div class="mb-3 ">
+                <div className="mb-3 ">
                   <label className="ml-1.5 text-sm font-medium text-navy-700 dark:text-white">
                     Confirm Password*
                   </label>
@@ -244,7 +244,7 @@ const AgentProfile = () => {
 
                 <button
                   type="submit"
-                  class="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
+                  className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
                 >
                   Submit
                 </button>

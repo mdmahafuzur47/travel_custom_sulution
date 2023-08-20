@@ -143,8 +143,7 @@ const AgentEntry = () => {
                 <div className="relative w-full">
                   <label className="pl-px text-brand-900">
                     Hotel bokking copy ( jpg, pdf ){" "}
-                    <span className="text-sm font-extralight italic">
-                    </span>
+                    <span className="text-sm font-extralight italic"></span>
                   </label>
 
                   <input
@@ -167,10 +166,10 @@ const AgentEntry = () => {
                   />
                 </div>
               </div>
-              <div class="relative mt-3 flex w-full justify-between p-2 pl-5">
+              <div className="relative mt-3 flex w-full justify-between p-2 pl-5">
                 <button
                   type="submit"
-                  class="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
+                  className="rounded-xl border-2 border-brand-300 bg-white/10 px-3 py-2 shadow-lg dark:text-brand-200"
                 >
                   Add New Guest
                 </button>

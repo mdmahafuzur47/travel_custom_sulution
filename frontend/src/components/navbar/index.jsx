@@ -16,16 +16,14 @@ import axios from "axios";
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-  const logout = async()=>{
+  const logout = async () => {
     try {
-      await axios.get('/api/logout');
-    document.location.reload()
+      await axios.get("/api/logout");
+      document.location.reload();
     } catch (error) {
-      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error)
-      
+      console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error);
     }
-    
-  }
+  };
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -65,7 +63,7 @@ const Navbar = (props) => {
           <input
             type="text"
             placeholder="Search..."
-            class="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-fit"
+            className="block h-full w-full rounded-full bg-lightPrimary text-sm font-medium text-navy-700 outline-none placeholder:!text-gray-400 dark:bg-navy-900 dark:text-white dark:placeholder:!text-white sm:w-fit"
           />
         </div> */}
         <span
@@ -218,8 +216,8 @@ const Navbar = (props) => {
                 >
                   Newsletter Settings
                 </a>
-                <button 
-                onClick={logout}
+                <button
+                  onClick={logout}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
                 >
                   Log Out

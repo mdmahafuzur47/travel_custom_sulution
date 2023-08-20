@@ -41,14 +41,14 @@ function AgentNavbar({ agent }) {
               {open && (
                 <div className="absolute right-0 z-10 mt-2 w-[140px] rounded bg-white py-2 px-4 text-gray-800 shadow-lg">
                   <div className="border-b py-3">
-                    <p class="text-sm font-bold text-navy-700 dark:text-white">
+                    <p className="text-sm font-bold text-navy-700 dark:text-white">
                       👋 Hey, {agent.name}
                     </p>
                   </div>
                   <div className="flex flex-col justify-start gap-2 py-2">
                     <Link
                       to="/agent/agentProfile"
-                      class="text-sm text-gray-800 hover:text-[#000] dark:text-white hover:dark:text-white"
+                      className="text-sm text-gray-800 hover:text-[#000] dark:text-white hover:dark:text-white"
                     >
                       Profile Settings
                     </Link>
