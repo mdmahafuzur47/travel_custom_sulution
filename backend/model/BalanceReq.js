@@ -17,6 +17,10 @@ const AgentSchema = new Schema({
   message: {
     type: "TEXT(255)",
   },
+  status: {
+    type: "VARCHAR(25)",
+    req: true,
+  },
 });
 
 module.exports = new Model(AgentSchema, "BalanceReq");
