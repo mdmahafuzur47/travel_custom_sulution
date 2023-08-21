@@ -13,6 +13,7 @@ import Registration from "./views/agent/Rgistration/Registration";
 
 const App = () => {
   return (
+    <>
     <Routes>
       <Route path="auth/*" element={<AuthLayout />} />
       <Route path="admin/*" element={<AdminLayout />} />
@@ -26,6 +27,8 @@ const App = () => {
       <Route path="/agent/registration" element={<Registration />} />
       <Route path="/" element={<Navigate to="/agent" replace />} />
     </Routes>
+    
+    </>
   );
 };
 

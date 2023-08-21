@@ -107,7 +107,7 @@ const AgentProfile = () => {
         <div className="my-10 w-full">
           <img
             className="h-[200px] w-full object-contain"
-            src="/longbaner.jpg"
+            src="/asthatripbaner.jpg"
             alt="img"
           />
         </div>
