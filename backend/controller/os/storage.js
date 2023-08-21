@@ -6,8 +6,9 @@ async function storage(req, res, next) {
     const freeStorageBytes = os.freemem();
     const usedStorage = totalStorageBytes - freeStorageBytes;
 
-    const totalStorageGB = ((totalStorageBytes / 1024 ** 3) * 100).toFixed(2);
-    const freeStorageGB = ((freeStorageBytes / 1024 ** 3) * 100).toFixed(2);
+    const totalStorageGB = parseInt((totalStorageBytes / 1024 ** 3) * 100);
+    const freeStorageGB = parseInt((freeStorageBytes / 1024 ** 3) * 100);
+    const usedStorageGB = parseInt((usedStorage / 1024 ** 3) * 100);
 
     const freeStoragePercentage = parseInt(
       (freeStorageBytes / totalStorageBytes) * 100
@@ -22,6 +23,7 @@ async function storage(req, res, next) {
       usedStoragePercentage,
       totalStorageGB,
       freeStorageGB,
+      usedStorageGB,
       scale: "Gigabyte",
     });
   } catch (error) {
