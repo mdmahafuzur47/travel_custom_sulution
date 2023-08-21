@@ -1,4 +1,5 @@
 import Banner from "./components/Banner";
+import ChangePassword from "./components/ChangePassword";
 import General from "./components/General";
 import Notification from "./components/Notification";
 import Project from "./components/Project";
@@ -32,7 +33,7 @@ const ProfileOverview = () => {
         </div>
 
         <div className="col-span-5 lg:col-span-12 lg:mb-0 3xl:!col-span-3">
-          <Notification />
+          <ChangePassword />
         </div>
       </div>
     </div>
