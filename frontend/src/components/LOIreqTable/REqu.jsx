@@ -3,7 +3,7 @@ import Table from "../../views/public/Entry/ComplexTable";
 import Actionbtn from "./Actionbtn";
 import axios from "axios";
 import { data } from "autoprefixer";
-import exportFromJSON from 'export-from-json' 
+import exportFromJSON from "export-from-json";
 
 const REqu = ({ selectedOption, search, relaod }) => {
   const [datas, setDatas] = useState([]);
@@ -53,26 +53,37 @@ const REqu = ({ selectedOption, search, relaod }) => {
     setShow(filter);
   }, [search, datas]);
 
-
-  let ExportToExcel = () => {  
-    const dats = show.map((e)=>{
+  let ExportToExcel = () => {
+    const dats = show.map((e) => {
       return {
-        id:e.id,
-        Guest_Name:e.guest_name,
-        Pasport_Number:e.pasport_number,
-        Travel_Date:e.travel_date,
-        Hotel_Name:e.hotel_name,
-        Refarenc:e.reference,
-        Agent:`${JSON.parse(e.agent).username} ${JSON.parse(e.agent).type === 'admin'?"Admin":""}`,
-        Status:e.status
-      }
-    })
-    exportFromJSON({ data:dats, fileName:"Data",exportType: exportFromJSON.types.xls })  
-  } 
+        id: e.id,
+        Guest_Name: e.guest_name,
+        Pasport_Number: e.pasport_number,
+        Travel_Date: e.travel_date,
+        Hotel_Name: e.hotel_name,
+        Refarenc: e.reference,
+        Agent: `${JSON.parse(e.agent).username} ${
+          JSON.parse(e.agent).type === "admin" ? "Admin" : ""
+        }`,
+        Status: e.status,
+      };
+    });
+    exportFromJSON({
+      data: dats,
+      fileName: "Data",
+      exportType: exportFromJSON.types.xls,
+    });
+  };
 
   return (
     <div className="relative w-full">
-      <button type="button" className="py-2 px-4 bg-brand-100 rounded-md shadow-md" onClick={ExportToExcel}>Export To Excel</button>  
+      <button
+        type="button"
+        className="rounded-md bg-brand-100 py-2 px-4 shadow-md"
+        onClick={ExportToExcel}
+      >
+        Export To Excel
+      </button>
       <div className="py-2">
         <Table
           columnsData={[
@@ -115,16 +126,14 @@ const REqu = ({ selectedOption, search, relaod }) => {
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-red-50 p-1 text-sm  text-red-600"
                           >
-                            {" "}
-                            <IcTwotoneClose />{" "}
+                            <IcTwotoneClose />
                           </button>
                         ) : (
                           <button
                             title="visa copy not available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-green-50 p-1 text-sm text-green-600"
                           >
-                            {" "}
-                            <MaterialSymbolsDone />{" "}
+                            <MaterialSymbolsDone />
                           </button>
                         )}
                       </span>
@@ -137,16 +146,14 @@ const REqu = ({ selectedOption, search, relaod }) => {
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-red-50 p-1 text-sm  text-red-600"
                           >
-                            {" "}
-                            <IcTwotoneClose />{" "}
+                            <IcTwotoneClose />
                           </button>
                         ) : (
                           <button
                             title="visa copy not available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10  bg-green-50 p-1 text-sm text-green-600"
                           >
-                            {" "}
-                            <MaterialSymbolsDone />{" "}
+                            <MaterialSymbolsDone />
                           </button>
                         )}
                       </span>
@@ -159,16 +166,14 @@ const REqu = ({ selectedOption, search, relaod }) => {
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-sm text-green-600"
                           >
-                            {" "}
-                            <MaterialSymbolsDone />{" "}
+                            <MaterialSymbolsDone />
                           </button>
                         ) : (
                           <button
                             title="visa copy not available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-sm text-red-600"
                           >
-                            {" "}
-                            <IcTwotoneClose />{" "}
+                            <IcTwotoneClose />
                           </button>
                         )}
                       </span>
@@ -181,16 +186,14 @@ const REqu = ({ selectedOption, search, relaod }) => {
                             title="visa copy available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-green-50 p-1 text-sm text-green-600"
                           >
-                            {" "}
-                            <MaterialSymbolsDone />{" "}
+                            <MaterialSymbolsDone />
                           </button>
                         ) : (
                           <button
                             title="visa copy not available"
                             className="cursor-cell rounded-full border-[1px] border-brand-600/10 bg-red-50 p-1 text-sm text-red-600"
                           >
-                            {" "}
-                            <IcTwotoneClose />{" "}
+                            <IcTwotoneClose />
                           </button>
                         )}
                       </span>
@@ -204,7 +207,23 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Header: "Agent email",
               accessor: "AgentDate",
               Cell: (prop) => {
-                return <p>{prop.row.original?.agent?(JSON.parse(prop.row.original?.agent)?.type === 'admin')? <p className="text-green-500">{JSON.parse(prop.row.original?.agent)?.username}</p>: <p className="text-red-500">{JSON.parse(prop.row.original?.agent)?.username}</p>:""}</p>;
+                return (
+                  <p>
+                    {prop.row.original?.agent ? (
+                      JSON.parse(prop.row.original?.agent)?.type === "admin" ? (
+                        <p className="text-green-500">
+                          {JSON.parse(prop.row.original?.agent)?.username}
+                        </p>
+                      ) : (
+                        <p className="text-red-500">
+                          {JSON.parse(prop.row.original?.agent)?.username}
+                        </p>
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </p>
+                );
               },
             },
             {
@@ -217,7 +236,6 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Cell: (prop) => {
                 return (
                   <div className="relative">
-
                     <Actionbtn
                       setShow={setShow}
                       selectedOption={selectedOption}
@@ -226,7 +244,6 @@ const REqu = ({ selectedOption, search, relaod }) => {
                       setreload={setreload}
                       prop={prop.row.original}
                     />
-
                   </div>
                   // <button
                   //   title="delete"
@@ -235,8 +252,8 @@ const REqu = ({ selectedOption, search, relaod }) => {
                   //   }}
                   //   className="rounded-full border-[1px] border-brand-600/10 bg-brand-50 p-1 text-xl text-red-600 hover:shadow-lg"
                   // >
-                  //   {" "}
-                  //   <MaterialSymbolsDeleteOutline />{" "}
+                  //
+                  //   <MaterialSymbolsDeleteOutline />
                   // </button>
                 );
               },

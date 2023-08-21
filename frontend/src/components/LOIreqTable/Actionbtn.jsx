@@ -11,7 +11,7 @@ function CardMenu(props) {
   const [open, setOpen] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
-  // console.log(props);
+  console.log(props);
 
   const handleApproved = () => {
     let family = 1;
@@ -98,9 +98,9 @@ function CardMenu(props) {
     <>
       {showDetails && (
         <div className="bg-black/10 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm">
-          <div className="relative mx-6 w-[720px] space-y-6 rounded-lg bg-white p-8 shadow-md md:mx-0">
+          <div className="dark:bg- relative mx-6 w-[720px] space-y-6 rounded-lg bg-white p-8 shadow-md dark:!bg-navy-900 md:mx-0">
             <h3 className="text-center text-3xl">Details</h3>
-            <div className="text-gray-950 grid grid-cols-1 text-lg sm:grid-cols-2">
+            <div className="text-gray-950  grid grid-cols-1 text-lg sm:grid-cols-2">
               <div>
                 <p>Name: {prop.guest_name}</p>
                 <p>Country: {prop.country}</p>
@@ -108,7 +108,10 @@ function CardMenu(props) {
                 <p>Hotel name: {prop.hotel_name}</p>
                 <p>Travel date: {prop.travel_date}</p>
                 <p>
-                  Status: <span className="text-red-500">cancel</span>
+                  Status:{" "}
+                  <span className={prop.status === "cancel" && "text-red-500"}>
+                    {prop.status}
+                  </span>
                 </p>
               </div>
               <div className="flex flex-col">
@@ -158,45 +161,49 @@ function CardMenu(props) {
         animation={"origin-top-right transition-all duration-300 ease-in-out"}
         classNames={`${transparent ? "top-8" : "top-11"} right-0 w-max`}
         children={
-          <div className="z-50 w-max rounded-xl bg-white py-3 px-4 text-sm shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
-            <p
-              onClick={handleApproved}
-              className="hover:text-black flex cursor-pointer items-center gap-1 text-gray-600 hover:font-medium"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"
-                />
-              </svg>
-              Approved
-            </p>
+          <div className="z-50 flex w-max flex-col gap-2 rounded-xl bg-white py-3 px-4 text-sm shadow-xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
+            {prop.status === "pending" && (
+              <>
+                <p
+                  onClick={handleApproved}
+                  className="hover:text-black flex cursor-pointer items-center gap-1 text-gray-600 hover:font-medium"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="m9.55 18l-5.7-5.7l1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4L9.55 18Z"
+                    />
+                  </svg>
+                  Approved
+                </p>
 
-            <p
-              onClick={handleCancel}
-              className="hover:text-black mt-2 flex cursor-pointer items-center gap-1 pt-1 text-gray-600 hover:font-medium"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M1 21h22L12 2L1 21zm3.47-2L12 5.99L19.53 19H4.47zM11 16h2v2h-2zm0-6h2v4h-2z"
-                />
-              </svg>
-              Cancel
-            </p>
+                <p
+                  onClick={handleCancel}
+                  className="hover:text-black  flex cursor-pointer items-center gap-1 pt-1 text-gray-600 hover:font-medium"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M1 21h22L12 2L1 21zm3.47-2L12 5.99L19.53 19H4.47zM11 16h2v2h-2zm0-6h2v4h-2z"
+                    />
+                  </svg>
+                  Cancel
+                </p>
+              </>
+            )}
             <p
               onClick={() => setShowDetails(true)}
-              className="hover:text-black mt-2 flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium"
+              className="hover:text-black flex cursor-pointer items-center gap-2 pt-1 text-gray-600 hover:font-medium"
             >
               <span>
                 <AiOutlineShop />
