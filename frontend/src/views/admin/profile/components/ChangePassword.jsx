@@ -31,10 +31,10 @@ export default function () {
   }
 
   return (
-    <div className="rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:shadow-none ">
+    <div className="h-full rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:shadow-none ">
       <form
         onSubmit={handleSubmit(onSubmit, onInvalid)}
-        className="flex w-full flex-col gap-6 p-4 md:flex-row"
+        className="flex w-full flex-col gap-6 px-4 py-6"
       >
         <div className="flex flex-1 flex-col gap-2">
           <label className="text-sm font-medium text-navy-700 dark:text-white">
@@ -58,7 +58,7 @@ export default function () {
             {...register("password", { required: true, minLength: 6 })}
           />
         </div>
-        <button className="mt-auto flex items-center justify-center rounded-md bg-brand-500 px-2 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
+        <button className="mt-auto flex items-center justify-center rounded-md bg-brand-500 px-6 py-[10px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
           Save
         </button>
       </form>
