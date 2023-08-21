@@ -3,6 +3,8 @@ import Table from "../../views/public/Entry/ComplexTable";
 import Actionbtn from "./Actionbtn";
 import axios from "axios";
 import { data } from "autoprefixer";
+import exportFromJSON from 'export-from-json' 
+
 const REqu = ({ selectedOption, search, relaod }) => {
   const [datas, setDatas] = useState([]);
   const [show, setShow] = useState([]);
@@ -51,8 +53,26 @@ const REqu = ({ selectedOption, search, relaod }) => {
     setShow(filter);
   }, [search, datas]);
 
+
+  let ExportToExcel = () => {  
+    const dats = show.map((e)=>{
+      return {
+        id:e.id,
+        Guest_Name:e.guest_name,
+        Pasport_Number:e.pasport_number,
+        Travel_Date:e.travel_date,
+        Hotel_Name:e.hotel_name,
+        Refarenc:e.reference,
+        Agent:`${JSON.parse(e.agent).username} ${JSON.parse(e.agent).type === 'admin'?"Admin":""}`,
+        Status:e.status
+      }
+    })
+    exportFromJSON({ data:dats, fileName:"Data",exportType: exportFromJSON.types.xls })  
+  } 
+
   return (
     <div className="relative w-full">
+      <button type="button" className="py-2 px-4 bg-brand-100 rounded-md shadow-md" onClick={ExportToExcel}>Export To Excel</button>  
       <div className="py-2">
         <Table
           columnsData={[
@@ -62,8 +82,8 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Cell: (prop) => {
                 return (
                   <div>
-                    <p>{prop.row.original?.guest_name}</p>
-                    <p>{prop.row.original?.pasport_number}</p>
+                    <div>{prop.row.original?.guest_name}</div>
+                    <div>{prop.row.original?.pasport_number}</div>
                   </div>
                 );
               },
@@ -72,7 +92,7 @@ const REqu = ({ selectedOption, search, relaod }) => {
               Header: "Travel Date",
               accessor: "travelDate",
               Cell: (prop) => {
-                return <p>{prop.row.original?.travel_date}</p>;
+                return <div>{prop.row.original?.travel_date}</div>;
               },
             },
             {

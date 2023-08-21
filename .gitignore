@@ -13,9 +13,10 @@ test.js
 /__test__
 
 # production
-/build
+build
 upload
 pdf
+static
 # misc
 .DS_Store
 .env.local

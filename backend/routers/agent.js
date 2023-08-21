@@ -1,16 +1,16 @@
 const express = require("express");
-const registration = require("../controller/Agent/registration");
-const approve = require("../controller/Agent/approve");
+const registration = require("../controller/agent/registration");
+const approve = require("../controller/agent/approve");
 const validateBody = require("../middleware/validator/validateBody");
 const { isString, isNumber } = require("nested-object-validate");
-const Login = require("../controller/Agent/login");
+const Login = require("../controller/agent/login");
 const AgentRoute = express.Router();
 const isAdmin = require("../middleware/Auth/isAdmin");
-const getInfo = require("../controller/Agent/info");
+const getInfo = require("../controller/agent/info");
 const isAgent = require("../middleware/Auth/isAgent");
-const addBalance = require("../controller/Agent/addBalance");
-const changePassword = require("../controller/Agent/changePassword");
-const getLOIById = require("../controller/Agent/getLOIById");
+const addBalance = require("../controller/agent/addBalance");
+const changePassword = require("../controller/agent/changePassword");
+const getLOIById = require("../controller/agent/getLOIById");
 
 AgentRoute.post(
   "/reg",

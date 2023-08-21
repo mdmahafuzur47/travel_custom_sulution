@@ -5291,6 +5291,11 @@ expect@^29.0.0:
     jest-message-util "^29.0.1"
     jest-util "^29.0.1"
 
+export-from-json@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/export-from-json/-/export-from-json-1.7.3.tgz#b67f42c9a492e5513ef2a8f7f856ed3531a80c67"
+  integrity sha512-Xg0L0saYz+CBz2MnaZvSEAHr17hWtHAfFWXw/frllG9t6aijuQukiU40ElOeM9nDTrtQPhLJMLN0q8lo897FYg==
+
 express@^4.17.3:
   version "4.18.1"
   resolved "https://registry.npmjs.org/express/-/express-4.18.1.tgz"

@@ -21,10 +21,13 @@ import REqu from "components/LOIreqTable/REqu";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
+
+
 const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [reload, setReload] = useState(0);
-
+ 
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
 
@@ -106,7 +109,7 @@ const Dashboard = () => {
             value={selectedOption}
             onChange={handleSelectChange}
           >
-            <option value="">Select an Status</option>
+            <option value="">All Data</option>
             <option selected value="approved">
               Approved
             </option>
