@@ -12,7 +12,6 @@ function TotalInfo() {
     (async () => {
       try {
         const { data } = await axios.get("/api/agent/agent-loi-by-id");
-        console.log(data);
         setLoiData(data);
       } catch (error) {
         console.log(error);
@@ -23,8 +22,8 @@ function TotalInfo() {
   return (
     <>
       {typeof openGuest === "object" && (
-        <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md ">
-          <div className="mx-2 w-full rounded-md bg-brand-100 p-3 shadow-md md:mx-auto md:w-11/12">
+        <div className="fixed top-0 left-0 z-10 h-screen  w-full overflow-auto bg-white/60 pt-48 backdrop-blur-md">
+          <div className="mx-2 w-full rounded-md bg-brand-100 p-3 pb-20 shadow-md md:mx-auto md:w-11/12">
             <div className="relative flex w-full items-center justify-between border-b-2 border-brand-600 p-3 text-xl font-bold text-white">
               <div className="flex items-center">
                 <span className="pr-2 text-2xl text-brand-700">
@@ -44,35 +43,28 @@ function TotalInfo() {
             <div className="grid w-full grid-cols-2">
               <div className="relative col-span-2 w-full md:col-span-1">
                 <div className="px-2 pt-2 text-xl font-bold">
-                  <span>Name</span>: <span>{openGuest.name}</span>
+                  {console.log(openGuest)}
+                  <span>Name</span>: <span>{openGuest.guest_name}</span>
                 </div>
                 <div className="px-2 text-lg font-light">
-                  <span>Email</span>: <span>{openGuest.email}</span>
+                  <span>Email</span>:{" "}
+                  <span>{JSON.parse(openGuest.agent).username}</span>
                 </div>
                 <div className="px-2 text-lg font-light">
-                  <span>phone</span>: <span>{openGuest.phone}</span>
+                  <span>Passport No</span>:{" "}
+                  <span>{openGuest.pasport_number}</span>
                 </div>
                 <div className="px-2 text-lg font-light">
-                  <span>NID</span>: <span>{openGuest.nid_no}</span>
+                  <span>Country</span>: <span>{openGuest.country}</span>
                 </div>
-              </div>
-
-              <div className="relative col-span-2 w-full md:col-span-1">
-                <div className="flex items-center px-2 pt-2 text-xl font-bold">
-                  <span>Aprove By </span>:{" "}
-                  <span className="flex items-center">
-                    <span className="px-2">
-                      <PhThumbsUp />
-                    </span>{" "}
-                    {openGuest.admin}
-                  </span>
+                <div className="px-2 text-lg font-light">
+                  <span>Travel Date</span>: <span>{openGuest.travel_date}</span>
                 </div>
-                <div className="px-2 text-lg font-light ">
-                  <Widget
-                    icon={<PhMoneyBold className="h-7 w-7" />}
-                    title={`Rate:${openGuest.rate}`}
-                    subtitle={`balance: ${openGuest.balance}`}
-                  />
+                <div className="px-2 text-lg font-light">
+                  <span>Status</span>: <span>{openGuest.status}</span>
+                </div>
+                <div className="px-2 text-lg font-light">
+                  <span>Submitted On</span>: <span>{openGuest.createdAt}</span>
                 </div>
               </div>
             </div>

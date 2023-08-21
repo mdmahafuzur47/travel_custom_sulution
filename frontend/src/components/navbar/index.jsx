@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -24,6 +24,15 @@ const Navbar = (props) => {
       console.log("🚀 ~ file: AgentNavbar.jsx:12 ~ logout ~ error:", error);
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("astha-theme") === "dark") {
+      setDarkmode(true);
+      document.body.classList.add("dark");
+      setDarkmode(true);
+    }
+  }, []);
+
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -170,9 +179,11 @@ const Navbar = (props) => {
           onClick={() => {
             if (darkmode) {
               document.body.classList.remove("dark");
+              localStorage.setItem("astha-theme", "light");
               setDarkmode(false);
             } else {
               document.body.classList.add("dark");
+              localStorage.setItem("astha-theme", "dark");
               setDarkmode(true);
             }
           }}
@@ -188,8 +199,8 @@ const Navbar = (props) => {
           button={
             <img
               className="h-10 w-10 rounded-full"
-              src={avatar}
-              alt="Elon Musk"
+              src="/logoastha.png"
+              alt="astha-logo"
             />
           }
           children={
@@ -198,7 +209,7 @@ const Navbar = (props) => {
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
                     👋 Hey, Adela
-                  </p>{" "}
+                  </p>
                 </div>
               </div>
               <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
@@ -210,12 +221,7 @@ const Navbar = (props) => {
                 >
                   Profile Settings
                 </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Newsletter Settings
-                </a>
+
                 <button
                   onClick={logout}
                   className="mt-3 text-sm font-medium text-red-500 hover:text-red-500"
