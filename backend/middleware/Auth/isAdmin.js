@@ -15,7 +15,7 @@ const AuthAdmin = async (req, res, next) => {
     const [dbAdmin] = await Admin.findOne({ id: admin.id });
 
     if (dbAdmin && dbAdmin.status === 1) {
-      req.ADMIN = admin;
+      req.ADMIN = dbAdmin;
       return next();
     }
   }

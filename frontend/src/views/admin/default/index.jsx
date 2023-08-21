@@ -21,13 +21,10 @@ import REqu from "components/LOIreqTable/REqu";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-
-
 const Dashboard = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [reload, setReload] = useState(0);
- 
+
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
 
@@ -46,8 +43,8 @@ const Dashboard = () => {
       try {
         const { data } = await axios.get("/api/admin/get-status");
         setStatus(data);
-      } catch (e) {
-        console.log("get-status", e);
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [reload]);
@@ -89,7 +86,7 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="w-full items-center justify-start gap-3 grid grid-cols-1 md:grid-cols-3 p-5">
+      <div className="grid w-full grid-cols-1 items-center justify-start gap-3 p-5 md:grid-cols-3">
         <Link
           to="/entry"
           className="inline-block rounded-lg border-2 border-brand-900/30 bg-white/10  p-3 text-xl font-bold text-brand-600 shadow-xl hover:scale-105 dark:border-brand-200 dark:text-brand-100"
