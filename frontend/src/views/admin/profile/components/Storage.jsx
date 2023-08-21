@@ -2,9 +2,36 @@ import axios from "axios";
 import Card from "components/card";
 import React, { useEffect, useState } from "react";
 import { BsCloudCheck } from "react-icons/bs";
+import Swal from "sweetalert2";
+
+const swalWithBootstrapButtons = Swal.mixin();
 
 const Storage = () => {
   const [storageInfo, setStorageInfo] = useState({});
+
+  function clearCache() {
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to recover caches!",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your file has been deleted.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  }
 
   useEffect(() => {
     (async () => {
