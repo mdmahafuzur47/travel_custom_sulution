@@ -96,47 +96,49 @@ const Table = ({ datas, colunm, nav = true }) => {
   const { globalFilter, pageIndex, pageSize } = state;
   return (
     <div className={style.con}>
-      {
-        nav?(<div className="w-full px-3 mb-4">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
+      {nav ? (
+        <div className="mb-4 w-full px-3">
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg
+                aria-hidden="true"
+                className="h-5 w-5 text-gray-500 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="text"
+              value={globalFilter || ""}
+              onChange={(e) => {
+                setGlobalFilter(e.target.value);
+              }}
+              id="search"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              placeholder="Search"
+              required
+            />
+            <button
+              type="submit"
+              className="absolute right-2.5 bottom-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              <path
-                strokeLinecap="round"
-                stroke-linejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              ></path>
-            </svg>
+              Search
+            </button>
           </div>
-          <input
-            type="text"
-            value={globalFilter || ""}
-            onChange={(e) => {
-              setGlobalFilter(e.target.value);
-            }}
-            id="search"
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search"
-            required
-          />
-          <button
-            type="submit"
-            className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Search
-          </button>
         </div>
-      </div>):""
-      }
-      
+      ) : (
+        ""
+      )}
+
       <div className="relative w-full overflow-auto">
         <table {...getTableProps()}>
           <thead>
@@ -202,74 +204,76 @@ const Table = ({ datas, colunm, nav = true }) => {
           </tbody>
         </table>
       </div>
-{
-  nav?(<div className={style.pagination}>
-    <button
-      className="nhBtn"
-      disabled={!canPreviousPage}
-      onClick={() => gotoPage(0)}
-    >
-      {" "}
-      <span>
-        <MdFirstPage />
-      </span>
-      first{" "}
-    </button>
-    <button
-      className="nhBtn"
-      disabled={!canPreviousPage}
-      onClick={() => previousPage()}
-    >
-      <span>
-        <IoIosArrowBack />
-      </span>{" "}
-      prev
-    </button>
-    <span className={style.pageindex}>
-      page : {pageIndex + 1} of {pageOptions.length} <span> </span>
-      <select
-        value={pageSize}
-        onChange={(e) => {
-          setPageSize(Number(e.target.value));
-        }}
-      >
-        <option value="10">Show 10</option>
-        <option value="20">Show 20</option>
-        <option value="30">Show 30</option>
-        <option value="40">Show 40</option>
-        <option value="50">Show 50</option>
-        <option value="60">Show 60</option>
-        <option value="70">Show 70</option>
-        <option value="80">Show 80</option>
-        <option value="90">Show 90</option>
-        <option value="100">Show 100</option>
-        <option value="150">Show 150</option>
-        <option value="200">Show 200</option>
-      </select>
-    </span>
-    <button
-      className="nhBtn"
-      disabled={!canNextPage}
-      onClick={() => nextPage()}
-    >
-      <span>
-        <IoIosArrowForward />
-      </span>{" "}
-      next
-    </button>
-    <button
-      className="nhBtn"
-      disabled={!canNextPage}
-      onClick={() => gotoPage(pageCount - 1)}
-    >
-      <span>
-        <MdOutlineLastPage />
-      </span>{" "}
-      last
-    </button>
-  </div>):""
-}
-      
+      {nav ? (
+        <div className="relative mt-2 flex w-full items-center justify-between bg-white py-4 px-2 shadow-sm">
+          <button
+            className="flex items-center rounded-md bg-brandLinear p-2 text-white disabled:cursor-not-allowed"
+            disabled={!canPreviousPage}
+            onClick={() => gotoPage(0)}
+          >
+            {" "}
+            <span>
+              <MdFirstPage />
+            </span>
+            first{" "}
+          </button>
+          <button
+            className="flex items-center rounded-md bg-brandLinear/50 p-2 text-white disabled:cursor-not-allowed"
+            disabled={!canPreviousPage}
+            onClick={() => previousPage()}
+          >
+            <span>
+              <IoIosArrowBack />
+            </span>{" "}
+            prev
+          </button>
+          <span className="capitalize text-gray-900">
+            page : {pageIndex + 1} of {pageOptions.length} <span> </span>
+            <select
+              value={pageSize}
+              className="relative ml-4 border-[1px] border-brand-200"
+              onChange={(e) => {
+                setPageSize(Number(e.target.value));
+              }}
+            >
+              <option value="10">Show 10</option>
+              <option value="20">Show 20</option>
+              <option value="30">Show 30</option>
+              <option value="40">Show 40</option>
+              <option value="50">Show 50</option>
+              <option value="60">Show 60</option>
+              <option value="70">Show 70</option>
+              <option value="80">Show 80</option>
+              <option value="90">Show 90</option>
+              <option value="100">Show 100</option>
+              <option value="150">Show 150</option>
+              <option value="200">Show 200</option>
+            </select>
+          </span>
+          <button
+            className="flex flex-row-reverse items-center rounded-md bg-brandLinear/50 p-2 text-white disabled:cursor-not-allowed"
+            disabled={!canNextPage}
+            onClick={() => nextPage()}
+          >
+            <span>
+              <IoIosArrowForward />
+            </span>{" "}
+            next
+          </button>
+          <button
+            className="flex flex-row-reverse items-center rounded-md bg-brandLinear p-2 text-white disabled:cursor-not-allowed"
+            disabled={!canNextPage}
+            onClick={() => gotoPage(pageCount - 1)}
+          >
+            <span>
+              <MdOutlineLastPage />
+            </span>{" "}
+            last
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
