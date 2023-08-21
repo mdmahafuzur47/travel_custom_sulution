@@ -4,8 +4,6 @@ const path = require("path");
 const pdfPath = path.join(__dirname, "../../GenaretePDF");
 const tempPath = path.join(__dirname, "../../upload/temp");
 
-console.log(pdfPath, tempPath);
-
 function clearCache(req, res, next) {
   try {
     deleteFilesInFolder(pdfPath, (name) => path.extname(name) === ".pdf");
