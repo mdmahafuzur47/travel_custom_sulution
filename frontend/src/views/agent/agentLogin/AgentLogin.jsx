@@ -131,17 +131,7 @@ const AgentLogin = () => {
           </div>
         </div>
       </div>
-      <footer className="relative z-20 py-1 text-center text-sm">
-        Developed by{" "}
-        <a
-          href="https://dewanict.com"
-          target="_blank"
-          className="cursor-pointer font-bold hover:text-red-600"
-          rel="noreferrer"
-        >
-          Dewan ICT
-        </a>
-      </footer>
+     
     </div>
   );
 };

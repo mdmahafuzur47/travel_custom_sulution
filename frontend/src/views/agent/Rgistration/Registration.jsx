@@ -124,17 +124,7 @@ function Registration() {
       <div className="top-0 left-0 mx-auto h-full w-full max-w-[900px]">
         <img src="/longbaner.jpg" className="w-full" alt="" />
       </div>
-      <footer className="relative z-20 py-1 text-center text-sm">
-        Developed by{" "}
-        <a
-          href="https://dewanict.com"
-          target="_blank"
-          className="cursor-pointer font-bold hover:text-red-600"
-          rel="noreferrer"
-        >
-          Dewan ICT
-        </a>
-      </footer>
+     
     </div>
   );
 }
