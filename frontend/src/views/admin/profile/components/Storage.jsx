@@ -45,7 +45,7 @@ const Storage = () => {
   }, []);
 
   return (
-    <Card extra={"w-full h-full p-4"}>
+    <Card extra={"w-full h-full p-4 gap-4"}>
       <div className="mb-auto flex flex-col items-center justify-center">
         <div className="mt-2 flex items-center justify-center rounded-full bg-lightPrimary p-[26px] text-5xl font-bold text-brand-500 dark:!bg-navy-700 dark:text-white">
           <BsCloudCheck />
@@ -57,6 +57,13 @@ const Storage = () => {
           Supervise your drive space in the easiest way
         </p>
       </div>
+
+      <button
+        onClick={clearCache}
+        className="mb-auto rounded-xl bg-brand-500 px-2 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200"
+      >
+        Clear Cache
+      </button>
 
       <div className="flex flex-col">
         <div className="flex justify-between">
