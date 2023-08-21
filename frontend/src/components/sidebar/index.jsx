@@ -33,8 +33,11 @@ const Sidebar = ({ open, onClose }) => {
       </ul>
 
       {/* Free Horizon Card */}
-      <div className="flex justify-center">
+      <div className="flex justify-center text-center">
         {/* <SidebarCard /> */}
+        <p className="text-sm font-light ">All Right Reserved to Astha Trip<br />
+        <span className="w-full relative text-center">Developed by Dewan ICT</span>
+        </p>
       </div>
 
       {/* Nav item end */}
