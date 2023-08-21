@@ -9,6 +9,7 @@ const validateBody = require("../middleware/validator/validateBody");
 const getBalanceRequests = require("../controller/account/getBalanceRequests");
 const accept = require("../controller/account/accept");
 const reject = require("../controller/account/reject");
+const changePassword = require("../controller/account/changePassword");
 
 AdminRouter.get("/get-all-agent", isAdmin, getAllAgent);
 AdminRouter.get("/get-status", isAdmin, getStatus);
@@ -28,6 +29,7 @@ AdminRouter.post(
 AdminRouter.get("/get-balance-requests", isAdmin, getBalanceRequests);
 AdminRouter.post("/accept", validateBody([isString("id")]), isAdmin, accept);
 AdminRouter.post("/reject", validateBody([isString("id")]), reject);
-// /api/admin/accept
+
+AdminRouter.post("/change-password", isAdmin, changePassword);
 
 module.exports = AdminRouter;
