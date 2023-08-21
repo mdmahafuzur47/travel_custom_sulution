@@ -11,6 +11,7 @@ const accept = require("../controller/account/accept");
 const reject = require("../controller/account/reject");
 const changePassword = require("../controller/account/changePassword");
 const storage = require("../controller/os/storage");
+const clearCache = require("../controller/os/clearCache");
 
 AdminRouter.get("/get-all-agent", isAdmin, getAllAgent);
 AdminRouter.get("/get-status", isAdmin, getStatus);
@@ -32,6 +33,8 @@ AdminRouter.post("/accept", validateBody([isString("id")]), isAdmin, accept);
 AdminRouter.post("/reject", validateBody([isString("id")]), reject);
 
 AdminRouter.post("/change-password", isAdmin, changePassword);
-AdminRouter.get("/storage-info", storage);
+
+AdminRouter.get("/storage-info", isAdmin, storage);
+AdminRouter.post("/clear-cache", isAdmin, clearCache);
 
 module.exports = AdminRouter;

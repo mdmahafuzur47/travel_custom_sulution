@@ -20,15 +20,20 @@ const Storage = () => {
         cancelButtonText: "No, cancel!",
         reverseButtons: true,
       })
-      .then((result) => {
+      .then(async (result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Your file has been deleted.",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          try {
+            await axios.post("/api/admin/clear-cache");
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Your file has been deleted.",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          } catch (error) {
+            console.log(error);
+          }
         }
       });
   }
